@@ -13,6 +13,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" id="design-stylesheet" href="" />
+  <script>
+    // Initialize design preference on page load
+    const savedDesign = localStorage.getItem('design-preference') || 'classic';
+    document.documentElement.setAttribute('data-design', savedDesign);
+    if (savedDesign === 'bold') {
+      document.body.classList.add('design-bold');
+      const stylesheet = document.getElementById('design-stylesheet');
+      stylesheet.href = 'styles-bold.css';
+    }
+  </script>
 </head>
 <body>
 
@@ -24,6 +35,7 @@
       <a href="#services">Services</a>
       <a href="#contact">Contact</a>
     </nav>
+    <button class="design-toggle" title="Toggle design">BOLD</button>
   </header>
 
   <!-- SYSTEM WRAPPER: hero + services -->
@@ -31,15 +43,20 @@
 
   <!-- HERO -->
   <section class="hero" id="hero">
-    <div class="hero-tag">Digital Marketing Manager</div>
-    <h1 class="hero-title">I help brands grow faster and own their audience.</h1>
-    <p>
-      Strategy, content systems, paid media, and digital infrastructure -
-      built to compound.
-    </p>
-    <div class="hero-actions">
-      <a href="#work" class="btn">See My Work</a>
-      <a href="#contact" class="btn outline">Get In Touch</a>
+    <div class="hero-content">
+      <div class="hero-tag">Digital Marketing Manager</div>
+      <h1 class="hero-title">I help brands grow faster and own their audience.</h1>
+      <p>
+        Strategy, content systems, paid media, and digital infrastructure -
+        built to compound.
+      </p>
+      <div class="hero-actions">
+        <a href="#work" class="btn">See My Work</a>
+        <a href="#contact" class="btn outline">Get In Touch</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="images/ben-portrait.svg" alt="Ben Rodriguez" />
     </div>
     <div class="hero-bg-label" aria-hidden="true">BEN</div>
   </section>

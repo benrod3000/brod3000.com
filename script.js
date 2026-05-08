@@ -173,3 +173,36 @@ const ctaObserver = new IntersectionObserver(
 );
 
 if (cta) ctaObserver.observe(cta);
+
+/* =========================
+   DESIGN TOGGLE - BOLD/CLASSIC
+========================= */
+const designToggle = document.querySelector('.design-toggle');
+const designStylesheet = document.getElementById('design-stylesheet');
+
+if (designToggle) {
+  designToggle.addEventListener('click', () => {
+    const currentDesign = document.body.classList.contains('design-bold') ? 'bold' : 'classic';
+    const newDesign = currentDesign === 'bold' ? 'classic' : 'bold';
+    
+    // Update localStorage
+    localStorage.setItem('design-preference', newDesign);
+    
+    // Update body class
+    document.body.classList.toggle('design-bold');
+    
+    // Update stylesheet
+    if (newDesign === 'bold') {
+      designStylesheet.href = 'styles-bold.css';
+    } else {
+      designStylesheet.href = '';
+    }
+    
+    // Update button text with smooth transition
+    designToggle.style.opacity = '0.5';
+    setTimeout(() => {
+      designToggle.textContent = newDesign === 'bold' ? 'BOLD' : 'BOLD';
+      designToggle.style.opacity = '1';
+    }, 150);
+  });
+}

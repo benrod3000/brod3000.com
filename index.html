@@ -13,17 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" id="design-stylesheet" href="" />
-  <script>
-    // Initialize design preference on page load
-    const savedDesign = localStorage.getItem('design-preference') || 'classic';
-    document.documentElement.setAttribute('data-design', savedDesign);
-    if (savedDesign === 'bold') {
-      document.body.classList.add('design-bold');
-      const stylesheet = document.getElementById('design-stylesheet');
-      stylesheet.href = 'styles-bold.css';
-    }
-  </script>
+  <link rel="stylesheet" id="design-stylesheet" />
 </head>
 <body>
 
@@ -267,6 +257,14 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    // Apply saved design preference after body exists
+    const savedDesign = localStorage.getItem('design-preference') || 'classic';
+    if (savedDesign === 'bold') {
+      document.body.classList.add('design-bold');
+      document.getElementById('design-stylesheet').href = 'styles-bold.css';
+    }
+  </script>
 
 </body>
 </html>

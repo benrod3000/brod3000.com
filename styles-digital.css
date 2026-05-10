@@ -81,7 +81,7 @@ p {
   width: min(1140px, 100%);
   height: min(80vh, 860px);
   display: grid;
-  grid-template-columns: 72px 330px minmax(0, 1fr);
+  grid-template-columns: 72px 340px minmax(0, 1fr);
   border: 1px solid rgba(132, 112, 94, 0.15);
   border-radius: var(--radius-lg);
   background: color-mix(in srgb, var(--panel) 96%, transparent);
@@ -131,7 +131,7 @@ p {
   border-radius: 12px;
   border: 1px solid transparent;
   background: transparent;
-  color: hsl(30 10% 20% / 0.62);
+  color: hsl(30 10% 20% / 0.4);
   font: inherit;
   display: grid;
   place-items: center;
@@ -140,7 +140,7 @@ p {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease-in-out;
 }
 
 .rail-tab:hover,
@@ -247,17 +247,18 @@ p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: sepia(0.08) saturate(0.94) hue-rotate(-6deg) brightness(1.02);
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .profile-cover img.blur-up {
-  filter: blur(12px);
+  filter: blur(12px) sepia(0.08) saturate(0.94) hue-rotate(-6deg) brightness(1.02);
   transform: scale(1.05);
   transition: filter 0.45s ease, transform 0.45s ease;
 }
 
 .profile-cover img.blur-up.loaded {
-  filter: blur(0);
+  filter: sepia(0.08) saturate(0.94) hue-rotate(-6deg) brightness(1.02);
   transform: scale(1);
 }
 
@@ -513,7 +514,7 @@ p {
   flex: 1;
   overflow: auto;
   scroll-behavior: smooth;
-  padding: max(var(--shell-gutter), 48px);
+  padding: max(var(--shell-gutter), 60px);
   min-height: 0;
   display: grid;
   align-content: start;
@@ -586,9 +587,9 @@ p {
   border-radius: 999px;
   background: rgba(86, 129, 106, 0.11);
   color: var(--accent);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   text-transform: uppercase;
 }
 

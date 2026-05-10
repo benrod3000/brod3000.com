@@ -132,7 +132,7 @@ p {
   border-radius: 12px;
   border: 1px solid transparent;
   background: transparent;
-  color: hsl(30 10% 20% / 0.4);
+  color: hsl(30 10% 20% / 0.3);
   font: inherit;
   display: grid;
   place-items: center;
@@ -162,7 +162,7 @@ p {
 
 .rail-tab:hover,
 .rail-tab:focus-visible {
-  transform: scale(1.1);
+  transform: scale(1.15);
   box-shadow: 0 8px 18px rgba(67, 111, 91, 0.12);
 }
 
@@ -527,7 +527,7 @@ p {
   flex: 1;
   overflow: auto;
   scroll-behavior: smooth;
-  padding: max(var(--shell-gutter), 60px);
+  padding: max(var(--shell-gutter), 70px);
   min-height: 0;
   display: grid;
   align-content: start;
@@ -550,12 +550,16 @@ p {
 }
 
 .workspace-body::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
 }
 
 .workspace-body::-webkit-scrollbar-thumb {
   background: #3d5a4d;
   border-radius: 10px;
+}
+
+.workspace-body::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .stage-card {
@@ -600,9 +604,9 @@ p {
   border-radius: 999px;
   background: rgba(86, 129, 106, 0.11);
   color: var(--accent);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   text-transform: uppercase;
 }
 
@@ -1182,7 +1186,7 @@ p {
   .profile-card {
     border-right: 0;
     border-bottom: 1px solid var(--line-soft);
-    grid-template-rows: 220px minmax(0, 1fr);
+    grid-template-rows: 180px minmax(0, 1fr);
   }
 
   .profile-cover {

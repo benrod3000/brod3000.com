@@ -252,7 +252,7 @@ p {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(to top, rgba(44, 38, 33, 0.08), rgba(44, 38, 33, 0));
+  background: linear-gradient(to top, rgba(44, 38, 33, 0.05), rgba(44, 38, 33, 0));
 }
 
 .profile-cover img {

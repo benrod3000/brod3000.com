@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ben Rodriguez - Digital Portfolio</title>
+  <meta name="description" content="Ben Rodriguez digital vCard. Growth systems, strategy, and owned-audience infrastructure.">
+  <meta property="og:title" content="Ben Rodriguez - Digital Portfolio">
+  <meta property="og:description" content="Growth systems and digital strategy for creators and brands.">
+  <meta property="og:image" content="images/preview.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
@@ -12,25 +19,32 @@
 <body class="design-digital">
   <div class="ambient-bg" aria-hidden="true"></div>
   <div class="ambient-grain" aria-hidden="true"></div>
+  <div class="ui-cursor" id="ui-cursor" aria-hidden="true"></div>
 
   <div class="digital-container">
     <nav class="rail-nav" aria-label="Section navigation">
-      <button class="rail-tab active" data-section="about" aria-label="About">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M5 20c1.2-3.2 4-5 7-5s5.8 1.8 7 5"/></svg>
-        <span class="sr-only">About</span>
-      </button>
-      <button class="rail-tab" data-section="services" aria-label="Resume">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h5"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>
-        <span class="sr-only">Resume</span>
-      </button>
-      <button class="rail-tab" data-section="portfolio" aria-label="Projects">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-        <span class="sr-only">Projects</span>
-      </button>
-      <button class="rail-tab" data-section="contact" aria-label="Contact">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
-        <span class="sr-only">Contact</span>
-      </button>
+      <div class="rail-main">
+        <button class="rail-tab active" data-section="about" aria-label="About">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M5 20c1.2-3.2 4-5 7-5s5.8 1.8 7 5"/></svg>
+          <span class="sr-only">About</span>
+        </button>
+        <button class="rail-tab" data-section="services" aria-label="Resume">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h5"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>
+          <span class="sr-only">Resume</span>
+        </button>
+        <button class="rail-tab" data-section="portfolio" aria-label="Projects">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          <span class="sr-only">Projects</span>
+        </button>
+        <button class="rail-tab" data-section="contact" aria-label="Contact">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
+          <span class="sr-only">Contact</span>
+        </button>
+      </div>
+      <div class="rail-utilities">
+        <button class="rail-utility rail-audio-toggle" id="audio-toggle" aria-label="Enable interface sounds" aria-pressed="false">♪</button>
+        <button class="rail-utility rail-theme-toggle" id="theme-toggle" aria-label="Toggle light or dark mode">◐</button>
+      </div>
     </nav>
 
     <aside class="profile-card" aria-label="Profile panel">
@@ -44,7 +58,11 @@
         <div class="profile-facts" aria-label="Quick profile facts">
           <p><span>Experience</span><strong>10+ Years</strong></p>
           <p><span>Location</span><strong>Southern California</strong></p>
-          <p><span>Status</span><strong>Available</strong></p>
+          <p><span>Status</span><strong class="status-live"><i class="status-dot"></i>Available for new projects</strong></p>
+        </div>
+        <div class="profile-meta" aria-label="Context metadata">
+          <p><span class="meta-label">Local Time</span><strong id="local-time">--:--</strong></p>
+          <p><span class="meta-label">Coordinates</span><strong>33.7490N · 117.8688W</strong></p>
         </div>
         <div class="profile-socials">
           <a href="mailto:benrod1@gmail.com" aria-label="Email">
@@ -77,10 +95,82 @@
   <script>
     const stage = document.getElementById('card-content-wrapper');
     const rotator = document.getElementById('sidebar-rotator');
+    const localTime = document.getElementById('local-time');
+    const cursor = document.getElementById('ui-cursor');
+    const audioToggle = document.getElementById('audio-toggle');
+    const themeToggle = document.getElementById('theme-toggle');
     const railTabs = [...document.querySelectorAll('.rail-tab')];
+    const interactiveTargets = () => document.querySelectorAll('.rail-tab, .rail-utility, .workspace-back, .profile-cta, .profile-socials a, .contact-form button');
     const phrases = ['Growth Systems Architect', 'Audience Ownership Strategist', 'Paid + Organic Scale Operator'];
     let phraseIndex = 0;
     let currentSection = 'about';
+    let soundEnabled = false;
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.body.dataset.theme = savedTheme;
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.body.dataset.theme = 'dark';
+    }
+
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        const next = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.body.dataset.theme = next;
+        localStorage.setItem('theme', next);
+      });
+    }
+
+    function updateLocalTime() {
+      if (!localTime) return;
+      const formatter = new Intl.DateTimeFormat([], { hour: '2-digit', minute: '2-digit' });
+      localTime.textContent = formatter.format(new Date());
+    }
+
+    updateLocalTime();
+    setInterval(updateLocalTime, 1000);
+
+    function softClick() {
+      if (!soundEnabled) return;
+      const Context = window.AudioContext || window.webkitAudioContext;
+      if (!Context) return;
+      const ctx = new Context();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = 760;
+      gain.gain.value = 0.0001;
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      gain.gain.exponentialRampToValueAtTime(0.02, ctx.currentTime + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.08);
+      osc.stop(ctx.currentTime + 0.09);
+      setTimeout(() => ctx.close(), 120);
+    }
+
+    if (audioToggle) {
+      audioToggle.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        audioToggle.setAttribute('aria-pressed', String(soundEnabled));
+      });
+    }
+
+    if (cursor && window.matchMedia('(hover: hover)').matches) {
+      window.addEventListener('mousemove', (event) => {
+        cursor.style.left = `${event.clientX}px`;
+        cursor.style.top = `${event.clientY}px`;
+      });
+
+      const bindCursorTargets = () => {
+        interactiveTargets().forEach((el) => {
+          el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+          el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        });
+      };
+
+      bindCursorTargets();
+    }
 
     setInterval(() => {
       phraseIndex = (phraseIndex + 1) % phrases.length;
@@ -258,16 +348,24 @@
       }
 
       currentSection = section;
-      stage.innerHTML = sectionTemplate(section);
-      const card = stage.querySelector('.section-enter');
-      requestAnimationFrame(() => card.classList.add('section-enter-active'));
-      if (section === 'services') {
-        stage.querySelectorAll('.meter i').forEach((bar, idx) => {
-          setTimeout(() => {
-            bar.style.width = getComputedStyle(bar).getPropertyValue('--fill');
-          }, 120 * idx);
+      stage.classList.add('is-loading');
+
+      setTimeout(() => {
+        stage.innerHTML = sectionTemplate(section);
+        const card = stage.querySelector('.section-enter');
+        requestAnimationFrame(() => {
+          stage.classList.remove('is-loading');
+          if (card) card.classList.add('section-enter-active');
         });
-      }
+
+        if (section === 'services') {
+          stage.querySelectorAll('.meter i').forEach((bar, idx) => {
+            setTimeout(() => {
+              bar.style.width = getComputedStyle(bar).getPropertyValue('--fill');
+            }, 120 * idx);
+          });
+        }
+      }, 140);
     }
 
     railTabs.forEach((btn) => {
@@ -276,6 +374,8 @@
         if (btn.dataset.section === currentSection) {
           return;
         }
+
+        softClick();
 
         railTabs.forEach((b) => {
           b.classList.remove('active');

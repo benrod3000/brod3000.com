@@ -559,6 +559,10 @@ p {
 }
 
 .stage-card {
+  --ghost-size: clamp(74px, 11vw, 200px);
+  --ghost-track: 0.06em;
+  --ghost-top: 22px;
+  --ghost-right: 22px;
   width: 100%;
   max-width: 920px;
   margin: 0;
@@ -574,11 +578,11 @@ p {
 .stage-card::before {
   content: attr(data-ghost);
   position: absolute;
-  right: 22px;
-  top: 22px;
-  font-size: clamp(74px, 11vw, 200px);
+  right: var(--ghost-right);
+  top: var(--ghost-top);
+  font-size: var(--ghost-size);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--ghost-track);
   line-height: 0.9;
   color: rgba(95, 125, 108, 0.09);
   pointer-events: none;
@@ -586,15 +590,18 @@ p {
 }
 
 .stage-card[data-section="services"]::before {
-  font-size: clamp(66px, 8.8vw, 146px);
+  font-size: clamp(72px, 9.2vw, 160px);
+  letter-spacing: 0.062em;
 }
 
 .stage-card[data-section="portfolio"]::before {
-  font-size: clamp(58px, 8vw, 124px);
+  font-size: clamp(52px, 7.2vw, 112px);
+  letter-spacing: 0.052em;
 }
 
 .stage-card[data-section="contact"]::before {
-  font-size: clamp(62px, 8.4vw, 136px);
+  font-size: clamp(60px, 8.2vw, 132px);
+  letter-spacing: 0.058em;
 }
 
 .stage-card > * {

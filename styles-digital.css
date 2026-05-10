@@ -141,7 +141,7 @@ p {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .rail-tab:hover,
@@ -168,16 +168,17 @@ p {
 
 .rail-tab.active {
   transform: translateX(2px);
-  box-shadow: inset 3px 0 0 var(--accent), 0 10px 18px rgba(67, 111, 91, 0.18);
+  box-shadow: 0 10px 18px rgba(67, 111, 91, 0.18);
 }
 
 .rail-tab.active::after {
   content: "";
   position: absolute;
-  left: -6px;
-  top: 11px;
-  width: 3px;
-  height: 24px;
+  left: 50%;
+  bottom: 4px;
+  width: 6px;
+  height: 6px;
+  transform: translateX(-50%);
   border-radius: 999px;
   background: var(--accent);
 }
@@ -542,8 +543,8 @@ p {
 }
 
 .workspace-body::-webkit-scrollbar-thumb {
-  background: rgba(49, 129, 97, 0.85);
-  border-radius: 999px;
+  background: #3d5a4d;
+  border-radius: 10px;
 }
 
 .stage-card {
@@ -588,7 +589,7 @@ p {
   border-radius: 999px;
   background: rgba(86, 129, 106, 0.11);
   color: var(--accent);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 4px;
   text-transform: uppercase;

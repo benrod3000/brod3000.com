@@ -400,10 +400,12 @@ p {
 .workspace-card {
   position: relative;
   min-width: 0;
+  height: 100%;
   background: #ffffff;
   display: flex;
   flex-direction: column;
   min-height: 0;
+  overflow: hidden;
 }
 
 .workspace-card::before {
@@ -525,7 +527,6 @@ p {
   box-shadow: var(--shadow-card);
   will-change: transform, opacity, filter;
   position: relative;
-  overflow: hidden;
 }
 
 .stage-card::before {

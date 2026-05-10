@@ -41,15 +41,11 @@
           <span class="sr-only">Contact</span>
         </button>
       </div>
-      <div class="rail-utilities">
-        <button class="rail-utility rail-audio-toggle" id="audio-toggle" aria-label="Enable interface sounds" aria-pressed="false">♪</button>
-        <button class="rail-utility rail-theme-toggle" id="theme-toggle" aria-label="Toggle light or dark mode">◐</button>
-      </div>
     </nav>
 
     <aside class="profile-card" aria-label="Profile panel">
       <div class="profile-cover">
-        <img src="images/ben-portrait.svg" alt="Ben Rodriguez">
+        <img class="blur-up" src="images/ben-portrait.svg" alt="Ben Rodriguez" loading="eager" decoding="async">
       </div>
       <div class="profile-content">
         <h1>Ben Rodriguez</h1>
@@ -58,11 +54,7 @@
         <div class="profile-facts" aria-label="Quick profile facts">
           <p><span>Experience</span><strong>10+ Years</strong></p>
           <p><span>Location</span><strong>Southern California</strong></p>
-          <p><span>Status</span><strong class="status-live"><i class="status-dot"></i>Available for new projects</strong></p>
-        </div>
-        <div class="profile-meta" aria-label="Context metadata">
-          <p><span class="meta-label">Local Time</span><strong id="local-time">--:--</strong></p>
-          <p><span class="meta-label">Coordinates</span><strong>33.7490N · 117.8688W</strong></p>
+          <p><span>Status</span><strong>Available for new projects</strong></p>
         </div>
         <div class="profile-socials">
           <a href="mailto:benrod1@gmail.com" aria-label="Email">
@@ -93,68 +85,38 @@
   </div>
 
   <script>
+    const cardShell = document.querySelector('.digital-container');
     const stage = document.getElementById('card-content-wrapper');
     const rotator = document.getElementById('sidebar-rotator');
-    const localTime = document.getElementById('local-time');
     const cursor = document.getElementById('ui-cursor');
-    const audioToggle = document.getElementById('audio-toggle');
-    const themeToggle = document.getElementById('theme-toggle');
     const railTabs = [...document.querySelectorAll('.rail-tab')];
-    const interactiveTargets = () => document.querySelectorAll('.rail-tab, .rail-utility, .workspace-back, .profile-cta, .profile-socials a, .contact-form button');
+    const interactiveTargets = () => document.querySelectorAll('.rail-tab, .workspace-back, .profile-cta, .profile-socials a, .contact-form button');
     const phrases = ['Growth Systems Architect', 'Audience Ownership Strategist', 'Paid + Organic Scale Operator'];
     let phraseIndex = 0;
     let currentSection = 'about';
-    let soundEnabled = false;
 
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      document.body.dataset.theme = savedTheme;
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.body.dataset.theme = 'dark';
-    }
+    if (window.matchMedia('(hover: hover)').matches && cardShell) {
+      const maxTilt = 1.8;
+      cardShell.addEventListener('mousemove', (event) => {
+        const rect = cardShell.getBoundingClientRect();
+        const px = (event.clientX - rect.left) / rect.width - 0.5;
+        const py = (event.clientY - rect.top) / rect.height - 0.5;
+        cardShell.style.transform = `perspective(1200px) rotateX(${(-py * maxTilt).toFixed(2)}deg) rotateY(${(px * maxTilt).toFixed(2)}deg)`;
+      });
 
-    if (themeToggle) {
-      themeToggle.addEventListener('click', () => {
-        const next = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
-        document.body.dataset.theme = next;
-        localStorage.setItem('theme', next);
+      cardShell.addEventListener('mouseleave', () => {
+        cardShell.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
       });
     }
 
-    function updateLocalTime() {
-      if (!localTime) return;
-      const formatter = new Intl.DateTimeFormat([], { hour: '2-digit', minute: '2-digit' });
-      localTime.textContent = formatter.format(new Date());
-    }
-
-    updateLocalTime();
-    setInterval(updateLocalTime, 1000);
-
-    function softClick() {
-      if (!soundEnabled) return;
-      const Context = window.AudioContext || window.webkitAudioContext;
-      if (!Context) return;
-      const ctx = new Context();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.value = 760;
-      gain.gain.value = 0.0001;
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start();
-      gain.gain.exponentialRampToValueAtTime(0.02, ctx.currentTime + 0.01);
-      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.08);
-      osc.stop(ctx.currentTime + 0.09);
-      setTimeout(() => ctx.close(), 120);
-    }
-
-    if (audioToggle) {
-      audioToggle.addEventListener('click', () => {
-        soundEnabled = !soundEnabled;
-        audioToggle.setAttribute('aria-pressed', String(soundEnabled));
-      });
-    }
+    document.querySelectorAll('img.blur-up').forEach((img) => {
+      const markLoaded = () => img.classList.add('loaded');
+      if (img.complete) {
+        markLoaded();
+      } else {
+        img.addEventListener('load', markLoaded, { once: true });
+      }
+    });
 
     if (cursor && window.matchMedia('(hover: hover)').matches) {
       window.addEventListener('mousemove', (event) => {
@@ -180,7 +142,7 @@
     function sectionTemplate(section) {
       if (section === 'about') {
         return `
-          <article class="stage-card section-enter" data-section="about">
+          <article class="stage-card section-enter" data-section="about" data-ghost="ABOUT">
             <div class="card-title-wrap">
               <span class="card-kicker">About</span>
               <h3>Marketing that builds systems, not spikes</h3>
@@ -203,13 +165,19 @@
               <div class="stat-pill"><strong>20+</strong><span>Campaigns Launched</span></div>
               <div class="stat-pill"><strong>3x</strong><span>Average ROAS</span></div>
             </div>
+
+            <div class="signature-wrap" aria-label="Signature mark">
+              <svg class="signature-svg" viewBox="0 0 320 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="signature-path" d="M8 63C22 44 34 27 46 34C58 41 58 81 76 72C95 63 94 14 112 16C126 18 124 45 140 52C160 61 160 24 176 22C194 20 195 58 214 60C233 62 242 35 253 24C262 15 272 18 280 28C287 37 292 53 310 50" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
           </article>
         `;
       }
 
       if (section === 'services') {
         return `
-          <article class="stage-card section-enter" data-section="services">
+          <article class="stage-card section-enter" data-section="services" data-ghost="RESUME">
             <div class="card-title-wrap">
               <span class="card-kicker">Resume + Services</span>
               <h3>Growth systems designed for ownership</h3>
@@ -267,7 +235,7 @@
 
       if (section === 'portfolio') {
         return `
-          <article class="stage-card section-enter" data-section="portfolio">
+          <article class="stage-card section-enter" data-section="portfolio" data-ghost="PORTFOLIO">
             <div class="card-title-wrap">
               <span class="card-kicker">Projects</span>
               <h3>Execution with measurable business outcomes</h3>
@@ -319,7 +287,7 @@
       }
 
       return `
-        <article class="stage-card section-enter" data-section="contact">
+        <article class="stage-card section-enter" data-section="contact" data-ghost="CONTACT">
           <div class="card-title-wrap">
             <span class="card-kicker">Contact</span>
             <h3>Ready to build sustainable growth systems</h3>
@@ -355,7 +323,12 @@
         const card = stage.querySelector('.section-enter');
         requestAnimationFrame(() => {
           stage.classList.remove('is-loading');
-          if (card) card.classList.add('section-enter-active');
+          if (card) {
+            card.classList.add('section-enter-active');
+            if (section === 'about') {
+              card.classList.add('draw-signature');
+            }
+          }
         });
 
         if (section === 'services') {
@@ -374,8 +347,6 @@
         if (btn.dataset.section === currentSection) {
           return;
         }
-
-        softClick();
 
         railTabs.forEach((b) => {
           b.classList.remove('active');

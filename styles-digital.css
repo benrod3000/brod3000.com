@@ -15,20 +15,6 @@
   --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.05), 0 1px 8px rgba(0, 0, 0, 0.02);
 }
 
-body.design-digital[data-theme="dark"] {
-  --bg: #0f141e;
-  --bg-2: #161d2a;
-  --panel: rgba(23, 29, 40, 0.82);
-  --panel-soft: rgba(30, 38, 52, 0.82);
-  --line: #323f55;
-  --text: #eaf0fb;
-  --muted: #9aa8bd;
-  --accent: #66a8ff;
-  --accent-2: #8ac2ff;
-  --shadow-lg: 0 24px 50px rgba(0, 0, 0, 0.45), 0 6px 18px rgba(0, 0, 0, 0.35);
-  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.3), 0 1px 8px rgba(0, 0, 0, 0.2);
-}
-
 * {
   box-sizing: border-box;
 }
@@ -47,22 +33,6 @@ body.design-digital {
   place-items: center;
   padding: 16px;
   overflow: hidden;
-}
-
-@media (prefers-color-scheme: dark) {
-  body.design-digital:not([data-theme="light"]) {
-    --bg: #0f141e;
-    --bg-2: #161d2a;
-    --panel: rgba(23, 29, 40, 0.82);
-    --panel-soft: rgba(30, 38, 52, 0.82);
-    --line: #323f55;
-    --text: #eaf0fb;
-    --muted: #9aa8bd;
-    --accent: #66a8ff;
-    --accent-2: #8ac2ff;
-    --shadow-lg: 0 24px 50px rgba(0, 0, 0, 0.45), 0 6px 18px rgba(0, 0, 0, 0.35);
-    --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.3), 0 1px 8px rgba(0, 0, 0, 0.2);
-  }
 }
 
 p {
@@ -113,6 +83,8 @@ p {
   box-shadow: var(--shadow-lg);
   overflow: hidden;
   animation: card-in 0.72s cubic-bezier(.4, 0, .2, 1) both;
+  transition: transform 0.2s ease-out;
+  transform-style: preserve-3d;
 }
 
 .digital-container::before {
@@ -140,28 +112,9 @@ p {
   background: #f8f5ee;
 }
 
-.rail-main,
-.rail-utilities {
+.rail-main {
   display: grid;
   gap: 8px;
-}
-
-.rail-utility {
-  width: 46px;
-  height: 36px;
-  border-radius: 10px;
-  border: 1px solid #ddd4c4;
-  background: #ffffff;
-  color: #8a8175;
-  font: inherit;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.rail-utility:hover,
-.rail-utility:focus-visible {
-  color: var(--accent);
-  border-color: #a9cbff;
 }
 
 .rail-tab {
@@ -257,6 +210,17 @@ p {
   object-fit: cover;
 }
 
+.profile-cover img.blur-up {
+  filter: blur(12px);
+  transform: scale(1.03);
+  transition: filter 0.45s ease, transform 0.45s ease;
+}
+
+.profile-cover img.blur-up.loaded {
+  filter: blur(0);
+  transform: scale(1);
+}
+
 .profile-content {
   padding: var(--shell-gutter);
   overflow: auto;
@@ -323,47 +287,6 @@ p {
 .profile-facts strong {
   font-size: 0.76rem;
   font-weight: 600;
-}
-
-.status-live {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: #22c55e;
-  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
-  animation: pulse-dot 1.8s ease-in-out infinite;
-}
-
-.profile-meta {
-  margin-top: 12px;
-  display: grid;
-  gap: 6px;
-}
-
-.profile-meta p {
-  margin: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.meta-label {
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-@keyframes pulse-dot {
-  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
-  70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
 }
 
 .profile-socials {
@@ -528,6 +451,27 @@ p {
   padding: 42px 48px;
   box-shadow: var(--shadow-card);
   will-change: transform, opacity, filter;
+  position: relative;
+  overflow: hidden;
+}
+
+.stage-card::before {
+  content: attr(data-ghost);
+  position: absolute;
+  right: 22px;
+  top: 12px;
+  font-size: clamp(74px, 11vw, 200px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 0.9;
+  color: rgba(90, 80, 68, 0.06);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stage-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .card-title-wrap {
@@ -925,6 +869,30 @@ p {
   box-shadow: 0 10px 22px rgba(13, 110, 253, 0.25);
 }
 
+.signature-wrap {
+  margin-top: 24px;
+}
+
+.signature-svg {
+  width: 190px;
+  color: color-mix(in srgb, var(--accent) 65%, #6b635a);
+}
+
+.signature-path {
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+}
+
+.draw-signature .signature-path {
+  animation: draw-signature 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes draw-signature {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 .section-enter {
   opacity: 0;
   transform: translate3d(0, 14px, 0) scale(0.995);
@@ -1065,24 +1033,9 @@ p {
     gap: 8px;
   }
 
-  .rail-utilities {
-    grid-auto-flow: column;
-    gap: 6px;
-    margin-left: 6px;
-  }
-
-  .rail-audio-toggle {
-    display: none;
-  }
-
   .rail-tab {
     width: 40px;
     height: 40px;
-  }
-
-  .rail-utility {
-    width: 36px;
-    height: 36px;
   }
 
   body.design-digital {
@@ -1122,6 +1075,12 @@ p {
 
   .stage-card {
     padding: 28px 24px;
+  }
+
+  .stage-card::before {
+    font-size: clamp(56px, 18vw, 140px);
+    right: 14px;
+    top: 14px;
   }
 
   .ui-cursor {

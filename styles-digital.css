@@ -1,19 +1,19 @@
 :root {
-  --bg: hsl(13 25% 8%);
-  --bg-2: hsl(13 24% 10%);
-  --panel: hsl(13 25% 12%);
-  --panel-soft: hsl(13 21% 14%);
-  --line: hsl(13 16% 24%);
-  --text: hsl(0 0% 92%);
-  --muted: hsl(24 14% 79%);
-  --accent: hsl(14 85% 55%);
-  --accent-2: hsl(20 90% 62%);
+  --bg: hsl(30 20% 95%);
+  --bg-2: hsl(30 18% 93%);
+  --panel: hsl(0 0% 100%);
+  --panel-soft: hsl(30 18% 99%);
+  --line: hsl(30 12% 82%);
+  --text: hsl(30 10% 20%);
+  --muted: hsl(30 5% 45%);
+  --accent: hsl(156 45% 35%);
+  --accent-2: hsl(156 40% 42%);
   --radius-lg: 30px;
   --radius-md: 22px;
   --shell-gutter: 40px;
-  --shadow-lg: 0 0 50px rgba(255, 69, 0, 0.05), 0 14px 34px rgba(0, 0, 0, 0.35);
-  --shadow-card: 0 6px 18px rgba(0, 0, 0, 0.25), 0 18px 34px rgba(0, 0, 0, 0.22);
-  --line-soft: rgba(246, 236, 224, 0.18);
+  --shadow-lg: 0 40px 100px rgba(30, 20, 10, 0.08);
+  --shadow-card: 0 16px 40px rgba(40, 28, 16, 0.09);
+  --line-soft: rgba(62, 48, 36, 0.12);
 }
 
 * {
@@ -29,7 +29,7 @@ body.design-digital {
   margin: 0;
   color: var(--text);
   font-family: Inter, "Helvetica Neue", Arial, sans-serif;
-  background: linear-gradient(135deg, #1a1512 0%, #12100e 100%);
+  background: linear-gradient(135deg, hsl(30 22% 96%) 0%, hsl(30 18% 93%) 100%);
   font-weight: 500;
   display: grid;
   place-items: center;
@@ -46,9 +46,9 @@ p {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(circle at 72% 14%, rgba(255, 112, 66, 0.16) 0%, transparent 38%),
-    radial-gradient(circle at 22% 82%, rgba(255, 92, 44, 0.11) 0%, transparent 36%),
-    linear-gradient(-55deg, transparent 0%, rgba(255, 103, 56, 0.09) 50%, transparent 100%);
+    radial-gradient(circle at 72% 14%, rgba(59, 128, 101, 0.08) 0%, transparent 38%),
+    radial-gradient(circle at 22% 82%, rgba(84, 144, 114, 0.06) 0%, transparent 36%),
+    linear-gradient(-55deg, transparent 0%, rgba(80, 142, 111, 0.05) 50%, transparent 100%);
   background-size: 400% 400%;
   animation: bg-fade 0.7s ease both, drift 12s ease infinite 0.7s;
   pointer-events: none;
@@ -62,7 +62,7 @@ p {
 .ambient-grain {
   position: fixed;
   inset: 0;
-  background-image: radial-gradient(rgba(255, 210, 180, 0.11) 0.5px, transparent 0.5px);
+  background-image: radial-gradient(rgba(110, 90, 70, 0.08) 0.5px, transparent 0.5px);
   background-size: 3px 3px;
   opacity: 0.1;
   mix-blend-mode: multiply;
@@ -82,9 +82,9 @@ p {
   height: min(80vh, 860px);
   display: grid;
   grid-template-columns: 72px 330px minmax(0, 1fr);
-  border: 1px solid rgba(255, 233, 220, 0.2);
+  border: 1px solid rgba(132, 112, 94, 0.15);
   border-radius: var(--radius-lg);
-  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  background: color-mix(in srgb, var(--panel) 96%, transparent);
   backdrop-filter: blur(15px);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
@@ -115,7 +115,7 @@ p {
   gap: 8px;
   padding: 10px;
   border-right: 1px solid var(--line-soft);
-  background: rgba(30, 30, 30, 0.6);
+  background: rgba(255, 255, 255, 0.62);
   backdrop-filter: blur(10px);
 }
 
@@ -131,7 +131,7 @@ p {
   border-radius: 12px;
   border: 1px solid transparent;
   background: transparent;
-  color: hsl(14 85% 55% / 0.5);
+  color: hsl(30 10% 20% / 0.62);
   font: inherit;
   display: grid;
   place-items: center;
@@ -146,20 +146,28 @@ p {
 .rail-tab:hover,
 .rail-tab:focus-visible,
 .rail-tab.active {
-  color: hsl(14 85% 55% / 1);
-  border-color: rgba(255, 162, 132, 0.38);
-  background: rgba(255, 136, 95, 0.12);
+  border-color: rgba(90, 123, 105, 0.25);
+  background: rgba(84, 134, 109, 0.1);
+}
+
+.rail-tab.active {
+  color: var(--accent);
+}
+
+.rail-tab:not(.active):hover,
+.rail-tab:not(.active):focus-visible {
+  color: hsl(30 10% 20% / 0.9);
 }
 
 .rail-tab:hover,
 .rail-tab:focus-visible {
   transform: scale(1.08);
-  box-shadow: 0 8px 18px rgba(255, 112, 66, 0.16), 0 0 14px rgba(255, 112, 66, 0.14);
+  box-shadow: 0 8px 18px rgba(67, 111, 91, 0.12);
 }
 
 .rail-tab.active {
   transform: translateX(2px);
-  box-shadow: inset 3px 0 0 var(--accent), 0 12px 22px rgba(255, 112, 66, 0.25), 0 0 16px rgba(255, 112, 66, 0.2);
+  box-shadow: inset 3px 0 0 var(--accent), 0 10px 18px rgba(67, 111, 91, 0.18);
 }
 
 .rail-tab.active::after {
@@ -207,7 +215,7 @@ p {
 
 .profile-card {
   border-right: 1px solid var(--line-soft);
-  background: color-mix(in srgb, var(--panel-soft) 95%, #000);
+  background: var(--panel-soft);
   overflow: hidden;
   display: grid;
   grid-template-rows: 250px minmax(0, 1fr);
@@ -229,7 +237,7 @@ p {
 
 .profile-cover {
   height: auto;
-  background: hsl(13 20% 18%);
+  background: hsl(30 18% 90%);
   border-bottom: 1px solid var(--line-soft);
   position: relative;
   overflow: hidden;
@@ -262,7 +270,7 @@ p {
   inset: 0;
   display: grid;
   place-items: center;
-  background: rgba(31, 23, 19, 0.62);
+  background: rgba(248, 244, 238, 0.62);
   transition: opacity 0.24s ease;
   z-index: 2;
 }
@@ -272,7 +280,7 @@ p {
   width: 34px;
   height: 34px;
   border-radius: 999px;
-  border: 2px solid rgba(255, 122, 76, 0.3);
+  border: 2px solid rgba(84, 134, 109, 0.28);
   border-top-color: var(--accent);
   animation: spinner 0.8s linear infinite;
 }
@@ -299,7 +307,7 @@ p {
 }
 
 .profile-content::-webkit-scrollbar-thumb {
-  background: rgba(255, 140, 104, 0.6);
+  background: rgba(86, 129, 106, 0.45);
   border-radius: 999px;
 }
 
@@ -314,7 +322,7 @@ p {
 
 .profile-role {
   margin: 0;
-  color: hsl(22 18% 80%);
+  color: var(--muted);
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -380,8 +388,8 @@ p {
 .profile-socials a:hover,
 .profile-socials a:focus-visible {
   color: var(--accent);
-  border-color: rgba(255, 164, 136, 0.48);
-  background: rgba(255, 126, 82, 0.12);
+  border-color: rgba(89, 130, 108, 0.38);
+  background: rgba(86, 129, 106, 0.11);
   transform: translateY(-2px);
 }
 
@@ -403,14 +411,14 @@ p {
   text-transform: uppercase;
   padding: 10px;
   background: var(--accent);
-  box-shadow: 0 14px 24px rgba(255, 112, 66, 0.3);
+  box-shadow: 0 14px 24px rgba(64, 112, 90, 0.24);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .profile-cta:hover,
 .profile-cta:focus-visible {
   transform: translateY(-2px);
-  box-shadow: 0 18px 28px rgba(255, 112, 66, 0.35), 0 0 20px rgba(255, 112, 66, 0.22);
+  box-shadow: 0 18px 28px rgba(64, 112, 90, 0.3);
 }
 
 .profile-cta:active {
@@ -421,7 +429,7 @@ p {
   position: relative;
   min-width: 0;
   height: 100%;
-  background: color-mix(in srgb, var(--panel) 94%, black);
+  background: var(--panel);
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -433,7 +441,7 @@ p {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(120deg, rgba(255, 186, 156, 0.08) 0%, transparent 55%);
+  background: linear-gradient(120deg, rgba(84, 134, 109, 0.05) 0%, transparent 55%);
 }
 
 .workspace-header {
@@ -461,7 +469,7 @@ p {
 .workspace-mode {
   margin: 0;
   flex: 1;
-  color: hsl(22 15% 76%);
+  color: var(--muted);
   font-size: 0.64rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -493,7 +501,7 @@ p {
 .workspace-back:hover,
 .workspace-back:focus-visible {
   color: var(--accent);
-  border-color: rgba(255, 166, 140, 0.45);
+  border-color: rgba(89, 130, 108, 0.38);
   transform: translateY(-2px);
 }
 
@@ -532,7 +540,7 @@ p {
 }
 
 .workspace-body::-webkit-scrollbar-thumb {
-  background: rgba(255, 140, 104, 0.45);
+  background: rgba(86, 129, 106, 0.35);
   border-radius: 999px;
 }
 
@@ -540,7 +548,7 @@ p {
   width: 100%;
   max-width: 920px;
   margin: 0;
-  border: 1px solid rgba(255, 232, 220, 0.08);
+  border: 1px solid rgba(132, 112, 94, 0.12);
   border-radius: var(--radius-md);
   background: var(--panel-soft);
   padding: 60px 66px;
@@ -558,7 +566,7 @@ p {
   font-weight: 700;
   letter-spacing: 0.08em;
   line-height: 0.9;
-  color: rgba(255, 184, 146, 0.06);
+  color: rgba(95, 125, 108, 0.09);
   pointer-events: none;
   z-index: 0;
 }
@@ -576,11 +584,11 @@ p {
   display: inline-block;
   padding: 5px 8px;
   border-radius: 999px;
-  background: rgba(255, 122, 76, 0.14);
+  background: rgba(86, 129, 106, 0.11);
   color: var(--accent);
-  font-size: 0.64rem;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 3px;
   text-transform: uppercase;
 }
 
@@ -609,7 +617,7 @@ p {
 .resume-column {
   border: 0;
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--panel-soft) 92%, #000);
+  background: #ffffff;
   padding: 18px;
   box-shadow: var(--shadow-card);
 }
@@ -632,7 +640,7 @@ p {
   border: 1px solid var(--line-soft);
   border-radius: 12px;
   padding: 9px;
-  background: color-mix(in srgb, var(--panel-soft) 86%, #000);
+  background: #ffffff;
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -642,7 +650,7 @@ p {
 }
 
 .timeline-item.active {
-  border-color: rgba(255, 154, 124, 0.5);
+  border-color: rgba(89, 130, 108, 0.42);
   box-shadow: inset 2px 0 0 var(--accent), var(--shadow-card);
 }
 
@@ -676,7 +684,7 @@ p {
 .about-block {
   border: 0;
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--panel-soft) 92%, #000);
+  background: #ffffff;
   padding: 18px;
   box-shadow: var(--shadow-card);
 }
@@ -704,7 +712,7 @@ p {
 .stat-pill {
   border: 0;
   border-radius: 12px;
-  background: color-mix(in srgb, var(--panel-soft) 90%, #000);
+  background: #ffffff;
   padding: 16px 9px;
   box-shadow: var(--shadow-card);
   text-align: center;
@@ -732,7 +740,7 @@ p {
 .service-card {
   border: 0;
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--panel-soft) 90%, #000);
+  background: #ffffff;
   padding: 18px;
   box-shadow: var(--shadow-card);
   transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease, box-shadow 0.25s ease;
@@ -740,8 +748,8 @@ p {
 
 .service-card:hover {
   transform: translateY(-2px) scale(1.01);
-  border-color: rgba(255, 144, 108, 0.52);
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.28), 0 0 18px rgba(255, 112, 66, 0.16);
+  border-color: rgba(89, 130, 108, 0.4);
+  box-shadow: 0 16px 30px rgba(40, 28, 16, 0.12);
 }
 
 .service-card h4 {
@@ -777,7 +785,7 @@ p {
 }
 
 .meter-item span {
-  color: hsl(22 12% 76%);
+  color: var(--muted);
   font-size: 0.85rem;
 }
 
@@ -785,7 +793,7 @@ p {
   width: 100%;
   height: 8px;
   border-radius: 999px;
-  background: rgba(120, 148, 195, 0.25);
+  background: rgba(141, 187, 163, 0.28);
 }
 
 .meter i {
@@ -805,7 +813,7 @@ p {
 .project-card {
   border: 0;
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--panel-soft) 90%, #000);
+  background: #ffffff;
   padding: 18px;
   box-shadow: var(--shadow-card);
   transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease;
@@ -813,7 +821,7 @@ p {
 
 .project-card:hover {
   transform: translateY(-2px);
-  border-color: rgba(255, 144, 108, 0.45);
+  border-color: rgba(89, 130, 108, 0.34);
 }
 
 .project-card header {
@@ -844,7 +852,7 @@ p {
   margin-top: 10px;
   border: 0;
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--panel-soft) 92%, #000);
+  background: #ffffff;
   padding: 18px;
   box-shadow: var(--shadow-card);
 }
@@ -870,7 +878,7 @@ p {
   border: 1px solid var(--line-soft);
   border-radius: 12px;
   padding: 10px;
-  background: color-mix(in srgb, var(--panel-soft) 86%, #000);
+  background: #ffffff;
 }
 
 .blog-meta {
@@ -901,7 +909,7 @@ p {
 .contact-form {
   border: 0;
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--panel-soft) 92%, #000);
+  background: #ffffff;
   padding: 18px;
   box-shadow: var(--shadow-card);
 }
@@ -937,7 +945,7 @@ p {
   width: 100%;
   border-radius: 9px;
   border: 1px solid var(--line-soft);
-  background: color-mix(in srgb, var(--panel) 94%, #000);
+  background: #ffffff;
   color: var(--text);
   padding: 9px 10px;
   font: inherit;
@@ -966,7 +974,7 @@ p {
 
 .contact-form button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(255, 112, 66, 0.33), 0 0 18px rgba(255, 112, 66, 0.2);
+  box-shadow: 0 12px 24px rgba(64, 112, 90, 0.26);
 }
 
 .contact-form button:active {
@@ -1028,7 +1036,7 @@ p {
   width: 18px;
   height: 18px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 122, 76, 0.55);
+  border: 1px solid rgba(70, 114, 93, 0.45);
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
@@ -1038,8 +1046,8 @@ p {
 .ui-cursor.active {
   width: 34px;
   height: 34px;
-  border-color: rgba(255, 122, 76, 0.7);
-  background: rgba(255, 122, 76, 0.11);
+  border-color: rgba(70, 114, 93, 0.65);
+  background: rgba(86, 129, 106, 0.09);
 }
 
 .stage-card.section-enter-active .about-block,
@@ -1138,8 +1146,8 @@ p {
     border: 0;
     border-radius: 16px;
     padding: 8px 10px;
-    background: rgba(30, 30, 30, 0.72);
-    box-shadow: 0 14px 30px rgba(10, 7, 5, 0.35), 0 0 20px rgba(255, 112, 66, 0.14);
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 14px 30px rgba(45, 34, 22, 0.14);
     backdrop-filter: blur(8px);
   }
 

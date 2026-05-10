@@ -6,146 +6,258 @@
   <title>Ben Rodriguez - Digital Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles-digital.css">
 </head>
 <body class="design-digital">
-  <nav class="nav-rail-sticky" aria-label="Section navigation">
-    <ul class="nav-rail-list">
-      <li>
-        <button class="nav-rail-btn active" data-section="about" aria-label="About">
-          <span class="nav-rail-icon">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg>
-          </span>
-          <span class="nav-rail-label">About</span>
-        </button>
-      </li>
-      <li>
-        <button class="nav-rail-btn" data-section="services" aria-label="Services">
-          <span class="nav-rail-icon">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="7" rx="2"/><path d="M16 11V7a4 4 0 0 0-8 0v4"/></svg>
-          </span>
-          <span class="nav-rail-label">Services</span>
-        </button>
-      </li>
-      <li>
-        <button class="nav-rail-btn" data-section="portfolio" aria-label="Portfolio">
-          <span class="nav-rail-icon">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M16 3v4M8 3v4"/></svg>
-          </span>
-          <span class="nav-rail-label">Portfolio</span>
-        </button>
-      </li>
-      <li>
-        <button class="nav-rail-btn" data-section="contact" aria-label="Contact">
-          <span class="nav-rail-icon">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
-          </span>
-          <span class="nav-rail-label">Contact</span>
-        </button>
-      </li>
-    </ul>
-  </nav>
+  <div class="ambient-bg" aria-hidden="true"></div>
+  <div class="ambient-grain" aria-hidden="true"></div>
 
-  <main class="card-container">
-    <div class="card-content-wrapper" id="card-content-wrapper"></div>
-  </main>
+  <div class="digital-container">
+    <aside class="profile-card" aria-label="Profile panel">
+      <div class="profile-cover">
+        <img src="images/ben-portrait.svg" alt="Ben Rodriguez">
+      </div>
+      <div class="profile-content">
+        <h1>Ben Rodriguez</h1>
+        <p class="profile-role">Digital Marketing Manager</p>
+        <p class="profile-rotator" id="sidebar-rotator">Growth Systems Architect</p>
+        <div class="profile-facts" aria-label="Quick profile facts">
+          <p><span>Experience</span><strong>10+ Years</strong></p>
+          <p><span>Location</span><strong>Austin, TX</strong></p>
+          <p><span>Status</span><strong>Available</strong></p>
+        </div>
+        <div class="profile-socials">
+          <a href="mailto:benrod1@gmail.com" aria-label="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4z"/><path d="m4 7 8 6 8-6"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V9h4v2"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" aria-label="X">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16"/><path d="M20 4 4 20"/></svg>
+          </a>
+        </div>
+        <a class="profile-cta" href="mailto:benrod1@gmail.com">Download CV</a>
+      </div>
+    </aside>
+
+    <main class="workspace-card">
+      <header class="workspace-header">
+        <div class="workspace-brand">
+          <span>BEN</span>
+        </div>
+        <nav class="workspace-nav" aria-label="Section navigation">
+          <button class="workspace-tab active" data-section="about">About</button>
+          <button class="workspace-tab" data-section="services">Resume</button>
+          <button class="workspace-tab" data-section="portfolio">Projects</button>
+          <button class="workspace-tab" data-section="contact">Contact</button>
+        </nav>
+        <a href="index.html" class="workspace-back">Main Site</a>
+      </header>
+
+      <section class="workspace-body" id="card-content-wrapper" aria-live="polite"></section>
+    </main>
+  </div>
 
   <script>
-    const contentWrapper = document.getElementById('card-content-wrapper');
+    const stage = document.getElementById('card-content-wrapper');
+    const rotator = document.getElementById('sidebar-rotator');
+    const phrases = ['Growth Systems Architect', 'Audience Ownership Strategist', 'Paid + Organic Scale Operator'];
+    let phraseIndex = 0;
 
-    function getSectionContent(section) {
-      if (section === 'about') return `
-        <section class="card-section fade-in" data-section="about">
-          <div class="digital-card-hero">
-            <img src="images/ben-portrait.svg" alt="Ben Rodriguez" />
-            <h2>Ben Rodriguez</h2>
-            <p>Digital Marketing Manager specializing in growth systems, audience ownership, and long-term scalability.</p>
-            <p>I help creators, brands, and founders build sustainable growth infrastructure, turning attention into owned audience systems that compound over time.</p>
-            <div class="digital-stats">
-              <div class="digital-stat"><span class="digital-stat-num">10+</span><span class="digital-stat-label">Years Experience</span></div>
-              <div class="digital-stat"><span class="digital-stat-num">20+</span><span class="digital-stat-label">Campaigns Launched</span></div>
-              <div class="digital-stat"><span class="digital-stat-num">3x</span><span class="digital-stat-label">Average ROAS</span></div>
+    setInterval(() => {
+      phraseIndex = (phraseIndex + 1) % phrases.length;
+      rotator.textContent = phrases[phraseIndex];
+    }, 2600);
+
+    function sectionTemplate(section) {
+      if (section === 'about') {
+        return `
+          <article class="stage-card section-enter" data-section="about">
+            <div class="card-title-wrap">
+              <span class="card-kicker">About</span>
+              <h3>Marketing that builds systems, not spikes</h3>
+              <p>I help creators, brands, and founders convert attention into owned audience infrastructure that compounds over time.</p>
             </div>
-          </div>
-        </section>
-      `;
 
-      if (section === 'services') return `
-        <section class="card-section fade-in" data-section="services">
-          <div class="digital-services-header">
-            <h2>Services & Expertise</h2>
-            <p>Core competencies that drive measurable growth</p>
-          </div>
-          <div class="digital-services-grid">
-            <div class="digital-service-item"><h3>Growth Strategy</h3><p>Audience research, positioning, and a clear roadmap for compounding growth across platforms.</p></div>
-            <div class="digital-service-item"><h3>Content Systems</h3><p>Repeatable frameworks that keep you publishing consistently without burning out.</p></div>
-            <div class="digital-service-item"><h3>Paid Media</h3><p>Meta and YouTube campaigns built for audience expansion, retargeting, and measurable returns.</p></div>
-            <div class="digital-service-item"><h3>SEO & Web Presence</h3><p>On-page SEO, conversion-focused web design, and funnels that turn visitors into leads.</p></div>
-            <div class="digital-service-item"><h3>Email Marketing</h3><p>List building, automation, and campaigns that give you direct access to your audience.</p></div>
-            <div class="digital-service-item"><h3>Analytics & Optimization</h3><p>Data tracking, performance audits, and decisions based on what actually works.</p></div>
-          </div>
-        </section>
-      `;
+            <div class="about-grid">
+              <div class="about-block">
+                <h4>Core Philosophy</h4>
+                <p>Build repeatable growth loops, not one-off campaigns. Pair strategy, distribution, and retention to lower dependency on rented platforms.</p>
+              </div>
+              <div class="about-block">
+                <h4>Operating Model</h4>
+                <p>Clear positioning, content cadence, paid amplification, and email conversion tied to weekly reporting and iterative optimization.</p>
+              </div>
+            </div>
 
-      if (section === 'portfolio') return `
-        <section class="card-section fade-in" data-section="portfolio">
-          <div class="digital-services-header">
-            <h2>Portfolio & Projects</h2>
-            <p>Real results from growth systems in action</p>
-          </div>
-          <div class="digital-services-grid">
-            <div class="digital-service-item"><h3>Independent Artist Campaign Architecture</h3><p>Coordinated release systems combining distribution, targeting, and timing to turn drops into attention events.</p></div>
-            <div class="digital-service-item"><h3>Multi-Platform Audience Growth Strategy</h3><p>Repeatable content systems that turn creative output into consistent reach across modern platforms.</p></div>
-            <div class="digital-service-item"><h3>Owned Audience System</h3><p>Newsletter systems that turn attention into an owned audience asset with automated sequences.</p></div>
-          </div>
-        </section>
-      `;
+            <div class="stats-row">
+              <div class="stat-pill"><strong>10+</strong><span>Years Experience</span></div>
+              <div class="stat-pill"><strong>20+</strong><span>Campaigns Launched</span></div>
+              <div class="stat-pill"><strong>3x</strong><span>Average ROAS</span></div>
+            </div>
+          </article>
+        `;
+      }
 
-      if (section === 'contact') return `
-        <section class="card-section fade-in" data-section="contact">
-          <div class="digital-services-header">
-            <h2>Get In Touch</h2>
-            <p>Ready to build sustainable growth systems?</p>
-          </div>
-          <div class="digital-contact-info">
-            <div class="digital-contact-item"><span class="digital-contact-label">Email</span><a href="mailto:benrod1@gmail.com" class="digital-contact-value">benrod1@gmail.com</a></div>
-            <div class="digital-contact-item"><span class="digital-contact-label">Location</span><span class="digital-contact-value">Austin, TX</span></div>
-          </div>
-          <form class="digital-contact-form" onsubmit="event.preventDefault()">
-            <input type="text" placeholder="Your name" required>
-            <input type="email" placeholder="Your email" required>
-            <textarea placeholder="Tell me about your growth goals..." required></textarea>
-            <button type="submit">Send Message</button>
-          </form>
-        </section>
-      `;
+      if (section === 'services') {
+        return `
+          <article class="stage-card section-enter" data-section="services">
+            <div class="card-title-wrap">
+              <span class="card-kicker">Resume + Services</span>
+              <h3>Growth systems designed for ownership</h3>
+              <p>Each engagement is built to create durable growth and direct audience access.</p>
+            </div>
 
-      return '';
+            <div class="resume-layout">
+              <div class="resume-column">
+                <h4 class="resume-heading">Experience</h4>
+                <div class="timeline-list">
+                  <article class="timeline-item active">
+                    <span class="timeline-date">2022 - Present</span>
+                    <h5>Digital Marketing Manager</h5>
+                    <p>Built full-funnel acquisition and retention systems for creators and founder-led brands.</p>
+                  </article>
+                  <article class="timeline-item">
+                    <span class="timeline-date">2018 - 2022</span>
+                    <h5>Growth Strategist</h5>
+                    <p>Designed compounding growth loops linking content, paid media, and owned channels.</p>
+                  </article>
+                </div>
+              </div>
+              <div class="resume-column">
+                <h4 class="resume-heading">Education + Certifications</h4>
+                <div class="timeline-list">
+                  <article class="timeline-item">
+                    <span class="timeline-date">2016</span>
+                    <h5>Marketing Analytics Program</h5>
+                    <p>Advanced reporting and conversion modeling for scalable campaign optimization.</p>
+                  </article>
+                  <article class="timeline-item">
+                    <span class="timeline-date">2014</span>
+                    <h5>Digital Strategy Certification</h5>
+                    <p>Specialized in audience development, editorial systems, and channel positioning.</p>
+                  </article>
+                </div>
+              </div>
+            </div>
+
+            <div class="service-grid">
+              <div class="service-card"><h4>Growth Strategy</h4><p>Audience research, positioning, and channel sequencing.</p><span class="tag">Roadmap</span></div>
+              <div class="service-card"><h4>Content Systems</h4><p>Editorial engines and repurposing pipelines for consistency.</p><span class="tag">Ops</span></div>
+              <div class="service-card"><h4>Paid Media</h4><p>Meta and YouTube campaigns tuned for scale and ROI.</p><span class="tag">Acquisition</span></div>
+              <div class="service-card"><h4>SEO + Conversion</h4><p>Search visibility and web experiences that convert.</p><span class="tag">Demand</span></div>
+            </div>
+
+            <div class="meter-group">
+              <div class="meter-item"><span>Strategy & Analytics</span><div class="meter"><i style="--fill: 92%"></i></div></div>
+              <div class="meter-item"><span>Paid Distribution</span><div class="meter"><i style="--fill: 88%"></i></div></div>
+              <div class="meter-item"><span>Email Retention Systems</span><div class="meter"><i style="--fill: 84%"></i></div></div>
+            </div>
+          </article>
+        `;
+      }
+
+      if (section === 'portfolio') {
+        return `
+          <article class="stage-card section-enter" data-section="portfolio">
+            <div class="card-title-wrap">
+              <span class="card-kicker">Projects</span>
+              <h3>Execution with measurable business outcomes</h3>
+            </div>
+
+            <div class="project-list">
+              <article class="project-card">
+                <header><span>Release System</span><strong>+220% Audience Growth</strong></header>
+                <h4>Independent Artist Campaign Architecture</h4>
+                <p>Campaign sequencing across organic + paid touchpoints to turn drops into repeatable growth events.</p>
+              </article>
+              <article class="project-card">
+                <header><span>Distribution Engine</span><strong>4M+ Impressions</strong></header>
+                <h4>Multi-platform Content Flywheel</h4>
+                <p>A repeatable content system that compounds reach while reducing creator workload.</p>
+              </article>
+              <article class="project-card">
+                <header><span>Owned Audience</span><strong>0 to 4.2K Subscribers</strong></header>
+                <h4>Email Ownership Stack</h4>
+                <p>Opt-in architecture and automations that convert attention into a controllable audience asset.</p>
+              </article>
+            </div>
+
+            <div class="blog-panel">
+              <div class="blog-panel-head">
+                <h4>Latest Insights</h4>
+                <p>Blog-style updates from real campaign execution.</p>
+              </div>
+              <div class="blog-grid">
+                <article class="blog-card">
+                  <span class="blog-meta">May 2026 · Strategy</span>
+                  <h5>Why attention without ownership keeps brands fragile</h5>
+                  <p>The exact framework we use to move from platform dependency into owned audience systems.</p>
+                </article>
+                <article class="blog-card">
+                  <span class="blog-meta">April 2026 · Paid Media</span>
+                  <h5>Scaling creative testing without burning the team</h5>
+                  <p>How to structure experiments so media spend and creative production improve together.</p>
+                </article>
+                <article class="blog-card">
+                  <span class="blog-meta">March 2026 · Retention</span>
+                  <h5>Email automation that actually drives revenue</h5>
+                  <p>The sequence architecture behind higher open rates, stronger LTV, and fewer dead lists.</p>
+                </article>
+              </div>
+            </div>
+          </article>
+        `;
+      }
+
+      return `
+        <article class="stage-card section-enter" data-section="contact">
+          <div class="card-title-wrap">
+            <span class="card-kicker">Contact</span>
+            <h3>Ready to build sustainable growth systems</h3>
+          </div>
+
+          <div class="contact-grid">
+            <div class="contact-block">
+              <h4>Direct</h4>
+              <p><strong>Email:</strong> <a href="mailto:benrod1@gmail.com">benrod1@gmail.com</a></p>
+              <p><strong>Location:</strong> Austin, TX</p>
+            </div>
+            <form class="contact-form" onsubmit="event.preventDefault()">
+              <label>Name<input type="text" placeholder="Your name" required></label>
+              <label>Email<input type="email" placeholder="you@company.com" required></label>
+              <label>Message<textarea placeholder="Tell me about your growth goals" required></textarea></label>
+              <button type="submit">Send Message</button>
+            </form>
+          </div>
+        </article>
+      `;
     }
 
-    function loadSection(section) {
-      contentWrapper.innerHTML = getSectionContent(section);
-      requestAnimationFrame(() => {
-        const fade = contentWrapper.querySelector('.fade-in');
-        if (fade) fade.classList.add('visible');
-      });
+    function mountSection(section) {
+      stage.innerHTML = sectionTemplate(section);
+      const card = stage.querySelector('.section-enter');
+      requestAnimationFrame(() => card.classList.add('section-enter-active'));
+      if (section === 'services') {
+        stage.querySelectorAll('.meter i').forEach((bar, idx) => {
+          setTimeout(() => {
+            bar.style.width = getComputedStyle(bar).getPropertyValue('--fill');
+          }, 120 * idx);
+        });
+      }
     }
 
-    document.querySelectorAll('.nav-rail-btn').forEach((btn) => {
+    document.querySelectorAll('.workspace-tab').forEach((btn) => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.nav-rail-btn').forEach((b) => b.classList.remove('active'));
+        document.querySelectorAll('.workspace-tab').forEach((b) => b.classList.remove('active'));
         btn.classList.add('active');
-        loadSection(btn.dataset.section);
+        mountSection(btn.dataset.section);
       });
-
-      btn.addEventListener('mouseenter', () => btn.querySelector('.nav-rail-label').classList.add('show'));
-      btn.addEventListener('mouseleave', () => btn.querySelector('.nav-rail-label').classList.remove('show'));
-      btn.addEventListener('focus', () => btn.querySelector('.nav-rail-label').classList.add('show'));
-      btn.addEventListener('blur', () => btn.querySelector('.nav-rail-label').classList.remove('show'));
     });
 
-    loadSection('about');
+    mountSection('about');
   </script>
 </body>
 </html>

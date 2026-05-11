@@ -121,13 +121,15 @@ p {
   align-content: center;
   gap: 6px;
   padding: 4px;
-  border-right: 1px solid var(--line-soft);
+  border: 1px solid var(--line-soft);
   background: rgba(255, 255, 255, 0.62);
   backdrop-filter: blur(10px);
   position: sticky;
   top: 50%;
   transform: translateY(-50%);
   align-self: center;
+  justify-self: center;
+  width: max-content;
   height: max-content;
   border-radius: 16px;
   z-index: 16;

@@ -1422,21 +1422,21 @@ p {
 
   .rail-nav {
     position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    left: 50%;
+    right: auto;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
     top: auto;
-    transform: none;
+    transform: translateX(-50%);
     z-index: 40;
-    width: 100vw;
-    max-width: none;
+    width: min(720px, calc(100vw - 24px));
+    max-width: calc(100vw - 24px);
     box-sizing: border-box;
-    border: 0;
-    border-radius: 0;
-    padding: 12px 10px calc(14px + env(safe-area-inset-bottom, 0px));
-    background: rgba(255, 255, 255, 0.88);
-    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.08);
-    backdrop-filter: blur(8px);
+    border: 1px solid rgba(84, 134, 109, 0.18);
+    border-radius: 999px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.93);
+    box-shadow: 0 14px 34px rgba(32, 42, 37, 0.2), 0 4px 14px rgba(32, 42, 37, 0.12);
+    backdrop-filter: blur(12px);
   }
 
   .rail-main {
@@ -1477,7 +1477,7 @@ p {
   }
 
   body.design-digital {
-    padding-bottom: calc(122px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(156px + env(safe-area-inset-bottom, 0px));
   }
 
   .profile-card {
@@ -1488,6 +1488,7 @@ p {
     position: relative;
     top: auto;
     overflow: visible;
+    margin-bottom: 10px;
   }
 
   .profile-cover {
@@ -1666,7 +1667,7 @@ p {
   }
 
   .workspace-body {
-    padding: 32px 30px calc(166px + env(safe-area-inset-bottom, 0px)) 30px;
+    padding: 40px 24px calc(178px + env(safe-area-inset-bottom, 0px)) 24px;
   }
 
   .about-grid,
@@ -1751,7 +1752,7 @@ p {
   }
 
   .stage-card[data-section="contact"] {
-    padding-bottom: calc(176px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(200px + env(safe-area-inset-bottom, 0px));
   }
 
   .ui-cursor {
@@ -1761,19 +1762,19 @@ p {
 
 @media (max-width: 768px) {
   body.design-digital {
-    padding-bottom: calc(130px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(156px + env(safe-area-inset-bottom, 0px));
   }
 
   .rail-nav {
-    left: 0;
-    right: 0;
+    left: 50%;
+    right: auto;
     top: auto;
-    bottom: 0;
-    transform: none;
-    width: 100vw;
-    max-width: none;
-    border-radius: 0;
-    padding: 12px 10px calc(14px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    width: calc(100vw - 20px);
+    max-width: calc(100vw - 20px);
+    border-radius: 999px;
+    padding: 10px 10px;
   }
 
   .rail-main {

@@ -1047,28 +1047,23 @@ p {
 
 .project-list {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  gap: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
   align-items: start;
   position: relative;
 }
 
 .project-list::before {
-  content: '';
-  grid-column: 2;
-  grid-row: 1 / -1;
-  width: 2px;
-  background: linear-gradient(180deg, var(--accent) 0%, transparent 100%);
-  opacity: 0.3;
+  display: none;
 }
 
 .project-card {
   border: none;
   border-radius: 0;
   background: transparent;
-  padding: 0 20px 40px;
+  padding: 0 0 30px;
   box-shadow: none;
-  border-bottom: none;
+  border-bottom: 1px solid rgba(62, 48, 36, 0.12);
   transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
   position: relative;
 }
@@ -1091,9 +1086,9 @@ p {
 }
 
 .project-card:nth-child(odd) {
-  grid-column: 1;
-  text-align: right;
-  padding-right: 30px;
+  grid-column: auto;
+  text-align: left;
+  padding-right: 0;
 }
 
 .project-card:nth-child(odd)::before {
@@ -1101,13 +1096,25 @@ p {
 }
 
 .project-card:nth-child(even) {
-  grid-column: 3;
+  grid-column: auto;
   text-align: left;
-  padding-left: 30px;
+  padding-left: 0;
 }
 
 .project-card:nth-child(even)::before {
   left: -16px;
+}
+
+@media (min-width: 921px) {
+  .project-card header {
+    align-items: flex-start;
+  }
+
+  .project-card header strong {
+    white-space: normal;
+    text-align: right;
+    max-width: 54%;
+  }
 }
 
 .project-card:hover {

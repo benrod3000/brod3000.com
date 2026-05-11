@@ -1783,10 +1783,24 @@ p {
 
   .profile-socials {
     justify-content: center;
+    margin-bottom: 6px;
   }
 
   .profile-cta {
-    width: min(360px, 100%);
+    grid-area: auto;
+    display: block;
+    position: static;
+    width: min(320px, 100%);
+    max-width: 100%;
+    margin: 10px auto 0;
+    transform: none;
+    z-index: auto;
+  }
+
+  .profile-cta:hover,
+  .profile-cta:focus-visible,
+  .profile-cta:active {
+    transform: none;
   }
 }
 

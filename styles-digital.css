@@ -1105,33 +1105,16 @@ p {
   left: -16px;
 }
 
-@media (min-width: 921px) {
-  .project-card header {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 6px;
-    align-items: start;
-  }
-
-  .project-card header strong {
-    white-space: normal;
-    text-align: left;
-    max-width: 100%;
-    font-size: 0.78rem;
-    line-height: 1.25;
-  }
-}
-
 .project-card:hover {
   transform: none;
   opacity: 0.85;
 }
 
 .project-card header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 6px;
   font-size: 0.8rem;
   color: var(--muted);
 }
@@ -1155,8 +1138,11 @@ p {
 
 .project-card header strong {
   color: var(--accent);
-  white-space: nowrap;
-  flex-shrink: 0;
+  white-space: normal;
+  text-align: left;
+  max-width: 100%;
+  font-size: 0.78rem;
+  line-height: 1.25;
 }
 
 .project-card h4 {

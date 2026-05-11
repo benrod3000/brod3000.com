@@ -117,21 +117,22 @@ p {
 }
 
 .rail-nav {
-  display: grid;
-  align-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 6px;
-  padding: 4px;
+  padding: 10px;
   border: none;
-  background-color: transparent;
-  backdrop-filter: none;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
   box-shadow: none;
   position: sticky;
   top: 50%;
   transform: translateY(-50%);
-  align-self: center;
-  justify-self: center;
-  width: max-content;
-  height: max-content;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  border-radius: 30px;
   z-index: 16;
 }
 

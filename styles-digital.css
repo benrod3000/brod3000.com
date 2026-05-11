@@ -121,19 +121,20 @@ p {
   grid-auto-flow: row;
   align-content: center;
   justify-items: center;
-  align-self: center;
   gap: 6px;
   padding: 10px;
   border: none;
-  background: transparent;
-  backdrop-filter: none;
-  box-shadow: none;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 20px;
   width: fit-content;
   height: auto;
-  margin-left: auto;
-  margin-right: auto;
   border-radius: 50px;
-  z-index: 16;
+  z-index: 100;
 }
 
 .rail-main {

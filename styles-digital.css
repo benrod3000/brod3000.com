@@ -1705,11 +1705,11 @@ p {
   .project-card {
     grid-column: 1 !important;
     text-align: left !important;
-    padding: 0 0 28px !important;
+    padding: 0 0 28px 20px !important;
   }
 
   .project-card::before {
-    left: 0 !important;
+    left: 2px !important;
     top: 2px;
   }
 

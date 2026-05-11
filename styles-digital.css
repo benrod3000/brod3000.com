@@ -1124,8 +1124,27 @@ p {
   color: var(--muted);
 }
 
+.project-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.project-label i {
+  width: 0.95rem;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--accent) 78%, #425649);
+  text-align: center;
+  flex-shrink: 0;
+}
+
 .project-card header strong {
   color: var(--accent);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .project-card h4 {

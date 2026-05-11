@@ -1650,6 +1650,14 @@ p {
     left: 14px;
   }
 
+  .stage-card[data-section="portfolio"] {
+    --ghost-size: clamp(40px, 12vw, 90px);
+  }
+
+  .stage-card[data-section="contact"] {
+    --ghost-size: clamp(40px, 12vw, 90px);
+  }
+
   .stage-card[data-section="about"] .stats-row {
     margin-bottom: 42px;
   }

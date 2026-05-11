@@ -1651,7 +1651,7 @@ p {
   }
 
   .stage-card[data-section="portfolio"] {
-    --ghost-size: clamp(48px, 16vw, 110px);
+    --ghost-size: clamp(44px, 14vw, 98px);
   }
 
   .stage-card[data-section="contact"] {

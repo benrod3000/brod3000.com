@@ -682,8 +682,9 @@ p {
 }
 
 .stage-card {
-  --ghost-size: clamp(56px, 8vw, 140px);
+  --ghost-size: clamp(48px, 6.5vw, 104px);
   --ghost-track: 0.06em;
+  --ghost-line-height: 1;
   --ghost-top: 22px;
   --ghost-right: 22px;
   width: 100%;
@@ -711,29 +712,18 @@ p {
   font-size: var(--ghost-size);
   font-weight: 700;
   letter-spacing: var(--ghost-track);
-  line-height: 0.9;
+  line-height: var(--ghost-line-height);
   color: rgba(95, 125, 108, 0.09);
   pointer-events: none;
   z-index: 0;
 }
 
-.stage-card[data-section="services"]::before {
-  font-size: clamp(48px, 6.5vw, 104px);
-  letter-spacing: 0.062em;
-}
-
-.stage-card[data-section="portfolio"]::before {
-  font-size: clamp(40px, 5.5vw, 88px);
-  letter-spacing: 0.052em;
-}
-
-.stage-card[data-section="contact"]::before {
-  font-size: clamp(44px, 6vw, 100px);
-  letter-spacing: 0.058em;
-}
-
 .stage-card[data-section="contact"] {
   padding-bottom: 96px;
+}
+
+.stage-card[data-section="about"] .stats-row {
+  margin-bottom: 120px;
 }
 
 .stage-card > * {
@@ -1223,52 +1213,23 @@ p {
   box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.2), 0 6px 12px rgba(35, 74, 57, 0.28);
 }
 
-.signature-wrap {
-  margin-top: 24px;
-}
-
-.signature-svg {
-  width: 190px;
-  color: color-mix(in srgb, var(--accent) 65%, #6b635a);
-}
-
-.signature-path {
-  stroke-dasharray: 900;
-  stroke-dashoffset: 900;
-}
-
-.draw-signature .signature-path {
-  animation: draw-signature 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes draw-signature {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
 .section-enter {
   opacity: 0;
-  transform: translateY(12px);
-  filter: blur(2px);
+  transform: none;
   position: relative;
 }
 
 .section-enter.section-enter-active {
   opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
-  transition: opacity 0.42s ease-out, transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), filter 0.42s ease-out;
+  transform: none;
+  transition: opacity 0.26s ease-out;
 }
 
 .section-exit-active {
   opacity: 0;
   transform: none;
-  filter: none;
   transition: opacity 0.3s ease;
   pointer-events: none;
-  position: absolute;
-  inset: 0;
 }
 
 .ui-cursor {
@@ -1444,6 +1405,9 @@ p {
   }
 
   .stage-card {
+    --ghost-size: clamp(56px, 18vw, 140px);
+    --ghost-right: 14px;
+    --ghost-top: 14px;
     padding: 24px 30px 120px 30px;
   }
 
@@ -1465,12 +1429,6 @@ p {
 
   .stage-card[data-section="contact"] {
     padding-bottom: calc(132px + env(safe-area-inset-bottom, 0px));
-  }
-
-  .stage-card::before {
-    font-size: clamp(56px, 18vw, 140px);
-    right: 14px;
-    top: 14px;
   }
 
   .ui-cursor {

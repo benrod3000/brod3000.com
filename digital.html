@@ -120,6 +120,43 @@
       });
     }
 
+    function animateAboutStats(root) {
+      const statNodes = root.querySelectorAll('.stats-row .stat-pill strong[data-count-target]');
+      if (!statNodes.length) {
+        return;
+      }
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      statNodes.forEach((node, idx) => {
+        const target = Number(node.dataset.countTarget || '0');
+        const suffix = node.dataset.countSuffix || '';
+
+        if (!Number.isFinite(target)) {
+          return;
+        }
+
+        const duration = prefersReducedMotion ? 760 + idx * 120 : 980 + idx * 140;
+        const start = performance.now();
+        const step = prefersReducedMotion ? Math.max(1, Math.ceil(target / 6)) : 1;
+
+        const tick = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const rawValue = Math.round(target * eased);
+          const value = progress === 1 ? target : Math.min(target, Math.floor(rawValue / step) * step);
+          node.textContent = `${value}${suffix}`;
+
+          if (progress < 1) {
+            requestAnimationFrame(tick);
+          }
+        };
+
+        node.textContent = `0${suffix}`;
+        requestAnimationFrame(tick);
+      });
+    }
+
     if (window.matchMedia('(hover: hover)').matches && cardShell) {
       const maxTilt = 1.8;
       cardShell.addEventListener('mousemove', (event) => {
@@ -190,15 +227,9 @@
             </div>
 
             <div class="stats-row">
-              <div class="stat-pill"><strong>10+</strong><span>Years Experience</span></div>
-              <div class="stat-pill"><strong>20+</strong><span>Campaigns Launched</span></div>
-              <div class="stat-pill"><strong>3x</strong><span>Average ROAS</span></div>
-            </div>
-
-            <div class="signature-wrap" aria-label="Signature mark">
-              <svg class="signature-svg" viewBox="0 0 320 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path class="signature-path" d="M8 63C22 44 34 27 46 34C58 41 58 81 76 72C95 63 94 14 112 16C126 18 124 45 140 52C160 61 160 24 176 22C194 20 195 58 214 60C233 62 242 35 253 24C262 15 272 18 280 28C287 37 292 53 310 50" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <div class="stat-pill"><strong data-count-target="10" data-count-suffix="+">0+</strong><span>Years Experience</span></div>
+              <div class="stat-pill"><strong data-count-target="20" data-count-suffix="+">0+</strong><span>Campaigns Launched</span></div>
+              <div class="stat-pill"><strong data-count-target="3" data-count-suffix="x">0x</strong><span>Average ROAS</span></div>
             </div>
           </article>
         `;
@@ -375,6 +406,12 @@
 
     function mountSection(section) {
       if (section === currentSection && stage.childElementCount > 0) {
+        if (section === 'about') {
+          const activeCard = stage.querySelector('.stage-card[data-section="about"]');
+          if (activeCard) {
+            animateAboutStats(activeCard);
+          }
+        }
         return;
       }
 
@@ -391,6 +428,10 @@
       applyScanLeadEmphasis(nextCard);
 
       const activateSectionEffects = () => {
+        if (section === 'about') {
+          animateAboutStats(nextCard);
+        }
+
         if (section === 'services') {
           stage.querySelectorAll('.meter i').forEach((bar, idx) => {
             setTimeout(() => {
@@ -399,9 +440,6 @@
           });
         }
 
-        if (section === 'about') {
-          nextCard.classList.add('draw-signature');
-        }
       };
 
       if (!currentCard) {
@@ -415,16 +453,16 @@
         return;
       }
 
-      stage.appendChild(nextCard);
-      requestAnimationFrame(() => {
-        currentCard.classList.add('section-exit-active');
-        nextCard.classList.add('section-enter-active');
-        activateSectionEffects();
-        bindCursorTargets();
-      });
+      currentCard.classList.add('section-exit-active');
 
       setTimeout(() => {
         currentCard.remove();
+        stage.appendChild(nextCard);
+        requestAnimationFrame(() => {
+          nextCard.classList.add('section-enter-active');
+          activateSectionEffects();
+          bindCursorTargets();
+        });
       }, 300);
     }
 

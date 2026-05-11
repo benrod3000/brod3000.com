@@ -1380,9 +1380,9 @@ p {
 
   .rail-nav {
     position: fixed;
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     top: auto;
     transform: none;
     z-index: 40;
@@ -1390,10 +1390,10 @@ p {
     align-content: initial;
     justify-content: stretch;
     border: 0;
-    border-radius: 16px;
-    padding: 8px 10px;
-    background: rgba(255, 255, 255, 0.78);
-    box-shadow: 0 14px 30px rgba(45, 34, 22, 0.14);
+    border-radius: 0;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.08);
     backdrop-filter: blur(8px);
   }
 

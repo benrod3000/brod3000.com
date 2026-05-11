@@ -117,23 +117,23 @@ p {
 }
 
 .rail-nav {
-  display: grid;
-  align-content: center;
-  justify-items: center;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
   gap: 6px;
   padding: 10px;
   border: none;
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
-  box-shadow: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 50%;
   transform: translateY(-50%);
   width: fit-content;
-  height: fit-content;
+  height: auto;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 30px;
+  border-radius: 50px;
   z-index: 16;
 }
 

@@ -124,9 +124,10 @@ p {
   border-right: 1px solid var(--line-soft);
   background: rgba(255, 255, 255, 0.62);
   backdrop-filter: blur(10px);
-  position: sticky;
-  top: 50%;
-  transform: translateY(-50%);
+  position: relative;
+  top: auto;
+  transform: none;
+  align-self: center;
   z-index: 16;
 }
 

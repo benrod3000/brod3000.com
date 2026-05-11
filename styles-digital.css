@@ -1598,6 +1598,57 @@ p {
     padding: 12px 14px;
   }
 
+  .profile-card,
+  .profile-cover,
+  .profile-content,
+  .profile-content h1,
+  .profile-role,
+  .profile-rotator,
+  .profile-facts,
+  .profile-socials,
+  .profile-cta {
+    transition: all 0.24s ease;
+  }
+
+  .profile-card.is-compact {
+    grid-template-columns: 72px minmax(0, 1fr);
+    border-bottom-color: rgba(62, 48, 36, 0.18);
+  }
+
+  .profile-card.is-compact .profile-cover {
+    min-height: 72px;
+  }
+
+  .profile-card.is-compact .profile-content {
+    padding: 8px 12px;
+    grid-template-areas:
+      "name name"
+      "role role";
+    row-gap: 4px;
+    align-content: center;
+  }
+
+  .profile-card.is-compact .profile-content h1 {
+    margin: 0;
+    font-size: clamp(1.1rem, 4.8vw, 1.35rem);
+    line-height: 1.05;
+  }
+
+  .profile-card.is-compact .profile-role {
+    margin: 0;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    width: fit-content;
+  }
+
+  .profile-card.is-compact .profile-rotator,
+  .profile-card.is-compact .profile-facts,
+  .profile-card.is-compact .profile-socials,
+  .profile-card.is-compact .profile-cta {
+    display: none;
+  }
+
   .workspace-body {
     padding: 32px 30px calc(166px + env(safe-area-inset-bottom, 0px)) 30px;
   }

@@ -98,12 +98,24 @@
     const stage = document.getElementById('card-content-wrapper');
     const rotator = document.getElementById('sidebar-rotator');
     const cursor = document.getElementById('ui-cursor');
+    const profileCard = document.querySelector('.profile-card');
     const railTabs = [...document.querySelectorAll('.rail-tab')];
     const interactiveTargets = () => document.querySelectorAll('.rail-tab, .workspace-back, .profile-cta, .profile-socials a, .contact-form button');
     const phrases = ['Growth Systems Architect', 'Audience Ownership Strategist', 'Paid + Organic Scale Operator'];
     let bindCursorTargets = () => {};
     let phraseIndex = 0;
     let currentSection = 'about';
+    const compactProfileQuery = window.matchMedia('(max-width: 920px)');
+    const compactProfileThreshold = 28;
+
+    function syncMobileProfileCompaction() {
+      if (!profileCard || !stage) {
+        return;
+      }
+
+      const shouldCompact = compactProfileQuery.matches && stage.scrollTop > compactProfileThreshold;
+      profileCard.classList.toggle('is-compact', shouldCompact);
+    }
 
     function applyScanLeadEmphasis(root) {
       const targets = root.querySelectorAll('.card-title-wrap p, .about-block p, .timeline-item p, .service-card p, .project-card p, .blog-card p');
@@ -493,6 +505,18 @@
     });
 
     mountSection('about');
+
+    if (profileCard && stage) {
+      stage.addEventListener('scroll', syncMobileProfileCompaction, { passive: true });
+      compactProfileQuery.addEventListener('change', () => {
+        if (!compactProfileQuery.matches) {
+          profileCard.classList.remove('is-compact');
+        }
+        syncMobileProfileCompaction();
+      });
+      window.addEventListener('resize', syncMobileProfileCompaction);
+      syncMobileProfileCompaction();
+    }
   </script>
 </body>
 </html>

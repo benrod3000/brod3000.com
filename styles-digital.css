@@ -1651,11 +1651,11 @@ p {
   }
 
   .stage-card[data-section="portfolio"] {
-    --ghost-size: clamp(40px, 12vw, 90px);
+    --ghost-size: clamp(48px, 16vw, 110px);
   }
 
   .stage-card[data-section="contact"] {
-    --ghost-size: clamp(40px, 12vw, 90px);
+    --ghost-size: clamp(48px, 16vw, 110px);
   }
 
   .stage-card[data-section="about"] .stats-row {

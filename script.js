@@ -157,29 +157,73 @@ window.addEventListener("scroll", () => {
 });
 
 /* =========================
-   SCROLL ANIMATION WITH INTERSECTION OBSERVER
+   GSAP SCROLL ANIMATIONS
 ========================= */
-// Handle .animate elements with .inview class
-const animateElements = document.querySelectorAll(".animate");
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
 
-const animateObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("inview");
-        animateObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { 
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px"
-  }
-);
+// Animate service cards with stagger
+const serviceCards = document.querySelectorAll(".service-card.animate");
+if (serviceCards.length) {
+  gsap.from(serviceCards, {
+    scrollTrigger: {
+      trigger: ".services",
+      start: "top 80%",
+      end: "top 20%",
+      toggleActions: "play none none none"
+    },
+    opacity: 0,
+    y: 40,
+    duration: 0.8,
+    stagger: {
+      amount: 0.3,
+      from: "start"
+    },
+    ease: "power3.out"
+  });
+}
 
-animateElements.forEach((el) => {
-  animateObserver.observe(el);
-});
+// Animate pillar cards with stagger
+const pillarCards = document.querySelectorAll(".pillar.animate");
+if (pillarCards.length) {
+  gsap.from(pillarCards, {
+    scrollTrigger: {
+      trigger: ".pillars",
+      start: "top 80%",
+      end: "top 20%",
+      toggleActions: "play none none none"
+    },
+    opacity: 0,
+    y: 40,
+    duration: 0.8,
+    stagger: {
+      amount: 0.3,
+      from: "start"
+    },
+    ease: "power3.out"
+  });
+}
+
+// Animate work cards with stagger
+const workCards = document.querySelectorAll(".work-card.animate");
+if (workCards.length) {
+  gsap.from(workCards, {
+    scrollTrigger: {
+      trigger: ".work",
+      start: "top 80%",
+      end: "top 20%",
+      toggleActions: "play none none none"
+    },
+    opacity: 0,
+    y: 40,
+    duration: 0.8,
+    stagger: {
+      amount: 0.3,
+      from: "start"
+    },
+    ease: "power3.out"
+  });
+}
 
 /* =========================
    FINALITY TRIGGER

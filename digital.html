@@ -21,6 +21,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="styles-digital.css">
+  <!-- GSAP and plugins -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body class="design-digital">
   <div class="ambient-bg" aria-hidden="true"></div>
@@ -230,18 +233,19 @@
           <article class="stage-card section-enter" data-section="about" data-ghost="ABOUT">
             <div class="card-title-wrap">
               <span class="card-kicker">About</span>
-              <h3>Digital essentialism for brands that need clarity</h3>
-              <p>After 11 years in high-pressure talent management, I learned that complexity drains momentum. I build systems that remove noise, sharpen the message, and scale with discipline.</p>
+              <h3>Clarity is the ultimate scale.</h3>
+              <p>I founded this tailored approach to return to a more disciplined way of building. I believe a digital presence should function like a piece of high-end hardware, tactile, intentional, and stripped of everything unnecessary. I don't build websites; I architect digital ecosystems where code and strategy are inseparable.</p>
+              <p>By bridging the gap between technical execution and strategic management, I help brands reclaim their clarity. The goal is a presence that doesn't just exist, but performs: lean, scalable, and resilient.</p>
             </div>
 
             <div class="about-grid">
               <div class="about-block">
-                <h4>Digital Essentialism</h4>
-                <p data-scan-lead="true"><span class="copy-emphasis">Clarity wins</span> when every <span class="copy-emphasis">channel</span>, <span class="copy-emphasis">message</span>, and <span class="copy-emphasis">workflow</span> earns its place. The goal is not more <span class="copy-emphasis">content</span> or more <span class="copy-emphasis">tools</span>, but a <span class="copy-emphasis">cleaner</span> system that keeps decisions <span class="copy-emphasis">simple</span>.</p>
+                <h4>Why I Build</h4>
+                <p>I founded this tailored approach to return to a more disciplined way of building. I believe a digital presence should function like a piece of high-end hardware, tactile, intentional, and stripped of everything unnecessary. I don't build websites; I architect digital ecosystems where code and strategy are inseparable.</p>
               </div>
               <div class="about-block">
-                <h4>How I Solve</h4>
-                <p>I move between strategy, structure, and implementation so the brand stays coherent from audit to launch, with less friction and fewer handoffs.</p>
+                <h4>The Result</h4>
+                <p>By bridging the gap between technical execution and strategic management, I help brands reclaim their clarity. The goal is a presence that doesn't just exist, but performs: lean, scalable, and resilient.</p>
               </div>
             </div>
 
@@ -261,7 +265,7 @@
           <article class="stage-card section-enter" data-section="services" data-ghost="RESUME">
             <div class="card-title-wrap">
               <span class="card-kicker">Capabilities</span>
-              <h3>Atelier products for brands that need systems</h3>
+              <h3>Tailored products for brands that need systems</h3>
               <p>I package strategy as clear, high-trust services that align web, content, and distribution into one operating engine.</p>
             </div>
 
@@ -299,7 +303,7 @@
             </div>
 
             <div class="service-grid">
-              <div class="service-card">
+              <div class="service-card animate">
                 <div class="service-title-col">
                   <h4><svg class="service-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 20h16"/><path d="M7 16v-4"/><path d="M12 16v-8"/><path d="M17 16v-11"/></svg><span>Growth Strategy</span></h4>
                   <span class="service-subtitle">Ecosystem Orchestration</span>
@@ -309,7 +313,7 @@
                   <p>Synchronizing social, web, and data into a single operating engine that keeps the system coherent as it scales.</p>
                 </div>
               </div>
-              <div class="service-card">
+              <div class="service-card animate">
                 <div class="service-title-col">
                   <h4><svg class="service-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 4 3 9l9 5 9-5-9-5Z"/><path d="m3 13 9 5 9-5"/></svg><span>Content Systems</span></h4>
                   <span class="service-subtitle">Narrative Precision</span>
@@ -319,7 +323,7 @@
                   <p>Stripping away the fluff so the core message stays loud, repeatable, and impossible to confuse.</p>
                 </div>
               </div>
-              <div class="service-card">
+              <div class="service-card animate">
                 <div class="service-title-col">
                   <h4><svg class="service-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 11v2"/><path d="M6 9v6"/><path d="M9 8c6 0 9-3 12-4v16c-3-1-6-4-12-4Z"/></svg><span>Paid Media</span></h4>
                   <span class="service-subtitle">Distribution Architecture</span>
@@ -329,7 +333,7 @@
                   <p>Turning spend into controlled distribution with clean feedback loops and measurable lift.</p>
                 </div>
               </div>
-              <div class="service-card">
+              <div class="service-card animate">
                 <div class="service-title-col">
                   <h4><svg class="service-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.2-4.2"/></svg><span>SEO + Conversion</span></h4>
                   <span class="service-subtitle">Digital Architecture</span>
@@ -360,17 +364,17 @@
             </div>
 
             <div class="method-grid">
-              <article class="method-card">
+              <article class="method-card animate">
                 <span class="method-index">01</span>
                 <h4>Architecture over Aesthetics</h4>
                 <p>Design must serve the data. Beautiful decisions are useful only when they reduce friction and make the system easier to trust.</p>
               </article>
-              <article class="method-card">
+              <article class="method-card animate">
                 <span class="method-index">02</span>
                 <h4>Scale through Simplicity</h4>
                 <p>If it becomes too complex to manage, it is already broken. Simpler systems create better throughput, clearer feedback, and less waste.</p>
               </article>
-              <article class="method-card">
+              <article class="method-card animate">
                 <span class="method-index">03</span>
                 <h4>Full-Stack Accountability</h4>
                 <p>The strategy, the copy, the interface, and the code should speak with one voice so execution stays aligned with intent.</p>
@@ -380,21 +384,21 @@
             <div class="blog-panel">
               <div class="blog-panel-head">
                 <h4>Latest Insights</h4>
-                <p>Blog-style updates from real campaign execution.</p>
+                <p>Actionable insights drawn from real campaign execution.</p>
               </div>
               <div class="blog-grid">
-                <article class="blog-card">
-                  <span class="blog-meta">May 2026 · Strategy</span>
+                <article class="blog-card animate">
+                  <span class="blog-meta">Strategy Insight</span>
                   <h5>Why attention without ownership keeps brands fragile</h5>
                   <p>The exact framework we use to move from platform dependency into owned audience systems.</p>
                 </article>
-                <article class="blog-card">
-                  <span class="blog-meta">April 2026 · Paid Media</span>
+                <article class="blog-card animate">
+                  <span class="blog-meta">Paid Media Insight</span>
                   <h5>Scaling creative testing without burning the team</h5>
                   <p>How to structure experiments so media spend and creative production improve together.</p>
                 </article>
-                <article class="blog-card">
-                  <span class="blog-meta">March 2026 · Retention</span>
+                <article class="blog-card animate">
+                  <span class="blog-meta">Retention Insight</span>
                   <h5>Email automation that actually drives revenue</h5>
                   <p>The sequence architecture behind higher open rates, stronger LTV, and fewer dead lists.</p>
                 </article>
@@ -407,7 +411,7 @@
       return `
         <article class="stage-card section-enter" data-section="contact" data-ghost="CONTACT">
           <div class="card-title-wrap">
-            <span class="card-kicker">Audit</span>
+            <span class="card-kicker">Consultation</span>
             <h3>Request a Digital Consultation</h3>
             <p>Share your goals, timeline, and constraints. I’ll follow up with a clear next step focused on clarity, systems, and execution.</p>
           </div>
@@ -528,6 +532,57 @@
       window.addEventListener('resize', syncMobileProfileCompaction);
       syncMobileProfileCompaction();
     }
+
+    /* =========================
+       GSAP SCROLL ANIMATIONS FOR PORTFOLIO
+    ========================= */
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Watch for new .animate elements and animate them
+    const animatePortfolioCards = () => {
+      const animateElements = document.querySelectorAll('.workspace-body .animate');
+      if (!animateElements.length) return;
+
+      // Remove any existing animations
+      gsap.killTweensOf(animateElements);
+
+      gsap.from(animateElements, {
+        scrollTrigger: {
+          trigger: '.workspace-body',
+          start: "top center",
+          toggleActions: "play none none none"
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.6,
+        stagger: {
+          amount: 0.2,
+          from: "start"
+        },
+        ease: "power3.out"
+      });
+    };
+
+    // Use MutationObserver to catch when new elements are added
+    const observer = new MutationObserver(() => {
+      // Debounce the animation trigger
+      clearTimeout(window.animateDebounce);
+      window.animateDebounce = setTimeout(() => {
+        animatePortfolioCards();
+        ScrollTrigger.refresh();
+      }, 50);
+    });
+
+    observer.observe(stage, {
+      childList: true,
+      subtree: true
+    });
+
+    // Initial animation for first section
+    setTimeout(() => {
+      animatePortfolioCards();
+      ScrollTrigger.refresh();
+    }, 300);
   </script>
 </body>
 </html>

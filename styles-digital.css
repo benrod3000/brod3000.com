@@ -1093,6 +1093,21 @@ p {
   border-radius: 50%;
   top: 0;
   border: 2px solid var(--bg);
+
+/* ======================
+   GSAP ANIMATIONS
+====================== */
+.animate {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.service-card.animate,
+.method-card.animate,
+.blog-card.animate {
+  opacity: 0;
+  transform: translateY(30px);
+}
 }
 
 @media (min-width: 921px) {

@@ -1084,6 +1084,12 @@ p {
   border: 2px solid var(--bg);
 }
 
+@media (min-width: 921px) {
+  .project-card::before {
+    display: none;
+  }
+}
+
 .project-card:nth-child(odd) {
   grid-column: 1;
   text-align: right;

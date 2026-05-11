@@ -125,9 +125,11 @@ p {
   background: rgba(255, 255, 255, 0.62);
   backdrop-filter: blur(10px);
   position: sticky;
-  top: 50px;
-  transform: none;
-  align-self: start;
+  top: 50%;
+  transform: translateY(-50%);
+  align-self: center;
+  height: max-content;
+  border-radius: 16px;
   z-index: 16;
 }
 

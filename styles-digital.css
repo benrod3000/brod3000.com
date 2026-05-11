@@ -125,7 +125,7 @@ p {
   background: rgba(255, 255, 255, 0.62);
   backdrop-filter: blur(10px);
   position: sticky;
-  top: 50px;
+  top: 40px;
   z-index: 16;
 }
 
@@ -233,7 +233,7 @@ p {
   min-height: 0;
   animation: sidebar-in 0.68s cubic-bezier(.4, 0, .2, 1) both;
   position: sticky;
-  top: 50px;
+  top: 40px;
   z-index: 15;
 }
 
@@ -747,7 +747,7 @@ p {
   color: var(--muted);
   line-height: 1.9;
   font-size: 1.05rem;
-  max-width: 720px;
+  max-width: 650px;
 }
 
 .scan-lead {
@@ -1379,7 +1379,7 @@ p {
   }
 
   .workspace-body {
-    padding: 32px 20px calc(124px + env(safe-area-inset-bottom, 0px)) 20px;
+    padding: 32px 30px calc(124px + env(safe-area-inset-bottom, 0px)) 30px;
   }
 
   .about-grid,
@@ -1395,7 +1395,7 @@ p {
   }
 
   .stage-card {
-    padding: 24px 25px 120px 25px;
+    padding: 24px 30px 120px 30px;
   }
 
   .stage-card[data-section="contact"] {

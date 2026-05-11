@@ -1607,7 +1607,23 @@ p {
   .profile-facts,
   .profile-socials,
   .profile-cta {
-    transition: all 0.24s ease;
+    transition-timing-function: ease;
+    transition-duration: 0.24s;
+  }
+
+  .profile-card {
+    transition-property: grid-template-columns, border-bottom-color;
+  }
+
+  .profile-cover,
+  .profile-content,
+  .profile-content h1,
+  .profile-role,
+  .profile-rotator,
+  .profile-facts,
+  .profile-socials,
+  .profile-cta {
+    transition-property: padding, min-height, margin, font-size, letter-spacing, opacity;
   }
 
   .profile-card.is-compact {
@@ -1735,7 +1751,7 @@ p {
   }
 
   .stage-card[data-section="contact"] {
-    padding-bottom: calc(132px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(176px + env(safe-area-inset-bottom, 0px));
   }
 
   .ui-cursor {

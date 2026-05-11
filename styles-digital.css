@@ -1739,7 +1739,7 @@ p {
   .stage-card {
     --ghost-size: clamp(56px, 18vw, 140px);
     --ghost-right: 14px;
-    --ghost-top: 14px;
+    --ghost-top: 6px;
     padding: 24px 30px 120px 30px;
   }
 

@@ -125,7 +125,8 @@ p {
   background: rgba(255, 255, 255, 0.62);
   backdrop-filter: blur(10px);
   position: sticky;
-  top: 40px;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 16;
 }
 
@@ -679,6 +680,10 @@ p {
   overflow: visible;
 }
 
+.stage-card[data-section="services"] {
+  padding-left: 40px;
+}
+
 .stage-card::before {
   content: attr(data-ghost);
   position: absolute;
@@ -922,17 +927,17 @@ p {
   margin: 0;
   color: var(--text);
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   display: inline-flex;
   align-items: center;
   gap: 10px;
 }
 
-.service-card h4 i {
+.service-icon {
   color: var(--accent);
-  font-size: 0.9rem;
-  width: 14px;
-  text-align: center;
+  width: 16px;
+  min-width: 16px;
+  display: inline-block;
 }
 
 .service-title-col {
@@ -943,8 +948,12 @@ p {
 .service-card p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.94rem;
+  font-size: 0.955rem;
   line-height: 1.6;
+}
+
+.service-grid .service-card:last-child {
+  padding-bottom: 150px;
 }
 
 .tag {
@@ -980,6 +989,18 @@ p {
 }
 
 .meter i {
+
+.site-signature {
+  position: absolute;
+  right: 20px;
+  bottom: 14px;
+  margin: 0;
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--text) 48%, var(--muted));
+  z-index: 20;
+}
   display: block;
   width: 0;
   height: 100%;
@@ -1354,6 +1375,8 @@ p {
     left: 10px;
     right: 10px;
     bottom: 10px;
+    top: auto;
+    transform: none;
     z-index: 40;
     grid-auto-flow: column;
     align-content: initial;
@@ -1417,9 +1440,19 @@ p {
     padding: 24px 30px 120px 30px;
   }
 
+  .stage-card[data-section="services"] {
+    padding-left: 30px;
+  }
+
   .service-card {
     grid-template-columns: 1fr;
     gap: 10px;
+  }
+
+  .site-signature {
+    right: 16px;
+    bottom: calc(86px + env(safe-area-inset-bottom, 0px));
+    font-size: 9px;
   }
 
   .stage-card[data-section="contact"] {

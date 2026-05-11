@@ -125,7 +125,7 @@ p {
   background: rgba(255, 255, 255, 0.62);
   backdrop-filter: blur(10px);
   position: sticky;
-  top: 0;
+  top: 50px;
   z-index: 16;
 }
 
@@ -233,7 +233,7 @@ p {
   min-height: 0;
   animation: sidebar-in 0.68s cubic-bezier(.4, 0, .2, 1) both;
   position: sticky;
-  top: 0;
+  top: 50px;
   z-index: 15;
 }
 
@@ -343,12 +343,13 @@ p {
 }
 
 .profile-content h1 {
-  margin: 0 0 7px;
-  font-size: 2.08rem;
+  margin: 0 0 8px;
+  font-size: 2.42rem;
   font-family: "Playfair Display", Georgia, serif;
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: -0.01em;
-  line-height: 1.2;
+  line-height: 1.15;
+  color: var(--text);
 }
 
 .profile-role {
@@ -406,6 +407,9 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.78rem;
 }
 
 .profile-facts .status-live::before {
@@ -644,11 +648,11 @@ p {
 }
 
 .workspace-body::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 .workspace-body::-webkit-scrollbar-thumb {
-  background: rgba(61, 90, 77, 0.8);
+  background: var(--accent);
   border-radius: 999px;
 }
 
@@ -667,7 +671,7 @@ p {
   border: none;
   border-radius: 0;
   background: transparent;
-  padding: 240px 40px 60px 96px;
+  padding: 240px 40px 150px 96px;
   box-shadow: none;
   will-change: transform, opacity, filter;
   position: relative;
@@ -1390,7 +1394,7 @@ p {
   }
 
   .stage-card {
-    padding: 24px 20px 72px 20px;
+    padding: 24px 25px 120px 25px;
   }
 
   .stage-card[data-section="contact"] {

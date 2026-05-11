@@ -726,6 +726,26 @@ p {
   margin-bottom: 120px;
 }
 
+.about-bridge {
+  width: min(140px, 42%);
+  height: 1px;
+  margin: 0 auto 120px;
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+  position: relative;
+}
+
+.about-bridge::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 62%, #6b635a);
+  transform: translate(-50%, -50%);
+}
+
 .stage-card > * {
   position: relative;
   z-index: 1;
@@ -1381,11 +1401,53 @@ p {
   .profile-card {
     border-right: 0;
     border-bottom: 1px solid var(--line-soft);
-    grid-template-rows: 180px minmax(0, 1fr);
+    grid-template-rows: 136px auto;
   }
 
   .profile-cover {
-    height: auto;
+    min-height: 136px;
+    max-height: 136px;
+  }
+
+  .profile-content {
+    padding: 14px 16px 16px;
+    overflow: visible;
+  }
+
+  .profile-content h1 {
+    margin: 0 0 5px;
+    font-size: clamp(1.55rem, 7vw, 2rem);
+    line-height: 1.05;
+  }
+
+  .profile-role {
+    margin: 0;
+    letter-spacing: 0.12em;
+  }
+
+  .profile-rotator,
+  .profile-facts {
+    display: none;
+  }
+
+  .profile-socials {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 0;
+    border-top: 0;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .profile-socials a {
+    width: 38px;
+    height: 38px;
+  }
+
+  .profile-cta {
+    margin-top: 6px;
+    font-size: 0.72rem;
+    padding: 12px 14px;
   }
 
   .workspace-body {
@@ -1409,6 +1471,15 @@ p {
     --ghost-right: 14px;
     --ghost-top: 14px;
     padding: 24px 30px 120px 30px;
+  }
+
+  .stage-card[data-section="about"] .stats-row {
+    margin-bottom: 42px;
+  }
+
+  .about-bridge {
+    width: min(120px, 44%);
+    margin: 0 auto 88px;
   }
 
   .stage-card[data-section="services"] {

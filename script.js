@@ -50,13 +50,13 @@ document.querySelectorAll("section[id]").forEach(s => sectionObserver.observe(s)
 /* =========================
    SERVICE CARD STAGGER
 ========================= */
-const serviceCards = document.querySelectorAll(".service-card");
+const baseServiceCards = document.querySelectorAll(".service-card");
 
 const cardObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        serviceCards.forEach((card, i) => {
+        baseServiceCards.forEach((card, i) => {
           setTimeout(() => card.classList.add("visible"), i * 80);
         });
         cardObserver.disconnect();
@@ -66,21 +66,21 @@ const cardObserver = new IntersectionObserver(
   { threshold: 0.15 }
 );
 
-if (serviceCards.length) {
-  serviceCards.forEach(c => c.classList.add("fade-up"));
-  cardObserver.observe(serviceCards[0].closest("section") || serviceCards[0]);
+if (baseServiceCards.length) {
+  baseServiceCards.forEach(c => c.classList.add("fade-up"));
+  cardObserver.observe(baseServiceCards[0].closest("section") || baseServiceCards[0]);
 }
 
 /* =========================
    WORK CARD STAGGER
 ========================= */
-const workCards = document.querySelectorAll(".work-card");
+const baseWorkCards = document.querySelectorAll(".work-card");
 
 const workObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        workCards.forEach((card, i) => {
+        baseWorkCards.forEach((card, i) => {
           setTimeout(() => card.classList.add("visible"), i * 100);
         });
         workObserver.disconnect();
@@ -90,9 +90,9 @@ const workObserver = new IntersectionObserver(
   { threshold: 0.1 }
 );
 
-if (workCards.length) {
-  workCards.forEach(c => c.classList.add("fade-up"));
-  workObserver.observe(workCards[0].closest("section") || workCards[0]);
+if (baseWorkCards.length) {
+  baseWorkCards.forEach(c => c.classList.add("fade-up"));
+  workObserver.observe(baseWorkCards[0].closest("section") || baseWorkCards[0]);
 }
 
 /* =========================
@@ -159,69 +159,77 @@ window.addEventListener("scroll", () => {
 /* =========================
    GSAP SCROLL ANIMATIONS
 ========================= */
-// Register ScrollTrigger plugin
-gsap.registerPlugin(ScrollTrigger);
+if (window.gsap && window.ScrollTrigger) {
+  // Register ScrollTrigger plugin
+  gsap.registerPlugin(ScrollTrigger);
 
-// Animate service cards with stagger
-const serviceCards = document.querySelectorAll(".service-card.animate");
-if (serviceCards.length) {
-  gsap.from(serviceCards, {
-    scrollTrigger: {
-      trigger: ".services",
-      start: "top 80%",
-      end: "top 20%",
-      toggleActions: "play none none none"
-    },
-    opacity: 0,
-    y: 40,
-    duration: 0.8,
-    stagger: {
-      amount: 0.3,
-      from: "start"
-    },
-    ease: "power3.out"
-  });
-}
+  // Animate service cards with stagger
+  const gsapServiceCards = document.querySelectorAll(".service-card.animate");
+  if (gsapServiceCards.length) {
+    gsap.from(gsapServiceCards, {
+      scrollTrigger: {
+        trigger: ".services",
+        start: "top 80%",
+        end: "top 20%",
+        toggleActions: "play none none none"
+      },
+      opacity: 0,
+      y: 40,
+      duration: 0.8,
+      stagger: {
+        amount: 0.3,
+        from: "start"
+      },
+      ease: "power3.out"
+    });
+  }
 
-// Animate pillar cards with stagger
-const pillarCards = document.querySelectorAll(".pillar.animate");
-if (pillarCards.length) {
-  gsap.from(pillarCards, {
-    scrollTrigger: {
-      trigger: ".pillars",
-      start: "top 80%",
-      end: "top 20%",
-      toggleActions: "play none none none"
-    },
-    opacity: 0,
-    y: 40,
-    duration: 0.8,
-    stagger: {
-      amount: 0.3,
-      from: "start"
-    },
-    ease: "power3.out"
-  });
-}
+  // Animate pillar cards with stagger
+  const gsapPillarCards = document.querySelectorAll(".pillar.animate");
+  if (gsapPillarCards.length) {
+    gsap.from(gsapPillarCards, {
+      scrollTrigger: {
+        trigger: ".pillars",
+        start: "top 80%",
+        end: "top 20%",
+        toggleActions: "play none none none"
+      },
+      opacity: 0,
+      y: 40,
+      duration: 0.8,
+      stagger: {
+        amount: 0.3,
+        from: "start"
+      },
+      ease: "power3.out"
+    });
+  }
 
-// Animate work cards with stagger
-const workCards = document.querySelectorAll(".work-card.animate");
-if (workCards.length) {
-  gsap.from(workCards, {
-    scrollTrigger: {
-      trigger: ".work",
-      start: "top 80%",
-      end: "top 20%",
-      toggleActions: "play none none none"
-    },
-    opacity: 0,
-    y: 40,
-    duration: 0.8,
-    stagger: {
-      amount: 0.3,
-      from: "start"
-    },
-    ease: "power3.out"
+  // Animate work cards with stagger
+  const gsapWorkCards = document.querySelectorAll(".work-card.animate");
+  if (gsapWorkCards.length) {
+    gsap.from(gsapWorkCards, {
+      scrollTrigger: {
+        trigger: ".work",
+        start: "top 80%",
+        end: "top 20%",
+        toggleActions: "play none none none"
+      },
+      opacity: 0,
+      y: 40,
+      duration: 0.8,
+      stagger: {
+        amount: 0.3,
+        from: "start"
+      },
+      ease: "power3.out"
+    });
+  }
+} else {
+  // Fallback: if GSAP fails to load, keep animated elements visible.
+  document.querySelectorAll(".animate").forEach((el) => {
+    el.style.opacity = "1";
+    el.style.transform = "none";
   });
 }
 

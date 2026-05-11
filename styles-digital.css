@@ -1386,32 +1386,31 @@ p {
     top: auto;
     transform: none;
     z-index: 40;
-    grid-auto-flow: column;
-    align-content: initial;
-    justify-content: stretch;
+    width: 100vw;
+    max-width: none;
+    box-sizing: border-box;
     border: 0;
     border-radius: 0;
-    padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
     background: rgba(255, 255, 255, 0.88);
     box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.08);
     backdrop-filter: blur(8px);
   }
 
   .rail-main {
-    grid-auto-flow: column;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 8px;
+    gap: 4px;
     width: 100%;
   }
 
   .rail-tab {
     width: 100%;
-    height: 44px;
+    height: 48px;
   }
 
   .rail-tab svg {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
   }
 
   body.design-digital {

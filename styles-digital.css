@@ -1047,23 +1047,66 @@ p {
 
 .project-list {
   display: grid;
-  gap: 10px;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 0;
+  align-items: start;
+  position: relative;
+}
+
+.project-list::before {
+  content: '';
+  grid-column: 2;
+  grid-row: 1 / -1;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent) 0%, transparent 100%);
+  opacity: 0.3;
 }
 
 .project-card {
   border: none;
   border-radius: 0;
   background: transparent;
-  padding: 0;
+  padding: 0 20px 40px;
   box-shadow: none;
-  border-bottom: 1px solid rgba(62, 48, 36, 0.12);
-  padding-bottom: 18px;
-  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease;
+  border-bottom: none;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+  position: relative;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  top: 0;
+  border: 2px solid var(--bg);
+}
+
+.project-card:nth-child(odd) {
+  grid-column: 1;
+  text-align: right;
+  padding-right: 30px;
+}
+
+.project-card:nth-child(odd)::before {
+  right: -16px;
+}
+
+.project-card:nth-child(even) {
+  grid-column: 3;
+  text-align: left;
+  padding-left: 30px;
+}
+
+.project-card:nth-child(even)::before {
+  left: -16px;
 }
 
 .project-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(89, 130, 108, 0.34);
+  transform: none;
+  opacity: 0.85;
 }
 
 .project-card header {
@@ -1573,6 +1616,25 @@ p {
 
   .blog-grid {
     gap: 8px;
+  }
+
+  .project-list {
+    grid-template-columns: 1fr;
+  }
+
+  .project-list::before {
+    display: none;
+  }
+
+  .project-card {
+    grid-column: 1 !important;
+    text-align: left !important;
+    padding: 0 0 28px !important;
+  }
+
+  .project-card::before {
+    left: 0 !important;
+    top: 2px;
   }
 
   .stage-card {

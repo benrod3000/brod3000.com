@@ -157,6 +157,31 @@ window.addEventListener("scroll", () => {
 });
 
 /* =========================
+   SCROLL ANIMATION WITH INTERSECTION OBSERVER
+========================= */
+// Handle .animate elements with .inview class
+const animateElements = document.querySelectorAll(".animate");
+
+const animateObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("inview");
+        animateObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { 
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+  }
+);
+
+animateElements.forEach((el) => {
+  animateObserver.observe(el);
+});
+
+/* =========================
    FINALITY TRIGGER
 ========================= */
 const cta = document.querySelector(".cta");

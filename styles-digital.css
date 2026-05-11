@@ -1638,15 +1638,10 @@ p {
   }
 
   .stage-card {
-    --ghost-size: clamp(42px, 12vw, 90px);
+    --ghost-size: clamp(56px, 18vw, 140px);
     --ghost-right: 14px;
     --ghost-top: 14px;
     padding: 24px 30px 120px 30px;
-  }
-
-  .stage-card[data-section="portfolio"],
-  .stage-card[data-section="contact"] {
-    --ghost-size: clamp(36px, 10vw, 72px);
   }
 
   .stage-card[data-section="about"] .stats-row {

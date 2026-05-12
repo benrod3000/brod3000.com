@@ -223,13 +223,22 @@ if (window.gsap && window.ScrollTrigger) {
       ease: "power3.out"
     });
   }
-} else {
-  // Fallback: if GSAP fails to load, keep animated elements visible.
+}
+
+// Fallback: ensure animated elements are visible if GSAP hasn't animated them yet
+// Run immediately and again after page load
+function makeAnimatedElementsVisible() {
   document.querySelectorAll(".animate").forEach((el) => {
-    el.style.opacity = "1";
-    el.style.transform = "none";
+    if (window.getComputedStyle(el).opacity === '0') {
+      el.style.opacity = "1";
+      el.style.transform = "translateY(0)";
+    }
   });
 }
+
+// Run immediately
+setTimeout(makeAnimatedElementsVisible, 100);
+window.addEventListener('load', makeAnimatedElementsVisible);
 
 /* =========================
    FINALITY TRIGGER

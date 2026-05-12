@@ -7,7 +7,7 @@ const progressBar = document.querySelector(".progress-bar");
    SCROLL REVEALS
 ========================= */
 const revealEls = document.querySelectorAll(
-  ".hero, .about, .cta-inner, .stat"
+  ".hero, .about-hero, .quote-rail, .fragment, .layered-type, .terminal-card, .folder-grid, .margin-notes, .about-cta, .cta-inner, .stat"
 );
 
 revealEls.forEach(el => el.classList.add("fade-up"));
@@ -346,6 +346,68 @@ if (window.location.pathname.includes('digital.html')) {
         // Scroll to top
         if (cardContainer) {
           cardContainer.scrollTop = 0;
+        }
+      }
+    });
+  });
+
+  /* =========================
+     ABOUT SECTION - FOLDER CARDS
+  ========================= */
+  const folderHeaders = document.querySelectorAll('.folder-header');
+  
+  folderHeaders.forEach(header => {
+    header.addEventListener('click', () => {
+      const isExpanded = header.getAttribute('aria-expanded') === 'true';
+      
+      // Close other folders
+      folderHeaders.forEach(h => {
+        if (h !== header) {
+          h.setAttribute('aria-expanded', 'false');
+        }
+      });
+      
+      // Toggle current folder
+      header.setAttribute('aria-expanded', !isExpanded);
+    });
+  });
+
+  /* =========================
+     ABOUT SECTION - QUOTE MARQUEE SCROLL
+  ========================= */
+  const marquee = document.querySelector('.quote-marquee');
+  if (marquee) {
+    // Duplicate the content for seamless looping
+    const items = marquee.querySelectorAll('.quote-line');
+    items.forEach(item => {
+      const clone = item.cloneNode(true);
+      marquee.appendChild(clone);
+    });
+  }
+
+  /* =========================
+     ABOUT CTA BUTTONS
+  ========================= */
+  const ctaButtons = document.querySelectorAll('.about-cta [data-action]');
+  
+  ctaButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const action = btn.getAttribute('data-action');
+      
+      if (action === 'contact') {
+        // Scroll to contact section or open contact form
+        const contactSection = document.querySelector('.cta');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          // Fallback: scroll to footer
+          document.querySelector('footer')?.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else if (action === 'work') {
+        // Scroll to work section
+        const workSection = document.querySelector('.work');
+        if (workSection) {
+          workSection.scrollIntoView({ behavior: 'smooth' });
         }
       }
     });

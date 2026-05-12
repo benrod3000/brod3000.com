@@ -7,7 +7,7 @@ const progressBar = document.querySelector(".progress-bar");
    SCROLL REVEALS
 ========================= */
 const revealEls = document.querySelectorAll(
-  ".hero, .about, .service-card, .work-card, .cta-inner, .stat"
+  ".hero, .about, .cta-inner, .stat"
 );
 
 revealEls.forEach(el => el.classList.add("fade-up"));
@@ -67,7 +67,6 @@ const cardObserver = new IntersectionObserver(
 );
 
 if (baseServiceCards.length) {
-  baseServiceCards.forEach(c => c.classList.add("fade-up"));
   cardObserver.observe(baseServiceCards[0].closest("section") || baseServiceCards[0]);
 }
 
@@ -91,7 +90,6 @@ const workObserver = new IntersectionObserver(
 );
 
 if (baseWorkCards.length) {
-  baseWorkCards.forEach(c => c.classList.add("fade-up"));
   workObserver.observe(baseWorkCards[0].closest("section") || baseWorkCards[0]);
 }
 

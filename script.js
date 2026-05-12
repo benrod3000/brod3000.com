@@ -368,7 +368,7 @@ if (window.location.pathname.includes('digital.html')) {
       });
       
       // Toggle current folder
-      header.setAttribute('aria-expanded', !isExpanded);
+      header.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
     });
   });
 

@@ -1,16 +1,20 @@
 # Service Site
 
-Portfolio website for Ben Rodriguez, focused on growth systems, audience ownership, and digital marketing services.
+Standalone resume and case-study site for Ben Rodriguez, focused on growth systems, audience ownership, and digital marketing execution.
 
 ## Live Site
 
 - GitHub Pages: https://benrod3000.github.io/service/
+- Classic archive: https://benrod3000.github.io/service/index-classic.html
 
 ## Project Structure
 
-- `index.html` - Main page content and section layout
-- `styles.css` - Global styling, responsive layout, interactions, and section themes
-- `script.js` - Scroll reveals, stagger effects, nav active states, and scroll-based UI behavior
+- `index.html` - Primary digital resume site (root entrypoint)
+- `styles-digital.css` - Digital UI styling, responsive behavior, and animation system
+- `index-classic.html` - Archived classic homepage layout
+- `digital.html` - Compatibility redirect to root URL
+- `styles.css` - Legacy classic page styling
+- `script.js` - Legacy classic page interactions and version-toggle behavior
 - `images/` - Profile and visual assets
 
 ## Local Development
@@ -32,18 +36,6 @@ python3 -m http.server 8080
 Then visit:
 
 - http://localhost:8080
-
-## Newsletter Embed
-
-The CTA section embeds the signup form from:
-
-- https://newsletterservice.vercel.app/embed
-
-If the form does not appear:
-
-1. Hard refresh the page (`Cmd+Shift+R` on macOS).
-2. Check browser extensions (ad/privacy blockers can block embeds).
-3. Confirm the embed URL is reachable in a new tab.
 
 ## Deployment
 
@@ -69,13 +61,14 @@ git push origin main
 ## Notes
 
 - Keep copy and metadata in `index.html` aligned.
+- Keep `index-classic.html` as archive-only content; avoid adding new features there.
 - Keep animations performant by preferring `transform` and `opacity` transitions.
 
 ## Temporary Cache-Busting
 
-Temporary query-string cache busting is currently enabled for local CSS/JS assets using:
+Temporary query-string cache busting is currently enabled for local assets using:
 
-- `?v=20260512-1`
+- `styles-digital.css?v=20260512-2`
 
 This was added to reduce stale GitHub Pages browser cache issues after rapid updates.
 
@@ -86,5 +79,5 @@ When to remove it:
 
 How to remove it:
 
-1. Remove `?v=20260512-1` from local asset URLs in `index.html`, `digital.html`, and `script.js`.
+1. Remove query-string versions from local asset URLs in `index.html` once cache behavior is stable.
 2. Commit and push one cleanup commit.

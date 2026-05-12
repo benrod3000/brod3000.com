@@ -811,10 +811,9 @@ body.ownership-achieved {
 /* ======================
    ANIMATIONS - GSAP POWERED
 ====================== */
-/* GSAP handles animations via JavaScript - no CSS transitions needed */
+/* GSAP handles animations via JavaScript - cards start visible */
 .animate {
-  opacity: 0;
-  transform: translateY(40px);
+  /* Initially visible - GSAP will handle animations */
 }
 
 /* ======================

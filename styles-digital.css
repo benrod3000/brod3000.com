@@ -1453,14 +1453,14 @@ p {
 
 .section-enter {
   opacity: 0;
-  transform: none;
+  transform: translateY(4px);
   position: relative;
 }
 
 .section-enter.section-enter-active {
   opacity: 1;
-  transform: none;
-  transition: opacity 0.26s ease-out;
+  transform: translateY(0);
+  transition: opacity 0.28s ease-out, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .section-exit-active {

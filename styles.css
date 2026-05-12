@@ -452,6 +452,11 @@ section {
   color: var(--bg);
 }
 
+.services-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .services .section-label {
   color: rgba(255,255,255,0.45);
 }

@@ -776,7 +776,7 @@
     };
 
     // Use MutationObserver to catch when new elements are added
-    const observer = new MutationObserver(() => {
+    const stageMutationObserver = new MutationObserver(() => {
       // Debounce the animation trigger
       clearTimeout(window.animateDebounce);
       window.animateDebounce = setTimeout(() => {
@@ -785,7 +785,7 @@
       }, 50);
     });
 
-    observer.observe(stage, {
+    stageMutationObserver.observe(stage, {
       childList: true,
       subtree: true
     });

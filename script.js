@@ -12,19 +12,19 @@ const revealEls = document.querySelectorAll(
 
 revealEls.forEach(el => el.classList.add("fade-up"));
 
-const observer = new IntersectionObserver(
+const revealObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
+        revealObserver.unobserve(entry.target);
       }
     });
   },
   { threshold: 0.1 }
 );
 
-revealEls.forEach(el => observer.observe(el));
+revealEls.forEach(el => revealObserver.observe(el));
 
 /* =========================
    NAV ACTIVE STATE

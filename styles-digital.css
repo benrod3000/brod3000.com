@@ -2075,7 +2075,7 @@ p {
   }
 
   .workflow-node {
-    min-height: 0;
+    min-height: 185px;
   }
 
   .workflow-node::after {

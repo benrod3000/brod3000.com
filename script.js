@@ -98,13 +98,13 @@ if (baseWorkCards.length) {
 ========================= */
 const heroTitle = document.querySelector(".hero-title");
 
-const phrases = [
+const heroPhrases = [
   "Attention is rented",
   "Systems build ownership",
   "I turn attention into ownership"
 ];
 
-let phraseIndex = 0;
+let heroPhraseIndex = 0;
 
 /* =========================
    SYSTEM COMPACT MODE
@@ -128,13 +128,13 @@ function onScroll() {
 
   // Hero title morph
   if (heroTitle) {
-    if (scroll > 200 && phraseIndex === 0) {
-      heroTitle.textContent = phrases[1];
-      phraseIndex = 1;
+    if (scroll > 200 && heroPhraseIndex === 0) {
+      heroTitle.textContent = heroPhrases[1];
+      heroPhraseIndex = 1;
     }
-    if (scroll > 500 && phraseIndex === 1) {
-      heroTitle.textContent = phrases[2];
-      phraseIndex = 2;
+    if (scroll > 500 && heroPhraseIndex === 1) {
+      heroTitle.textContent = heroPhrases[2];
+      heroPhraseIndex = 2;
     }
   }
 

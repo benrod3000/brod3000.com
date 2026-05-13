@@ -1310,6 +1310,127 @@ p {
   margin-bottom: 14px;
 }
 
+.workflow-container {
+  margin-top: 28px;
+  border-top: 1px solid rgba(62, 48, 36, 0.2);
+  border-bottom: 1px solid rgba(62, 48, 36, 0.12);
+  padding: 18px 0 20px;
+}
+
+.workflow-header h4 {
+  margin: 0 0 4px;
+  font-size: 0.95rem;
+}
+
+.workflow-header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.workflow-track {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.workflow-node {
+  position: relative;
+  border: 1px solid rgba(62, 48, 36, 0.14);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.18) 100%);
+  padding: 10px 10px 12px;
+  min-height: 136px;
+}
+
+.workflow-meta {
+  display: inline-block;
+  margin-bottom: 7px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #b8941f;
+  font-weight: 700;
+}
+
+.workflow-node h5 {
+  margin: 0 0 7px;
+  font-size: 0.84rem;
+  line-height: 1.25;
+}
+
+.workflow-node p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.workflow-node::after {
+  content: "";
+  position: absolute;
+  top: 27px;
+  right: -12px;
+  width: 12px;
+  height: 2px;
+  background: #d4af37;
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0.85;
+}
+
+.workflow-node:last-child::after {
+  display: none;
+}
+
+.stage-card.section-enter-active .workflow-node {
+  animation: item-rise 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.stage-card.section-enter-active .workflow-node:nth-child(2) { animation-delay: 0.06s; }
+.stage-card.section-enter-active .workflow-node:nth-child(3) { animation-delay: 0.12s; }
+.stage-card.section-enter-active .workflow-node:nth-child(4) { animation-delay: 0.18s; }
+.stage-card.section-enter-active .workflow-node:nth-child(5) { animation-delay: 0.24s; }
+.stage-card.section-enter-active .workflow-node:nth-child(6) { animation-delay: 0.3s; }
+
+.stage-card.section-enter-active .workflow-node::after {
+  animation: workflow-link 0.44s ease-out both;
+}
+
+.stage-card.section-enter-active .workflow-node:nth-child(2)::after { animation-delay: 0.1s; }
+.stage-card.section-enter-active .workflow-node:nth-child(3)::after { animation-delay: 0.16s; }
+.stage-card.section-enter-active .workflow-node:nth-child(4)::after { animation-delay: 0.22s; }
+.stage-card.section-enter-active .workflow-node:nth-child(5)::after { animation-delay: 0.28s; }
+
+.workflow-node.is-live {
+  animation: workflow-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes workflow-link {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scaleX(1);
+    opacity: 0.9;
+  }
+}
+
+@keyframes workflow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.2), 0 0 0 0 rgba(212, 175, 55, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.35), 0 0 0 8px rgba(212, 175, 55, 0.12);
+  }
+}
+
 .blog-panel {
   margin-top: 30px;
   border: none;
@@ -1945,6 +2066,30 @@ p {
     grid-template-columns: 1fr;
   }
 
+  .workflow-track {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .workflow-node {
+    min-height: 0;
+  }
+
+  .workflow-node::after {
+    top: auto;
+    right: auto;
+    left: 16px;
+    bottom: -8px;
+    width: 2px;
+    height: 8px;
+    transform: scaleY(0);
+    transform-origin: top center;
+  }
+
+  .stage-card.section-enter-active .workflow-node::after {
+    animation-name: workflow-link-mobile;
+  }
+
   .workspace-body::after {
     justify-self: center;
     margin: 26px 0 calc(10px + env(safe-area-inset-bottom, 0px)) 0;
@@ -1958,6 +2103,28 @@ p {
 
   .ui-cursor {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workflow-node,
+  .workflow-node::after,
+  .workflow-node.is-live {
+    animation: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+@keyframes workflow-link-mobile {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scaleY(1);
+    opacity: 0.9;
   }
 }
 

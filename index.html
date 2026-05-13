@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="styles-digital.css?v=12">
+  <link rel="stylesheet" href="styles-digital.css?v=13">
   <!-- GSAP and plugins -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -112,6 +112,7 @@
     let bindCursorTargets = () => {};
     let phraseIndex = 0;
     let currentSection = 'about';
+    let workflowPulseInterval = null;
     const compactProfileQuery = window.matchMedia('(max-width: 920px)');
     const compactProfileThreshold = 36;
     const dockScrollThreshold = 18;
@@ -581,6 +582,46 @@
               </article>
             </div>
 
+            <section class="workflow-container animate" aria-label="Operating workflow schematic">
+              <div class="workflow-header">
+                <h4>Operating Workflow</h4>
+                <p>From raw signal to hardened system.</p>
+              </div>
+
+              <ol class="workflow-track">
+                <li class="workflow-node animate">
+                  <span class="workflow-meta">STEP 01</span>
+                  <h5>Signal Intake</h5>
+                  <p>Aggregating raw data, market sentiment, and brand objectives into a single source of truth.</p>
+                </li>
+                <li class="workflow-node animate">
+                  <span class="workflow-meta">STEP 02</span>
+                  <h5>Diagnostic Mapping</h5>
+                  <p>Identifying systemic bottlenecks and friction points within the existing digital structure.</p>
+                </li>
+                <li class="workflow-node animate">
+                  <span class="workflow-meta">STEP 03</span>
+                  <h5>System Architecture</h5>
+                  <p>Designing the durable framework and logic flows required to solve the identified friction.</p>
+                </li>
+                <li class="workflow-node animate">
+                  <span class="workflow-meta">STEP 04</span>
+                  <h5>Multi Channel Execution</h5>
+                  <p>Deploying the architecture across relevant platforms with unified brand logic.</p>
+                </li>
+                <li class="workflow-node animate">
+                  <span class="workflow-meta">STEP 05</span>
+                  <h5>Feedback Integration</h5>
+                  <p>Capturing real time performance data to refine the system responsiveness.</p>
+                </li>
+                <li class="workflow-node animate">
+                  <span class="workflow-meta">STEP 06</span>
+                  <h5>Iterative Optimization</h5>
+                  <p>Hardening the system for long term retention and compounding growth.</p>
+                </li>
+              </ol>
+            </section>
+
             <div class="blog-panel">
               <div class="blog-panel-head">
                 <h4>Applied Signals</h4>
@@ -635,6 +676,11 @@
     }
 
     function mountSection(section) {
+      if (workflowPulseInterval) {
+        window.clearInterval(workflowPulseInterval);
+        workflowPulseInterval = null;
+      }
+
       if (section === currentSection && stage.childElementCount > 0) {
         if (section === 'about') {
           const activeCard = stage.querySelector('.stage-card[data-section="about"]');
@@ -668,6 +714,19 @@
               bar.style.width = getComputedStyle(bar).getPropertyValue('--fill');
             }, 120 * idx);
           });
+        }
+
+        if (section === 'portfolio') {
+          const workflowNodes = [...stage.querySelectorAll('.workflow-node')];
+          if (workflowNodes.length) {
+            let pulseIndex = 0;
+            workflowNodes[0].classList.add('is-live');
+            workflowPulseInterval = window.setInterval(() => {
+              workflowNodes[pulseIndex].classList.remove('is-live');
+              pulseIndex = (pulseIndex + 1) % workflowNodes.length;
+              workflowNodes[pulseIndex].classList.add('is-live');
+            }, 420);
+          }
         }
 
       };
@@ -749,7 +808,7 @@
     const animatePortfolioCards = () => {
       const isPortfolio = currentSection === 'portfolio';
       const selector = isPortfolio
-        ? '.workspace-body .method-card.animate, .workspace-body .blog-card.animate'
+        ? '.workspace-body .method-card.animate, .workspace-body .workflow-container.animate, .workspace-body .workflow-node.animate, .workspace-body .blog-card.animate'
         : '.workspace-body .animate';
       const animateElements = document.querySelectorAll(selector);
       if (!animateElements.length) return;

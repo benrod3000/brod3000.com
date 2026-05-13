@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="styles-digital.css?v=11">
+  <link rel="stylesheet" href="styles-digital.css?v=12">
   <!-- GSAP and plugins -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -69,7 +69,7 @@
           <p><span>Status</span><strong class="status-live">Available for new projects</strong></p>
         </div>
         <div class="profile-socials">
-          <a href="mailto:benrod1@gmail.com" aria-label="Email">
+          <a href="mailto:ben@brod3000.com" aria-label="Email">
             <i class="fas fa-envelope"></i>
           </a>
           <a href="https://www.reddit.com/user/benrod1/" aria-label="Reddit" target="_blank" rel="noopener noreferrer">
@@ -82,7 +82,7 @@
             <i class="fab fa-behance"></i>
           </a>
         </div>
-        <a class="profile-cta" href="mailto:benrod1@gmail.com">Download CV</a>
+        <a class="profile-cta" href="mailto:ben@brod3000.com">Download CV</a>
       </div>
     </aside>
 
@@ -619,7 +619,7 @@
           <div class="contact-grid">
             <div class="contact-block">
               <h4>Direct</h4>
-              <p><strong>Email:</strong> <a href="mailto:benrod1@gmail.com">benrod1@gmail.com</a></p>
+              <p><strong>Email:</strong> <a href="mailto:ben@brod3000.com">ben@brod3000.com</a></p>
               <p><strong>Location:</strong> Southern California</p>
               <p>Share what feels misaligned. I'll map a clear next step.</p>
             </div>
@@ -718,6 +718,11 @@
         btn.setAttribute('aria-pressed', 'true');
         btn.setAttribute('aria-current', 'page');
         mountSection(btn.dataset.section);
+        // Always scroll to top of workspace on section change
+        if (stage) {
+          stage.scrollTop = 0;
+        }
+        window.scrollTo({ top: 0, behavior: 'auto' });
       });
     });
 

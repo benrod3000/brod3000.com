@@ -1,6 +1,6 @@
 # Service Site
 
-Standalone resume and case-study site for Ben Rodriguez, focused on growth systems, audience ownership, and digital marketing execution.
+Standalone resume and case study site for Ben Rodriguez, focused on growth systems, audience ownership, and digital marketing execution.
 
 ## Live Site
 
@@ -14,7 +14,7 @@ Standalone resume and case-study site for Ben Rodriguez, focused on growth syste
 - `index-classic.html` - Archived classic homepage layout
 - `digital.html` - Compatibility redirect to root URL
 - `styles.css` - Legacy classic page styling
-- `script.js` - Legacy classic page interactions and version-toggle behavior
+- `script.js` - Legacy classic page interactions and version toggle behavior
 - `images/` - Profile and visual assets
 
 ## Local Development
@@ -61,12 +61,12 @@ git push origin main
 ## Notes
 
 - Keep copy and metadata in `index.html` aligned.
-- Keep `index-classic.html` as archive-only content; avoid adding new features there.
+- Keep `index-classic.html` as archive only content; avoid adding new features there.
 - Keep animations performant by preferring `transform` and `opacity` transitions.
 
-## Temporary Cache-Busting
+## Temporary Cache Busting
 
-Temporary query-string cache busting is currently enabled for local assets using:
+Temporary query string cache busting is currently enabled for local assets using:
 
 - `styles-digital.css?v=20260512-2`
 
@@ -79,5 +79,5 @@ When to remove it:
 
 How to remove it:
 
-1. Remove query-string versions from local asset URLs in `index.html` once cache behavior is stable.
+1. Remove query string versions from local asset URLs in `index.html` once cache behavior is stable.
 2. Commit and push one cleanup commit.

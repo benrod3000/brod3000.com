@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ben Rodriguez: Resume, Case Studies, and Contact</title>
-  <meta name="description" content="Ben Rodriguez resume and case studies. Growth systems, strategy, and owned-audience infrastructure.">
-  <meta property="og:title" content="Ben Rodriguez: Resume and Case Studies">
+  <title>Ben Rodriguez: Resume, Concepts, and Contact</title>
+  <meta name="description" content="Ben Rodriguez resume and concepts. Growth systems, strategy, and owned audience infrastructure.">
+  <meta property="og:title" content="Ben Rodriguez: Resume and Concepts">
   <meta property="og:description" content="Growth systems and digital strategy for creators and brands.">
   <meta property="og:image" content="images/profile.jpg">
   <meta property="og:url" content="https://benrod3000.github.io/service/">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Ben Rodriguez: Resume and Case Studies">
+  <meta name="twitter:title" content="Ben Rodriguez: Resume and Concepts">
   <meta name="twitter:description" content="Resume, projects, and contact for growth systems and digital strategy work.">
   <meta name="twitter:image" content="images/profile.jpg">
   <link rel="icon" href="favicon.svg?v=20260512-2" type="image/svg+xml">
@@ -20,11 +20,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="styles-digital.css?v=9">
+  <link rel="stylesheet" href="styles-digital.css?v=10">
   <!-- GSAP and plugins -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="script.js?v=9" defer></script>
+  <script src="script.js?v=10" defer></script>
 </head>
 <body class="design-digital">
   <div class="ambient-bg" aria-hidden="true"></div>
@@ -43,9 +43,9 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h5"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>
           <span class="rail-label">Resume</span>
         </button>
-        <button class="rail-tab" data-section="portfolio" aria-label="Case Studies">
+        <button class="rail-tab" data-section="portfolio" aria-label="Concepts">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-          <span class="rail-label">Case Studies</span>
+          <span class="rail-label">Concepts</span>
         </button>
         <button class="rail-tab" data-section="contact" aria-label="Contact">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
@@ -322,7 +322,7 @@
     }
 
     function applyScanLeadEmphasis(root) {
-      const targets = root.querySelectorAll('.card-title-wrap p, .about-block p, .timeline-item p, .service-card p, .project-card p, .blog-card p');
+      const targets = root.querySelectorAll('.card-title-wrap p, .about-block p, .timeline-item p, .service-card p, .project-card p, .method-card p');
       targets.forEach((paragraph) => {
         if (paragraph.dataset.scanLead === 'true') return;
         const text = paragraph.textContent.replace(/\s+/g, ' ').trim();
@@ -428,19 +428,19 @@
             <div class="card-title-wrap">
               <span class="card-kicker">About</span>
               <h3>I build systems for growth.</h3>
-              <p>Not content chaos. Not reactive campaigns. Not short term spikes that disappear when the push ends. Most digital work breaks when it depends on constant output instead of structure.</p>
-              <p>I have spent more than a decade inside that friction. Teams stay busy, ship more, and still struggle to create anything that compounds. The problem is rarely effort. The problem is alignment.</p>
-              <p>I have worked inside messy teams long enough to know what does not scale. Most of what I build begins by fixing systems that already exist.</p>
+              <p><strong>Systems first growth architecture</strong> demands a move away from "growth hacks" toward durable, high leverage digital structures.</p>
+              <p><strong>Complexity requires clarity</strong> when managing multi channel campaigns; we solve for the bottleneck before we solve for the volume.</p>
+              <p><strong>Engineered for scale</strong> is how I approach every campaign, ensuring that the infrastructure can support the ambition.</p>
             </div>
 
             <div class="about-grid">
               <div class="about-block">
                 <h4>Alignment</h4>
-                <p>Messaging, media, funnels, and code should reinforce each other, not compete for attention. When they align, growth gets quieter, more predictable, and less reactive.</p>
+                <p><strong>Methodology over history</strong> is the cornerstone of my practice; I provide the operating manual, not just the labor.</p>
               </div>
               <div class="about-block">
                 <h4>Principle</h4>
-                <p>The goal is not more content. The goal is clarity that scales. Systems that hold under pressure. Feedback loops that improve outcomes without rebuilding everything from scratch.</p>
+                <p><strong>Eleven years' tenure</strong> at the intersection of culture and commerce has refined my ability to scale brands without losing their soul.</p>
               </div>
             </div>
 
@@ -461,8 +461,7 @@
             <div class="card-title-wrap">
               <span class="card-kicker">Capabilities</span>
               <h3>Methodology first services for durable digital systems</h3>
-              <p>Digital marketing works when structure and storytelling reinforce each other. I combine storytelling, analytics, and system design to create digital structures built for long-term clarity and growth.</p>
-              <p>I design digital systems that align strategy, messaging, and user experience.</p>
+              <p><strong>Unified brand logic</strong> ensures every touchpoint, from first impression to final conversion, operates as a single cohesive narrative.</p>
             </div>
 
             <div class="resume-layout">
@@ -497,7 +496,7 @@
                   <article class="timeline-item">
                     <span class="timeline-date">2014</span>
                     <h5>Digital Strategy Certification</h5>
-                    <p>Specialized in audience development, editorial systems, and channel positioning to improve message-market fit across digital touchpoints.</p>
+                    <p>Specialized in audience development, editorial systems, and channel positioning to improve message market fit across digital touchpoints.</p>
                   </article>
                 </div>
               </div>
@@ -511,7 +510,7 @@
                   <span class="tag">Roadmap</span>
                 </div>
                 <div class="service-desc-col">
-                  <p>Improve long-term retention and create stronger alignment across channels by designing integrated systems that turn fragmented activity into owned infrastructure.</p>
+                  <p><strong>High fidelity data loops</strong> move your decision making away from "gut feeling" and toward a rigorous, evidence based marketing cycle.</p>
                 </div>
               </div>
               <div class="service-card animate">
@@ -521,7 +520,7 @@
                   <span class="tag">Ops</span>
                 </div>
                 <div class="service-desc-col">
-                  <p>Create testing frameworks and reporting systems that catch performance gaps before performance declines, building conviction into budget and messaging choices.</p>
+                  <p><strong>Retention driven lifecycle design</strong> focuses on the compounding value of existing users, turning fleeting interactions into durable brand loyalty.</p>
                 </div>
               </div>
               <div class="service-card animate">
@@ -531,7 +530,7 @@
                   <span class="tag">Acquisition</span>
                 </div>
                 <div class="service-desc-col">
-                  <p>Orchestrate segmentation, automation, and nurture sequences that create durable audience value by building clarity into every lifecycle stage.</p>
+                  <p><strong>Conversion consistency systems</strong> are built to survive market volatility by focusing on core human behavior rather than platform trends.</p>
                 </div>
               </div>
               <div class="service-card animate">
@@ -559,49 +558,49 @@
         return `
           <article class="stage-card section-enter" data-section="portfolio" data-ghost="PORTFOLIO">
             <div class="card-title-wrap">
-              <span class="card-kicker">Case Studies</span>
-              <h3>Execution patterns that produced repeatable outcomes</h3>
-              <p>Representative case study themes from campaign and systems work. Each one combines strategic clarity, operational discipline, and measurable business signal.</p>
+              <span class="card-kicker">Concepts</span>
+              <h3>Theory library for durable digital operation</h3>
+              <p>Core principles that guide planning, channel execution, and performance control across the full system.</p>
             </div>
 
             <div class="method-grid">
               <article class="method-card animate">
                 <span class="method-index">01</span>
-                <h4>Paid + Organic Alignment</h4>
-                <p>Unified paid social, organic content, and landing page strategy under one planning rhythm so acquisition and conversion worked from the same playbook.</p>
+                <h4>Systems Over Tactics</h4>
+                <p><strong>Architectural stability logic</strong> Infrastructure led growth prioritizes repeatable frameworks over transient platform hacks. Strategic resilience is achieved by building systems that outlast individual campaign cycles.</p>
               </article>
               <article class="method-card animate">
                 <span class="method-index">02</span>
-                <h4>Lifecycle Email Systems</h4>
-                <p>Rebuilt retention flows and audience segmentation to support higher quality follow up, stronger re engagement, and more dependable lifecycle revenue.</p>
+                <h4>The Durable Narrative</h4>
+                <p><strong>Contextual brand filtering</strong> Narrative serves as the primary filter for all incoming data and outgoing creative. A coherent brand identity reduces market friction and accelerates consumer trust building.</p>
               </article>
               <article class="method-card animate">
                 <span class="method-index">03</span>
-                <h4>Conversion-Focused Web Ops</h4>
-                <p>Introduced faster page iteration cycles and tighter UX/content collaboration, improving handoff quality and reducing avoidable funnel friction.</p>
+                <h4>Compound Retention</h4>
+                <p><strong>Compounding lifecycle physics</strong> Revenue growth is a function of minimizing churn through rigorous user experience design. Sustainable scaling is driven by the lifetime value of established audiences rather than constant acquisition.</p>
               </article>
             </div>
 
             <div class="blog-panel">
               <div class="blog-panel-head">
-                <h4>Selected Outcomes</h4>
-                <p>Each snapshot is structured for quick review. Context, actions, and impact.</p>
+                <h4>Applied Signals</h4>
+                <p>Compact outcome snapshots. Context, action, impact.</p>
               </div>
               <div class="blog-grid">
                 <article class="blog-card animate">
-                  <span class="blog-meta">Strategy Execution</span>
+                  <span class="blog-meta">Systems Deployment</span>
                   <h5>Audience ownership framework rollout</h5>
-                  <p><strong>Context:</strong> Growth planning was fragmented across teams and channels.<br><strong>Actions:</strong> Introduced a shared framework linking content, paid media, and web priorities.<br><strong>Impact:</strong> Improved decision speed, clearer campaign choices, and more consistent execution quality.</p>
+                  <p><strong>Context:</strong> Planning was fragmented across teams and channels.<br><strong>Action:</strong> Implemented one planning cadence linking content, paid media, and web priorities.<br><strong>Impact:</strong> Faster decisions, clearer campaign choices, steadier execution quality.</p>
                 </article>
                 <article class="blog-card animate">
                   <span class="blog-meta">Paid Media Operations</span>
                   <h5>Creative testing system for paid social</h5>
-                  <p><strong>Context:</strong> Testing was inconsistent, making scale decisions slower and less reliable.<br><strong>Actions:</strong> Built a repeatable creative test cadence with cleaner hypotheses and reporting loops.<br><strong>Impact:</strong> More learnings per cycle, faster iteration, and stronger confidence in budget allocation choices.</p>
+                  <p><strong>Context:</strong> Testing was inconsistent and scaling decisions were slow.<br><strong>Action:</strong> Built a repeatable creative test cadence with cleaner hypotheses and reporting loops.<br><strong>Impact:</strong> More learnings per cycle, faster iteration, stronger budget confidence.</p>
                 </article>
                 <article class="blog-card animate">
                   <span class="blog-meta">Retention Systems</span>
                   <h5>Email automation reset for dormant audiences</h5>
-                  <p><strong>Context:</strong> Lifecycle messaging lacked segmentation and reactivation logic.<br><strong>Actions:</strong> Rebuilt automation flows for nurture, re engagement, and list health controls.<br><strong>Impact:</strong> Better audience quality, steadier retention performance, and improved long term channel value.</p>
+                  <p><strong>Context:</strong> Lifecycle messaging lacked segmentation and reactivation control.<br><strong>Action:</strong> Rebuilt automation flows for nurture, re engagement, and list health management.<br><strong>Impact:</strong> Better audience quality, steadier retention performance, stronger long term value.</p>
                 </article>
               </div>
             </div>
@@ -743,7 +742,11 @@
 
     // Watch for new .animate elements and animate them
     const animatePortfolioCards = () => {
-      const animateElements = document.querySelectorAll('.workspace-body .animate');
+      const isPortfolio = currentSection === 'portfolio';
+      const selector = isPortfolio
+        ? '.workspace-body .method-card.animate, .workspace-body .blog-card.animate'
+        : '.workspace-body .animate';
+      const animateElements = document.querySelectorAll(selector);
       if (!animateElements.length) return;
 
       // Remove any existing animations
@@ -756,10 +759,10 @@
           toggleActions: "play none none none"
         },
         opacity: 0,
-        y: 30,
-        duration: 0.6,
+        y: isPortfolio ? 24 : 30,
+        duration: isPortfolio ? 0.74 : 0.6,
         stagger: {
-          amount: 0.2,
+          amount: isPortfolio ? 0.34 : 0.2,
           from: "start"
         },
         ease: "power3.out"

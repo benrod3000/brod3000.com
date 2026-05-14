@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /digital.html
+Disallow: /index-classic.html
+
+Sitemap: https://brod3000.com/sitemap.xml

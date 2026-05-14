@@ -1729,7 +1729,7 @@ p {
     position: fixed;
     left: max(10px, env(safe-area-inset-left, 0px));
     right: max(10px, env(safe-area-inset-right, 0px));
-    bottom: max(12px, env(safe-area-inset-bottom, 0px));
+    bottom: max(20px, calc(env(safe-area-inset-bottom, 0px) + 16px));
     top: auto;
     transform: none;
     z-index: 40;
@@ -1792,7 +1792,7 @@ p {
   }
 
   body.design-digital {
-    padding-bottom: calc(178px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(210px + env(safe-area-inset-bottom, 0px));
   }
 
   .profile-card {
@@ -2133,7 +2133,7 @@ p {
 
 @media (max-width: 768px) {
   body.design-digital {
-    padding-bottom: calc(156px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(196px + env(safe-area-inset-bottom, 0px));
   }
 
   .ambient-canvas {
@@ -2144,7 +2144,7 @@ p {
     left: max(8px, env(safe-area-inset-left, 0px));
     right: max(8px, env(safe-area-inset-right, 0px));
     top: auto;
-    bottom: max(10px, env(safe-area-inset-bottom, 0px));
+    bottom: max(18px, calc(env(safe-area-inset-bottom, 0px) + 14px));
     transform: none;
     width: auto;
     max-width: 720px;

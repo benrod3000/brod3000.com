@@ -157,8 +157,10 @@ p {
   gap: 4px;
   padding: 6px;
   border: none;
-  background: transparent;
-  backdrop-filter: none;
+  background: rgba(255, 255, 255, 0.35); /* clear glass effect */
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.04);
   box-shadow: none;
   width: fit-content;
   height: auto;
@@ -1738,20 +1740,21 @@ p {
     max-width: 720px;
     margin: 0 auto;
     box-sizing: border-box;
-    border: 1px solid rgba(84, 134, 109, 0.18);
+    border: 1px solid rgba(84, 134, 109, 0.12);
     border-radius: 999px;
     padding: 10px 12px;
-    background: rgba(255, 255, 255, 0.93);
-    box-shadow: 0 14px 34px rgba(32, 42, 37, 0.2), 0 4px 14px rgba(32, 42, 37, 0.12);
-    backdrop-filter: blur(12px);
+    background: rgba(248, 252, 249, 0.55);
+    box-shadow: 0 8px 32px rgba(32, 42, 37, 0.08), inset 1px 1px 2px rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(18px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
     transition: background-color 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, backdrop-filter 0.22s ease;
   }
 
   .rail-nav.is-scrolled {
-    background: rgba(247, 248, 246, 0.97);
-    border-color: rgba(78, 117, 98, 0.28);
-    box-shadow: 0 18px 36px rgba(22, 35, 29, 0.24), 0 6px 16px rgba(22, 35, 29, 0.14);
-    backdrop-filter: blur(14px);
+    background: rgba(248, 252, 249, 0.68);
+    border-color: rgba(84, 134, 109, 0.16);
+    box-shadow: 0 12px 36px rgba(22, 35, 29, 0.12), inset 1px 1px 2px rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(20px) saturate(200%);
   }
 
   .rail-main {

@@ -281,7 +281,7 @@ if (designToggle) {
         localStorage.setItem('design-preference', 'bold');
         // Load bold stylesheet
         const stylesheet = document.getElementById('design-stylesheet');
-        if (stylesheet) stylesheet.href = 'styles-bold.css?v=20260512-2';
+        if (stylesheet) stylesheet.href = 'styles-bold.css?v=20260512-6';
         // Update button
         designToggle.textContent = 'VERSION 2';
         designToggle.style.opacity = '0.5';
@@ -308,7 +308,7 @@ if (!window.location.pathname.includes('digital.html')) {
   const designToggleBtn = document.querySelector('.design-toggle');
   
   if (currentDesign === 'bold' && stylesheet) {
-    stylesheet.href = 'styles-bold.css?v=20260512-2';
+    stylesheet.href = 'styles-bold.css?v=20260512-6';
     document.body.classList.add('design-bold');
     if (designToggleBtn) designToggleBtn.textContent = 'VERSION 2';
   } else if (currentDesign === 'digital') {

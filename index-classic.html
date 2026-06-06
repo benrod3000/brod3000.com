@@ -20,22 +20,16 @@
   <link rel="icon" href="favicon.svg?v=20260512-2" sizes="32x32" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-X42B535184"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-X42B535184');
-  </script>
-  <link rel="stylesheet" href="styles.css?v=8" />
+  <script src="gtag-init.js?v=1"></script>
+  <link rel="stylesheet" href="styles.css?v=12" />
   <link rel="stylesheet" id="design-stylesheet" />
 
   <!-- GSAP and plugins -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw==" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -184,11 +178,11 @@
       <div class="terminal-body">
         <div class="terminal-line"><span class="terminal-prefix">➜</span> <span class="terminal-command">whoami</span></div>
         <div class="terminal-line"><span class="terminal-response">ben rodriguez — systems architect & growth strategist</span></div>
-        <div class="terminal-line" style="margin-top: 12px;"><span class="terminal-prefix">➜</span> <span class="terminal-command">ls -la expertise/</span></div>
+        <div class="terminal-line u-mt-12"><span class="terminal-prefix">➜</span> <span class="terminal-command">ls -la expertise/</span></div>
         <div class="terminal-line"><span class="terminal-response">strategy | content systems | paid media | audience architecture | web | code</span></div>
-        <div class="terminal-line" style="margin-top: 12px;"><span class="terminal-prefix">➜</span> <span class="terminal-command">find . -type result</span></div>
+        <div class="terminal-line u-mt-12"><span class="terminal-prefix">➜</span> <span class="terminal-command">find . -type result</span></div>
         <div class="terminal-line"><span class="terminal-response">20+ campaigns | 3x avg ROAS | $8M+ attributed revenue</span></div>
-        <div class="terminal-line" style="margin-top: 12px;"><span class="terminal-prefix">➜</span> <span class="terminal-command">philosophy</span></div>
+        <div class="terminal-line u-mt-12"><span class="terminal-prefix">➜</span> <span class="terminal-command">philosophy</span></div>
         <div class="terminal-line terminal-typing"><span class="terminal-response">Alignment before effort. Architecture before features. Evidence before claims.</span></div>
       </div>
     </div>
@@ -203,7 +197,7 @@
         <div class="folder-content">
           <div class="folder-body">
             <p><strong>Clear systems create durable growth.</strong> I don't believe in tricks, hacks, or gray-hat tactics. I believe in alignment: strategy that echoes through messaging, user experience, and code. When every touchpoint reinforces the same truth, growth compounds without friction.</p>
-            <p style="margin-top: 12px;">That's the system. That's what I build.</p>
+            <p class="u-mt-12">That's the system. That's what I build.</p>
           </div>
         </div>
       </div>
@@ -216,7 +210,7 @@
         <div class="folder-content">
           <div class="folder-body">
             <p><strong>From startup operator to systems architect.</strong> I've spent 11 years across talent communities, creator economies, and digital ecosystems. I've launched 20+ campaigns, managed 8-figure budgets, and built frameworks that other teams still use.</p>
-            <p style="margin-top: 12px;">But experience only matters if it compounds into insight. Every brand I work with gets the full weight of that learning: what works, what doesn't, and why.</p>
+            <p class="u-mt-12">But experience only matters if it compounds into insight. Every brand I work with gets the full weight of that learning: what works, what doesn't, and why.</p>
           </div>
         </div>
       </div>
@@ -229,7 +223,7 @@
         <div class="folder-content">
           <div class="folder-body">
             <p><strong>Not vanity metrics. Not promises.</strong> Real, attributable outcomes. 3x average ROAS across paid campaigns. $8M+ in attributed revenue for clients. Dozens of brands that still use the frameworks I built with them.</p>
-            <p style="margin-top: 12px;">The system works because it's built to scale without breaking. And because alignment exists, everyone stays bought in.</p>
+            <p class="u-mt-12">The system works because it's built to scale without breaking. And because alignment exists, everyone stays bought in.</p>
           </div>
         </div>
       </div>
@@ -263,32 +257,32 @@
       <h2>What I do</h2>
       <div class="services-grid">
 
-      <div class="service-card animate" style="--card-color: #f97316;">
+      <div class="service-card service-card--orange animate">
         <h3>Growth Strategy</h3>
         <p>Audience research, positioning, and a clear roadmap for compounding growth across platforms.</p>
       </div>
 
-      <div class="service-card animate" style="--card-color: #facc15;">
+      <div class="service-card service-card--yellow animate">
         <h3>Content Systems</h3>
         <p>Repeatable frameworks that keep you publishing consistently without burning out.</p>
       </div>
 
-      <div class="service-card animate" style="--card-color: #22c55e;">
+      <div class="service-card service-card--green animate">
         <h3>Paid Media</h3>
         <p>Meta and YouTube campaigns built for audience expansion, retargeting, and measurable returns.</p>
       </div>
 
-      <div class="service-card animate" style="--card-color: #38bdf8;">
+      <div class="service-card service-card--sky animate">
         <h3>SEO & Web Presence</h3>
         <p>On-page SEO, conversion-focused web design, and funnels that turn visitors into leads.</p>
       </div>
 
-      <div class="service-card animate" style="--card-color: #a78bfa;">
+      <div class="service-card service-card--violet animate">
         <h3>Email Marketing</h3>
         <p>List building, automation, and campaigns that give you direct access to your audience.</p>
       </div>
 
-      <div class="service-card animate" style="--card-color: #f472b6;">
+      <div class="service-card service-card--pink animate">
         <h3>Analytics & Optimization</h3>
         <p>Data tracking, performance reviews, and decisions based on what actually works.</p>
       </div>
@@ -338,7 +332,7 @@
     <div class="work-grid">
 
       <a href="#contact" class="work-card animate">
-        <div class="work-card-header" style="background: #f97316;">
+        <div class="work-card-header work-card-header--orange">
           <span class="work-type">Release System</span>
         </div>
         <div class="work-card-body">
@@ -357,7 +351,7 @@
       </a>
 
       <a href="#contact" class="work-card animate">
-        <div class="work-card-header" style="background: #38bdf8;">
+        <div class="work-card-header work-card-header--sky">
           <span class="work-type">Distribution System</span>
         </div>
         <div class="work-card-body">
@@ -376,7 +370,7 @@
       </a>
 
       <a href="#contact" class="work-card animate">
-        <div class="work-card-header" style="background: #22c55e;">
+        <div class="work-card-header work-card-header--green">
         </div>
         <div class="work-card-body">
           <h3>Email is not marketing, it's ownership.</h3>
@@ -409,10 +403,10 @@
       </p>
       <a href="mailto:ben@brod3000.com" class="btn large">Request a Digital Consultation</a>
       <iframe
+        class="newsletter-embed"
         src="https://newsletterservice.vercel.app/embed"
         width="100%"
         height="120"
-        style="border: none; background: transparent;"
         title="Newsletter signup"
       ></iframe>
     </div>
@@ -424,21 +418,7 @@
     <span>Digital Marketing Manager</span>
   </footer>
 
-  <script src="script.js?v=9"></script>
-  <script>
-    // Apply saved design preference after body exists
-    const savedDesign = localStorage.getItem('design-preference') || 'classic';
-    const designToggle = document.querySelector('.design-toggle');
-    
-    if (savedDesign === 'bold') {
-      document.body.classList.add('design-bold');
-      document.getElementById('design-stylesheet').href = 'styles-bold.css?v=20260512-2';
-      if (designToggle) designToggle.textContent = 'VERSION 2';
-    } else {
-      if (savedDesign === 'digital') localStorage.setItem('design-preference', 'classic');
-      if (designToggle) designToggle.textContent = 'VERSION 1';
-    }
-  </script>
+  <script src="script.js?v=10"></script>
 
 </body>
 </html>

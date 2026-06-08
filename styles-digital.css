@@ -3661,3 +3661,96 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
   }
 }
 
+/* ----------------------------------------------------
+   MOBILE LAYOUT FIXES FOR BROD3000.COM
+   ---------------------------------------------------- */
+@media (max-width: 900px) {
+
+  /* Body cleanup */
+  body.design-digital {
+    padding: 0;
+    overflow: auto;
+    display: block;
+    min-height: 100dvh;
+  }
+
+  /* Main container becomes single-column */
+  .digital-container {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 100dvh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* Sidebar becomes top section */
+  .profile-card {
+    position: relative;
+    top: 0;
+    height: auto;
+    border-right: none;
+    grid-template-rows: auto auto;
+  }
+
+  .profile-content {
+    padding: 24px 20px;
+  }
+
+  /* Workspace becomes normal flow */
+  .workspace-card {
+    height: auto;
+  }
+
+  .workspace-body {
+    padding: 24px 16px 80px;
+  }
+
+  /* Stage cards: reduce huge padding */
+  .stage-card {
+    padding: 60px 20px 60px;
+  }
+
+  /* Fix ghost text scaling */
+  .stage-card::before {
+    font-size: 22vw;
+    right: 10px;
+    top: 10px;
+  }
+
+  /* Rail nav becomes bottom mobile nav */
+  .rail-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    grid-auto-flow: column;
+    background: rgba(255,255,255,0.92);
+    padding: 10px 6px;
+    z-index: 9999;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .rail-tab {
+    width: auto;
+    height: auto;
+    padding: 8px 12px;
+    font-size: 0.65rem;
+  }
+
+  /* Remove sticky behavior */
+  .profile-card {
+    position: relative;
+  }
+
+  /* Fix overflow from large images */
+  img, video, iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Fix grid sections that assume desktop width */
+  .resume-layout,
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -2092,782 +2092,6 @@ p {
   }
 }
 
-@media (max-width: 1140px) {
-  body.design-digital {
-    place-items: stretch;
-    padding: 10px;
-  }
-
-  .digital-container {
-    width: 100%;
-    height: calc(100dvh - 18px);
-    grid-template-columns: 64px 286px minmax(0, 1fr);
-  }
-
-  :root {
-    --shell-gutter: 16px;
-  }
-
-  .profile-card {
-    grid-template-rows: 220px minmax(0, 1fr);
-  }
-}
-
-@media (max-width: 920px) {
-  body.design-digital {
-    overflow: auto;
-    padding: 8px;
-  }
-
-  .ambient-canvas {
-    opacity: 0.74;
-  }
-
-  :root {
-    --shell-gutter: 14px;
-  }
-
-  .digital-container {
-    grid-template-columns: 1fr;
-    height: auto;
-    min-height: calc(100dvh - 16px);
-    border-radius: 20px;
-  }
-
-  .rail-nav {
-    position: fixed;
-    left: max(10px, env(safe-area-inset-left, 0px));
-    right: max(10px, env(safe-area-inset-right, 0px));
-    bottom: max(20px, calc(env(safe-area-inset-bottom, 0px) + 16px));
-    top: auto;
-    transform: none;
-    z-index: 40;
-    width: auto;
-    max-width: 720px;
-    margin: 0 auto;
-    box-sizing: border-box;
-    border: 0;
-    border-radius: 999px;
-    padding: 10px 0;
-    background: transparent;
-    box-shadow: none;
-    transition: none;
-  }
-
-  .rail-nav.is-scrolled {
-    background: transparent;
-    border-color: transparent;
-    box-shadow: none;
-  }
-
-  .rail-main {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 8px;
-    width: 100%;
-  }
-
-  .rail-tab {
-    width: 100%;
-    height: 74px;
-    display: grid;
-    grid-template-rows: auto auto;
-    align-content: center;
-    justify-items: center;
-    gap: 4px;
-    padding: 8px 0;
-    border-radius: 14px;
-    line-height: 1;
-  }
-
-  .rail-tab svg {
-    width: 25px;
-    height: 25px;
-  }
-
-  .rail-label {
-    display: block;
-    font-size: 0.64rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    line-height: 1;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .rail-tab.active::after {
-    display: none;
-  }
-
-  body.design-digital {
-    padding-bottom: calc(210px + env(safe-area-inset-bottom, 0px));
-  }
-
-  .profile-card {
-    border-right: 0;
-    border-bottom: 1px solid var(--line-soft);
-    grid-template-columns: 104px minmax(0, 1fr);
-    grid-template-rows: auto;
-    position: relative;
-    top: auto;
-    overflow: visible;
-    margin-bottom: 10px;
-  }
-
-  .profile-cover {
-    display: block;
-    min-height: 100%;
-    max-height: none;
-    border-bottom: 0;
-    border-right: 1px solid var(--line-soft);
-  }
-
-  .profile-cover img {
-    object-fit: contain;
-    object-position: center;
-  }
-
-  .profile-content {
-    padding: 14px 16px 16px;
-    overflow: visible;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas:
-      "name name"
-      "role role"
-      "rotator rotator"
-      "facts socials"
-      "cta cta";
-    column-gap: 12px;
-    row-gap: 8px;
-    align-items: start;
-  }
-
-  .profile-content h1 {
-    grid-area: name;
-    margin: 0 0 5px;
-    font-size: clamp(1.55rem, 7vw, 2rem);
-    line-height: 1.05;
-  }
-
-  .profile-role {
-    grid-area: role;
-    margin: 0;
-    letter-spacing: 0.12em;
-  }
-
-  .profile-rotator {
-    grid-area: rotator;
-    display: block;
-    margin-top: 0;
-    min-height: 18px;
-    font-size: 0.75rem;
-    line-height: 1.35;
-  }
-
-  .profile-facts {
-    grid-area: facts;
-    display: grid;
-    grid-template-columns: 1fr;
-    margin-top: 0;
-    padding: 6px 0;
-    gap: 8px;
-  }
-
-  .profile-facts p {
-    display: grid;
-    grid-template-columns: minmax(86px, auto) minmax(0, 1fr);
-    align-items: start;
-    column-gap: 10px;
-    font-size: 0.72rem;
-  }
-
-  .profile-facts span {
-    font-size: 0.62rem;
-    letter-spacing: 0.08em;
-    line-height: 1.2;
-  }
-
-  .profile-facts strong {
-    font-size: 0.72rem;
-    line-height: 1.3;
-    text-align: right;
-    justify-self: end;
-  }
-
-  .profile-facts .status-live {
-    font-size: 0.7rem;
-    gap: 6px;
-    max-width: 168px;
-  }
-
-  .profile-socials {
-    grid-area: socials;
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(2, 36px);
-    justify-content: end;
-    align-content: start;
-    padding-top: 0;
-    border-top: 0;
-  }
-
-  .profile-socials a {
-    width: 36px;
-    height: 36px;
-  }
-
-  .profile-cta {
-    grid-area: cta;
-    margin-top: 6px;
-    width: 100%;
-    min-height: 3.9em;
-  }
-
-  .profile-card,
-  .profile-cover,
-  .profile-content,
-  .profile-content h1,
-  .profile-role,
-  .profile-rotator,
-  .profile-facts,
-  .profile-socials,
-  .profile-cta {
-    transition-timing-function: ease;
-    transition-duration: 0.24s;
-  }
-
-  .profile-card {
-    transition-property: grid-template-columns, border-bottom-color;
-  }
-
-  .profile-cover,
-  .profile-content,
-  .profile-content h1,
-  .profile-role,
-  .profile-rotator,
-  .profile-facts,
-  .profile-socials,
-  .profile-cta {
-    transition-property: padding, min-height, margin, font-size, letter-spacing, opacity;
-  }
-
-  .profile-card.is-compact {
-    grid-template-columns: 72px minmax(0, 1fr);
-    border-bottom-color: rgba(62, 48, 36, 0.18);
-  }
-
-  .profile-card.is-compact .profile-cover {
-    min-height: 72px;
-  }
-
-  .profile-card.is-compact .profile-content {
-    padding: 8px 12px;
-    grid-template-areas:
-      "name name"
-      "role role";
-    row-gap: 4px;
-    align-content: center;
-  }
-
-  .profile-card.is-compact .profile-content h1 {
-    margin: 0;
-    font-size: clamp(1.1rem, 4.8vw, 1.35rem);
-    line-height: 1.05;
-  }
-
-  .profile-card.is-compact .profile-role {
-    margin: 0;
-    font-size: 0.58rem;
-    letter-spacing: 0.1em;
-    padding: 2px 6px;
-    width: fit-content;
-  }
-
-  .profile-card.is-compact .profile-rotator,
-  .profile-card.is-compact .profile-facts,
-  .profile-card.is-compact .profile-socials,
-  .profile-card.is-compact .profile-cta {
-    display: none;
-  }
-
-  .workspace-body {
-    padding: 40px 24px calc(212px + env(safe-area-inset-bottom, 0px)) 24px;
-  }
-
-  .about-grid,
-  .resume-layout,
-  .stats-row,
-  .contact-grid,
-  .proof-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .service-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .blog-grid {
-    gap: 8px;
-  }
-
-  .project-list {
-    grid-template-columns: 1fr;
-  }
-
-  .project-list::before {
-    display: none;
-  }
-
-  .project-card {
-    grid-column: 1 !important;
-    text-align: left !important;
-    padding: 0 0 28px 20px !important;
-  }
-
-  .project-card::before {
-    left: 2px !important;
-    top: 2px;
-  }
-
-  .stage-card {
-    --ghost-size: clamp(56px, 18vw, 140px);
-    --ghost-right: 14px;
-    --ghost-top: 2px;
-    padding: 24px 30px 120px 30px;
-  }
-
-  .stage-card[data-section="portfolio"]::before,
-  .stage-card[data-section="contact"]::before {
-    right: auto;
-    left: 14px;
-  }
-
-  .stage-card[data-section="portfolio"] {
-    --ghost-size: clamp(44px, 14vw, 98px);
-  }
-
-  .stage-card[data-section="contact"] {
-    --ghost-size: clamp(48px, 16vw, 110px);
-  }
-
-  .stage-card[data-section="about"] .stats-row {
-    margin-bottom: 42px;
-  }
-
-  .about-bridge {
-    width: min(120px, 44%);
-    margin: 0 auto 88px;
-  }
-
-  .stage-card[data-section="services"] {
-    padding-left: 30px;
-  }
-
-  .service-card {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .method-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .workflow-track {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-
-  .workflow-node {
-    min-height: 185px;
-  }
-
-  .workflow-node::after {
-    top: auto;
-    right: auto;
-    left: 16px;
-    bottom: -8px;
-    width: 2px;
-    height: 8px;
-    transform: scaleY(0);
-    transform-origin: top center;
-  }
-
-  .stage-card.section-enter-active .workflow-node::after {
-    animation-name: workflow-link-mobile;
-  }
-
-  .workspace-body::after {
-    justify-self: center;
-    margin: 26px 0 calc(10px + env(safe-area-inset-bottom, 0px)) 0;
-    font-size: 9px;
-    text-align: center;
-  }
-
-  .stage-card[data-section="contact"] {
-    padding-bottom: calc(200px + env(safe-area-inset-bottom, 0px));
-  }
-
-  .ui-cursor {
-    display: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .workflow-node,
-  .workflow-node::after,
-  .workflow-node.is-live {
-    animation: none !important;
-    transform: none !important;
-    box-shadow: none !important;
-  }
-}
-
-@keyframes workflow-link-mobile {
-  from {
-    transform: scaleY(0);
-    opacity: 0;
-  }
-
-  to {
-    transform: scaleY(1);
-    opacity: 0.9;
-  }
-}
-
-@media (max-width: 768px) {
-  body.design-digital {
-    padding-bottom: calc(228px + env(safe-area-inset-bottom, 0px));
-  }
-
-  .ambient-canvas {
-    opacity: 0.62;
-  }
-
-  .rail-nav {
-    left: max(8px, env(safe-area-inset-left, 0px));
-    right: max(8px, env(safe-area-inset-right, 0px));
-    top: auto;
-    bottom: max(18px, calc(env(safe-area-inset-bottom, 0px) + 14px));
-    transform: none;
-    width: auto;
-    max-width: 720px;
-    border-radius: 999px;
-    padding: 10px 0;
-  }
-
-  .rail-main {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    width: 100%;
-    gap: 8px;
-  }
-
-  .rail-tab {
-    width: 100%;
-    min-width: 0;
-    height: 76px;
-    padding: 8px 0;
-    border-radius: 14px;
-  }
-
-  .rail-tab svg {
-    width: 26px;
-    height: 26px;
-  }
-
-  .rail-label {
-    font-size: 0.66rem;
-  }
-
-  .profile-card {
-    display: grid;
-    grid-template-columns: 104px minmax(0, 1fr);
-    grid-template-rows: auto;
-    border-bottom: 1px solid var(--line-soft);
-    align-items: stretch;
-  }
-
-  .profile-cover {
-    display: block;
-    width: auto;
-    height: auto;
-    min-height: 100%;
-    max-height: none;
-    border-right: 1px solid var(--line-soft);
-    border-bottom: 0;
-    border-radius: 0;
-    overflow: visible;
-    margin: 0;
-  }
-
-  .profile-cover img {
-    object-fit: contain;
-    object-position: center;
-  }
-
-  .profile-content {
-    width: auto;
-    padding: 14px 16px 16px;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas:
-      "name name"
-      "role role"
-      "rotator rotator"
-      "facts socials"
-      "cta cta";
-    column-gap: 12px;
-    row-gap: 8px;
-    justify-items: stretch;
-    text-align: left;
-  }
-
-  .profile-content h1,
-  .profile-role,
-  .profile-rotator {
-    text-align: left;
-  }
-
-  .profile-facts {
-    width: auto;
-  }
-
-  .profile-socials {
-    justify-content: end;
-    margin-bottom: 0;
-  }
-
-  .profile-socials a {
-    width: 32px;
-    height: 32px;
-  }
-
-  .profile-cta {
-    width: 100%;
-    margin: 6px 0 0;
-  }
-}
-
-/* ================================================
-   RADIAL HAMBURGER NAV  (mobile only, ≤ 920px)
-================================================ */
-
-.radial-trigger {
-  display: none;
-}
-
-@media (max-width: 920px) {
-  /* Shrink the pill down to a single circle */
-  .rail-nav {
-    --fan-r: 120px;
-    --fan-r30x: 104px;
-    --fan-r30y: 60px;
-    --fan-veil-size: 324px;
-    left: auto !important;
-    right: max(16px, env(safe-area-inset-right, 16px)) !important;
-    top: max(16px, env(safe-area-inset-top, 16px)) !important;
-    bottom: auto !important;
-    width: 68px !important;
-    height: 68px !important;
-    border-radius: 50% !important;
-    padding: 0 !important;
-    overflow: visible;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .rail-main {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 68px;
-    height: 68px;
-    grid-template-columns: unset !important;
-  }
-
-  .rail-nav::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: var(--fan-veil-size);
-    height: var(--fan-veil-size);
-    border-radius: 50%;
-    background:
-      radial-gradient(circle at 50% 50%,
-        rgba(252, 255, 253, 0.96) 0%,
-        rgba(248, 252, 249, 0.92) 38%,
-        rgba(242, 248, 244, 0.8) 62%,
-        rgba(240, 247, 242, 0.74) 78%,
-        rgba(240, 247, 242, 0.08) 100%);
-    clip-path: polygon(0 50%, 50% 50%, 50% 100%, 0 100%);
-    box-shadow: 0 12px 34px rgba(24, 36, 29, 0.14);
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.92);
-    transform-origin: center;
-    transition: opacity 0.24s ease, transform 0.24s ease;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .rail-nav.is-open::before {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-
-  /* Show the hamburger button */
-  .radial-trigger {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    position: relative;
-    z-index: 2;
-    width: 68px;
-    height: 68px;
-    padding: 0;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    border-radius: 50%;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .radial-trigger:focus-visible {
-    outline: 3px solid var(--accent);
-    outline-offset: 2px;
-    border-radius: 50%;
-  }
-
-  .radial-trigger-bar {
-    display: block;
-    width: 24px;
-    height: 2.5px;
-    border-radius: 2px;
-    background: var(--accent);
-    transform-origin: center;
-    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.2s ease,
-                width 0.2s ease;
-  }
-
-  /* Bars morph into X when open */
-  .rail-nav.is-open .radial-trigger-bar:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-
-  .rail-nav.is-open .radial-trigger-bar:nth-child(2) {
-    opacity: 0;
-    width: 0;
-  }
-
-  .rail-nav.is-open .radial-trigger-bar:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
-
-  /* Rail tabs: collapsed at the circle's center by default */
-  .rail-tab {
-    position: absolute !important;
-    left: calc(50% - 32px) !important;
-    top: calc(50% - 32px) !important;
-    width: 64px !important;
-    height: 64px !important;
-    border-radius: 50% !important;
-    padding: 5px 0 !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    transform: scale(0.4) !important;
-    transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
-                opacity 0.2s ease !important;
-    z-index: 1;
-  }
-
-  .rail-tab svg {
-    width: 22px !important;
-    height: 22px !important;
-  }
-
-  .rail-tab .rail-label {
-    font-size: 0.48rem;
-    letter-spacing: 0.02em;
-  }
-
-  .rail-tab.active::after {
-    display: none !important;
-  }
-
-  /* ── Fan arc: 4 items across a 90deg quarter-circle ── */
-  /* About (0deg, left) */
-  .rail-nav.is-open .rail-tab:nth-child(2) {
-    transform: translate(calc(-1 * var(--fan-r)), 0px) scale(1) !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transition-delay: 0ms !important;
-  }
-
-  /* Resume (30deg) */
-  .rail-nav.is-open .rail-tab:nth-child(3) {
-    transform: translate(calc(-1 * var(--fan-r30x)), var(--fan-r30y)) scale(1) !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transition-delay: 50ms !important;
-  }
-
-  /* Concepts (60deg) */
-  .rail-nav.is-open .rail-tab:nth-child(4) {
-    transform: translate(calc(-1 * var(--fan-r30y)), var(--fan-r30x)) scale(1) !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transition-delay: 100ms !important;
-  }
-
-  /* Contact (90deg, down) */
-  .rail-nav.is-open .rail-tab:nth-child(5) {
-    transform: translate(0px, var(--fan-r)) scale(1) !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transition-delay: 150ms !important;
-  }
-
-}
-
-@media (max-width: 768px) {
-  .rail-nav {
-    --fan-r: 104px;
-    --fan-r30x: 90px;
-    --fan-r30y: 52px;
-    --fan-veil-size: 292px;
-    left: auto !important;
-    right: max(12px, env(safe-area-inset-right, 12px)) !important;
-    top: max(12px, env(safe-area-inset-top, 12px)) !important;
-    bottom: auto !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .ambient-bg,
-  .ambient-canvas {
-    animation: none !important;
-    transform: none !important;
-  }
-
-  .ambient-canvas {
-    opacity: 0.42;
-  }
-}
-
 /* ======================
    BRUTALIST GLOBAL RESKIN
 ====================== */
@@ -3344,9 +2568,621 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
 }
 
 /* Keep CTA-style rail tabs from overlapping content */
+
+/* ============================================================
+   RESPONSIVE — TABLET (≤ 1140px, 3-col narrow)
+   ============================================================ */
+@media (max-width: 1140px) {
+  body.design-digital {
+    place-items: stretch;
+    padding: 10px;
+  }
+
+  :root {
+    --shell-gutter: 16px;
+  }
+
+  .digital-container {
+    width: 100%;
+    height: calc(100dvh - 18px);
+    grid-template-columns: 64px 286px minmax(0, 1fr);
+  }
+
+  .profile-card {
+    grid-template-rows: 220px minmax(0, 1fr);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE (≤ 920px)
+   Single-column layout. Radial hamburger nav top-right
+   on tablets (681–920), plain bottom bar on phones (≤ 680).
+   ============================================================ */
+@media (max-width: 920px) {
+  /* ----- Body ----- */
+  body.design-digital {
+    display: block;
+    overflow: auto;
+    padding: 0;
+    min-height: 100dvh;
+  }
+
+  /* ----- Ambient canvas ----- */
+  .ambient-canvas {
+    opacity: 0.62;
+  }
+
+  /* ----- Shell vars ----- */
+  :root {
+    --shell-gutter: 14px;
+  }
+
+  /* ----- Container ----- */
+  .digital-container {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 100dvh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* ----- Profile card — horizontal strip ----- */
+  .profile-card {
+    position: relative;
+    top: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--line-soft);
+    grid-template-columns: 104px minmax(0, 1fr);
+    grid-template-rows: auto;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+
+  .profile-cover {
+    display: block;
+    min-height: 100%;
+    max-height: none;
+    border-bottom: none;
+    border-right: 1px solid var(--line-soft);
+  }
+
+  .profile-cover img {
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .profile-content {
+    padding: 14px 16px 16px;
+    overflow: visible;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "name name"
+      "role role"
+      "rotator rotator"
+      "facts socials"
+      "cta cta";
+    column-gap: 12px;
+    row-gap: 8px;
+    align-items: start;
+    text-align: left;
+  }
+
+  .profile-content h1 {
+    grid-area: name;
+    margin: 0 0 5px;
+    font-size: clamp(1.55rem, 7vw, 2rem);
+    line-height: 1.05;
+  }
+
+  .profile-role {
+    grid-area: role;
+    margin: 0;
+    letter-spacing: 0.12em;
+  }
+
+  .profile-rotator {
+    grid-area: rotator;
+    display: block;
+    margin-top: 0;
+    min-height: 18px;
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+
+  .profile-facts {
+    grid-area: facts;
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 0;
+    padding: 6px 0;
+    gap: 8px;
+  }
+
+  .profile-facts p {
+    display: grid;
+    grid-template-columns: minmax(86px, auto) minmax(0, 1fr);
+    align-items: start;
+    column-gap: 10px;
+    font-size: 0.72rem;
+  }
+
+  .profile-facts span {
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+  }
+
+  .profile-facts strong {
+    font-size: 0.72rem;
+    line-height: 1.3;
+    text-align: right;
+    justify-self: end;
+  }
+
+  .profile-facts .status-live {
+    font-size: 0.7rem;
+    gap: 6px;
+    max-width: 168px;
+  }
+
+  .profile-socials {
+    grid-area: socials;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 36px);
+    justify-content: end;
+    align-content: start;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .profile-socials a {
+    width: 36px;
+    height: 36px;
+  }
+
+  .profile-cta {
+    grid-area: cta;
+    margin-top: 6px;
+    width: 100%;
+    min-height: 3.9em;
+  }
+
+  /* Compact-on-scroll state */
+  .profile-card,
+  .profile-cover,
+  .profile-content,
+  .profile-content h1,
+  .profile-role,
+  .profile-rotator,
+  .profile-facts,
+  .profile-socials,
+  .profile-cta {
+    transition-timing-function: ease;
+    transition-duration: 0.24s;
+  }
+
+  .profile-card { transition-property: grid-template-columns, border-bottom-color; }
+
+  .profile-cover,
+  .profile-content,
+  .profile-content h1,
+  .profile-role,
+  .profile-rotator,
+  .profile-facts,
+  .profile-socials,
+  .profile-cta {
+    transition-property: padding, min-height, margin, font-size, letter-spacing, opacity;
+  }
+
+  .profile-card.is-compact {
+    grid-template-columns: 72px minmax(0, 1fr);
+    border-bottom-color: rgba(62, 48, 36, 0.18);
+  }
+
+  .profile-card.is-compact .profile-cover { min-height: 72px; }
+
+  .profile-card.is-compact .profile-content {
+    padding: 8px 12px;
+    grid-template-areas: "name name" "role role";
+    row-gap: 4px;
+    align-content: center;
+  }
+
+  .profile-card.is-compact .profile-content h1 {
+    margin: 0;
+    font-size: clamp(1.1rem, 4.8vw, 1.35rem);
+    line-height: 1.05;
+  }
+
+  .profile-card.is-compact .profile-role {
+    margin: 0;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    width: fit-content;
+  }
+
+  .profile-card.is-compact .profile-rotator,
+  .profile-card.is-compact .profile-facts,
+  .profile-card.is-compact .profile-socials,
+  .profile-card.is-compact .profile-cta {
+    display: none;
+  }
+
+  /* ----- Workspace ----- */
+  .workspace-card { height: auto; }
+
+  .workspace-body {
+    /* bottom padding accounts for fixed nav bar (~80px) + safe area */
+    padding: 32px 20px calc(96px + env(safe-area-inset-bottom, 0px)) 20px;
+  }
+
+  .workspace-body::after {
+    justify-self: center;
+    margin: 26px 0 calc(10px + env(safe-area-inset-bottom, 0px)) 0;
+    font-size: 9px;
+    text-align: center;
+  }
+
+  /* ----- Stage cards ----- */
+  .stage-card {
+    --ghost-size: clamp(44px, 14vw, 98px);
+    --ghost-right: 14px;
+    --ghost-top: 2px;
+    padding: 40px 20px 60px 20px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .stage-card[data-section="about"] { padding-top: 36px; }
+  .stage-card[data-section="about"] .stats-row { margin-bottom: 42px; }
+  .stage-card[data-section="contact"] { padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); }
+
+  .stage-card[data-section="portfolio"]::before,
+  .stage-card[data-section="contact"]::before {
+    right: auto;
+    left: 14px;
+  }
+
+  .about-bridge {
+    width: min(120px, 44%);
+    margin: 0 auto 60px;
+  }
+
+  /* ----- Content grids — stack to single column ----- */
+  .about-grid,
+  .resume-layout,
+  .stats-row,
+  .contact-grid,
+  .proof-grid,
+  .service-grid,
+  .method-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-grid { gap: 16px; }
+  .service-card { grid-template-columns: 1fr; gap: 10px; }
+  .blog-grid { gap: 8px; }
+
+  .project-list { grid-template-columns: 1fr; }
+  .project-list::before { display: none; }
+
+  .project-card {
+    grid-column: 1 !important;
+    text-align: left !important;
+    padding: 0 0 28px 20px !important;
+  }
+
+  .project-card::before { left: 2px !important; top: 2px; }
+
+  .workflow-track { grid-template-columns: 1fr; gap: 8px; }
+  .workflow-node { min-height: auto; }
+
+  .workflow-node::after {
+    top: auto;
+    right: auto;
+    left: 16px;
+    bottom: -8px;
+    width: 2px;
+    height: 8px;
+    transform: scaleY(0);
+    transform-origin: top center;
+  }
+
+  .stage-card.section-enter-active .workflow-node::after {
+    animation-name: workflow-link-mobile;
+  }
+
+  /* ----- Hide desktop cursor ----- */
+  .ui-cursor { display: none; }
+
+  /* ----- Rail nav: plain bottom bar (phone default, ≤ 680) ----- */
+  .radial-trigger { display: none; }
+
+  .rail-nav {
+    position: fixed;
+    left: max(8px, env(safe-area-inset-left, 0px));
+    right: max(8px, env(safe-area-inset-right, 0px));
+    bottom: max(12px, calc(env(safe-area-inset-bottom, 0px) + 10px));
+    top: auto;
+    width: auto;
+    height: auto;
+    border-radius: 18px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    z-index: 200;
+    overflow: hidden;
+  }
+
+  .rail-nav::before { display: none; }
+
+  .rail-nav.is-scrolled {
+    background: rgba(255, 255, 255, 0.96);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .rail-main {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    width: 100%;
+    height: auto;
+  }
+
+  .rail-tab {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 56px;
+    border-radius: 12px !important;
+    padding: 7px 4px !important;
+    display: grid !important;
+    grid-template-rows: auto auto;
+    align-content: center;
+    justify-items: center;
+    gap: 3px;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    clip-path: none !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: var(--muted) !important;
+    transition: background 0.18s ease, color 0.18s ease !important;
+  }
+
+  .rail-tab::before,
+  .rail-tab::after { display: none !important; }
+
+  .rail-tab:hover,
+  .rail-tab:focus-visible,
+  .rail-tab.active {
+    background: rgba(84, 134, 109, 0.12) !important;
+    color: var(--accent) !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .rail-tab svg {
+    width: 22px !important;
+    height: 22px !important;
+    color: inherit !important;
+  }
+
+  .rail-label {
+    display: block;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: inherit !important;
+    font-family: Inter, "Helvetica Neue", Arial, sans-serif !important;
+  }
+
+  .rail-tab .span,
+  .rail-tab .second { display: none !important; }
+
+  .rail-tab.active::after { display: none !important; }
+}
+
+/* ============================================================
+   RESPONSIVE — TABLET RADIAL NAV (681px – 920px)
+   Radial hamburger in top-right corner replaces bottom bar.
+   ============================================================ */
+@media (min-width: 681px) and (max-width: 920px) {
+  body.design-digital {
+    padding: 0;
+  }
+
+  .rail-nav {
+    --fan-r: 116px;
+    --fan-r30x: 100px;
+    --fan-r30y: 58px;
+    --fan-veil-size: 314px;
+    left: auto !important;
+    right: max(14px, env(safe-area-inset-right, 14px)) !important;
+    top: max(14px, env(safe-area-inset-top, 14px)) !important;
+    bottom: auto !important;
+    width: 68px !important;
+    height: 68px !important;
+    border-radius: 50% !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12) !important;
+  }
+
+  /* Quarter-circle backdrop veil */
+  .rail-nav::before {
+    content: "" !important;
+    display: block !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--fan-veil-size);
+    height: var(--fan-veil-size);
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%,
+      rgba(252, 255, 253, 0.96) 0%,
+      rgba(248, 252, 249, 0.92) 38%,
+      rgba(242, 248, 244, 0.8) 62%,
+      rgba(240, 247, 242, 0.74) 78%,
+      rgba(240, 247, 242, 0.08) 100%);
+    clip-path: polygon(0 50%, 50% 50%, 50% 100%, 0 100%);
+    box-shadow: 0 12px 34px rgba(24, 36, 29, 0.14);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.92);
+    transform-origin: center;
+    transition: opacity 0.24s ease, transform 0.24s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .rail-nav.is-open::before {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  /* Hamburger trigger */
+  .radial-trigger {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    position: relative;
+    z-index: 2;
+    width: 68px;
+    height: 68px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 50%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .radial-trigger:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .radial-trigger-bar {
+    display: block;
+    width: 24px;
+    height: 2.5px;
+    border-radius: 2px;
+    background: var(--accent);
+    transform-origin: center;
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.2s ease,
+                width 0.2s ease;
+  }
+
+  .rail-nav.is-open .radial-trigger-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .rail-nav.is-open .radial-trigger-bar:nth-child(2) { opacity: 0; width: 0; }
+  .rail-nav.is-open .radial-trigger-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Rail main: flex container centered over the trigger */
+  .rail-main {
+    position: relative;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 68px !important;
+    height: 68px !important;
+    grid-template-columns: unset !important;
+    gap: 0;
+  }
+
+  /* Tabs hidden by default, fanned out when open */
+  .rail-tab {
+    position: absolute !important;
+    left: calc(50% - 32px) !important;
+    top: calc(50% - 32px) !important;
+    width: 64px !important;
+    height: 64px !important;
+    min-height: 0;
+    border-radius: 50% !important;
+    padding: 6px 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: scale(0.4) !important;
+    transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease !important;
+    z-index: 1;
+    display: grid !important;
+    grid-template-rows: auto auto;
+    align-content: center;
+    justify-items: center;
+    gap: 3px;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(84, 134, 109, 0.25) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    clip-path: none !important;
+  }
+
+  .rail-tab .span,
+  .rail-tab .second { display: none !important; }
+
+  .rail-tab svg { width: 20px !important; height: 20px !important; }
+
+  .rail-label {
+    display: block !important;
+    font-size: 0.52rem;
+    letter-spacing: 0.02em !important;
+    font-family: Inter, "Helvetica Neue", Arial, sans-serif !important;
+  }
+
+  /* Fan positions */
+  .rail-nav.is-open .rail-tab:nth-child(2) {
+    transform: translate(calc(-1 * var(--fan-r)), 0px) scale(1) !important;
+    opacity: 1 !important; pointer-events: auto !important; transition-delay: 0ms !important;
+  }
+  .rail-nav.is-open .rail-tab:nth-child(3) {
+    transform: translate(calc(-1 * var(--fan-r30x)), var(--fan-r30y)) scale(1) !important;
+    opacity: 1 !important; pointer-events: auto !important; transition-delay: 50ms !important;
+  }
+  .rail-nav.is-open .rail-tab:nth-child(4) {
+    transform: translate(calc(-1 * var(--fan-r30y)), var(--fan-r30x)) scale(1) !important;
+    opacity: 1 !important; pointer-events: auto !important; transition-delay: 100ms !important;
+  }
+  .rail-nav.is-open .rail-tab:nth-child(5) {
+    transform: translate(0px, var(--fan-r)) scale(1) !important;
+    opacity: 1 !important; pointer-events: auto !important; transition-delay: 150ms !important;
+  }
+
+  .workspace-body {
+    padding: 32px 20px 60px 20px;
+  }
+}
+
+/* Workflow connector mobile keyframe */
+@keyframes workflow-link-mobile {
+  from { transform: scaleY(0); opacity: 0; }
+  to   { transform: scaleY(1); opacity: 0.9; }
+}
+
+/* ============================================================
+   RESPONSIVE — DESKTOP BRUTALIST OVERRIDES (≥ 921px)
+   ============================================================ */
 @media (min-width: 921px) {
   body.design-digital .digital-container {
-    grid-template-columns: max-content 340px minmax(0, 1fr) !important;
+    grid-template-columns: max-content 340px minmax(0, 1fr);
     column-gap: 10px;
   }
 
@@ -3374,26 +3210,27 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
   }
 }
 
-/* Final mobile normalization to prevent overlap regressions */
+/* ============================================================
+   BRUTALIST MOBILE OVERRIDES (≤ 920px, body.design-digital)
+   ============================================================ */
 @media (max-width: 920px) {
   body.design-digital .digital-container {
     grid-template-columns: 1fr !important;
     height: auto !important;
-    min-height: calc(100dvh - 16px);
+    min-height: 100dvh;
     column-gap: 0 !important;
   }
 
+  /* Brutalist profile card mobile */
   body.design-digital .card-profile {
     position: relative !important;
     top: auto !important;
     width: 100%;
-    margin: 0 0 12px;
+    margin: 0;
     overflow: hidden !important;
   }
 
-  body.design-digital .card-profile .prof-photo {
-    height: 138px;
-  }
+  body.design-digital .card-profile .prof-photo { height: 138px; }
 
   body.design-digital .card-profile .prof-photo-num {
     font-size: 4.9rem;
@@ -3417,9 +3254,7 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
     padding: 2px 6px;
   }
 
-  body.design-digital .card-profile .prof-body {
-    padding: 12px 12px 0;
-  }
+  body.design-digital .card-profile .prof-body { padding: 12px 12px 0; }
 
   body.design-digital .card-profile .prof-name {
     font-size: 1.95rem;
@@ -3431,18 +3266,9 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
     margin-bottom: 10px;
   }
 
-  body.design-digital .card-profile .pstat {
-    padding: 9px 6px;
-  }
-
-  body.design-digital .card-profile .pstat .psv {
-    font-size: 1.35rem;
-  }
-
-  body.design-digital .card-profile .pstat .psl {
-    font-size: 0.42rem;
-    letter-spacing: 0.1em;
-  }
+  body.design-digital .card-profile .pstat { padding: 9px 6px; }
+  body.design-digital .card-profile .pstat .psv { font-size: 1.35rem; }
+  body.design-digital .card-profile .pstat .psl { font-size: 0.42rem; letter-spacing: 0.1em; }
 
   body.design-digital .card-profile .profile-cta {
     width: calc(100% - 24px);
@@ -3463,32 +3289,30 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
     padding-top: 6px;
   }
 
-  /* Disable radial fan to avoid tab overlap; use stable bottom row */
+  /* Brutalist rail nav — plain bottom bar */
   body.design-digital .rail-nav {
-    left: max(10px, env(safe-area-inset-left, 0px)) !important;
-    right: max(10px, env(safe-area-inset-right, 0px)) !important;
-    bottom: max(14px, calc(env(safe-area-inset-bottom, 0px) + 10px)) !important;
+    left: max(8px, env(safe-area-inset-left, 0px)) !important;
+    right: max(8px, env(safe-area-inset-right, 0px)) !important;
+    bottom: max(12px, calc(env(safe-area-inset-bottom, 0px) + 10px)) !important;
     top: auto !important;
     width: auto !important;
     height: auto !important;
-    border-radius: 999px !important;
-    padding: 10px 8px !important;
-    display: block;
+    border-radius: 18px !important;
+    padding: 8px !important;
+    display: block !important;
     overflow: hidden !important;
+    background: rgba(245, 245, 240, 0.97) !important;
+    border: 3px solid #0a0a0a !important;
+    box-shadow: 6px 6px 0 #0a0a0a !important;
   }
 
-  body.design-digital .rail-nav::before {
-    display: none !important;
-  }
-
-  body.design-digital .radial-trigger {
-    display: none !important;
-  }
+  body.design-digital .rail-nav::before { display: none !important; }
+  body.design-digital .radial-trigger { display: none !important; }
 
   body.design-digital .rail-main {
     display: grid !important;
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    gap: 8px;
+    gap: 6px;
     width: 100% !important;
     height: auto !important;
     justify-items: stretch;
@@ -3504,29 +3328,43 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
     pointer-events: auto !important;
     width: 100% !important;
     height: auto !important;
-    min-height: 58px;
-    border-radius: 12px !important;
+    min-height: 54px;
+    border-radius: 8px !important;
     justify-content: center;
-    padding: 7px 6px !important;
+    padding: 7px 4px !important;
     text-align: center;
+    display: grid !important;
+    grid-template-rows: auto auto;
+    align-content: center;
+    justify-items: center;
+    gap: 3px;
+    clip-path: none !important;
   }
 
   body.design-digital .rail-tab .span {
-    font-size: 16px;
+    display: block !important;
+    font-size: 13px;
     letter-spacing: 0.025em !important;
+    font-family: "Bebas Neue", Impact, "Arial Black", sans-serif !important;
+    text-transform: uppercase;
+    color: inherit !important;
+    transform: none !important;
   }
 
   body.design-digital .rail-tab .rail-icon {
-    width: 18px;
-    height: 18px;
+    width: 18px !important;
+    height: 18px !important;
+    transform: none !important;
   }
 
+  body.design-digital .rail-tab .second { display: none !important; }
+
   body.design-digital .workspace-body {
-    padding-bottom: calc(196px + env(safe-area-inset-bottom, 0px));
+    padding: 32px 16px calc(100px + env(safe-area-inset-bottom, 0px)) 16px;
   }
 }
 
-/* Tablet-only radial nav: phones keep bottom row for stability */
+/* Tablet radial nav for brutalist mode */
 @media (min-width: 681px) and (max-width: 920px) {
   body.design-digital .rail-nav {
     --fan-r: 116px;
@@ -3542,13 +3380,16 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
     border-radius: 50% !important;
     padding: 0 !important;
     overflow: visible !important;
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
+    background: rgba(245, 245, 240, 0.95) !important;
+    border: 3px solid #0a0a0a !important;
+    box-shadow: 4px 4px 0 #0a0a0a !important;
   }
 
   body.design-digital .rail-nav::before {
-    content: "";
+    content: "" !important;
     display: block !important;
     position: absolute;
     top: 50%;
@@ -3556,18 +3397,14 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
     width: var(--fan-veil-size);
     height: var(--fan-veil-size);
     border-radius: 50%;
-    background:
-      radial-gradient(circle at 50% 50%,
-        rgba(252, 255, 253, 0.96) 0%,
-        rgba(248, 252, 249, 0.92) 38%,
-        rgba(242, 248, 244, 0.8) 62%,
-        rgba(240, 247, 242, 0.74) 78%,
-        rgba(240, 247, 242, 0.08) 100%);
+    background: radial-gradient(circle at 50% 50%,
+      rgba(245, 245, 240, 0.97) 0%,
+      rgba(245, 245, 240, 0.88) 50%,
+      rgba(245, 245, 240, 0.08) 100%);
     clip-path: polygon(0 50%, 50% 50%, 50% 100%, 0 100%);
-    box-shadow: 0 12px 34px rgba(24, 36, 29, 0.14);
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.12);
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.92);
-    transform-origin: center;
     transition: opacity 0.24s ease, transform 0.24s ease;
     pointer-events: none;
     z-index: 0;
@@ -3578,21 +3415,10 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
     transform: translate(-50%, -50%) scale(1);
   }
 
-  body.design-digital .radial-trigger {
-    display: flex !important;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    position: relative;
-    z-index: 2;
-    width: 68px;
-    height: 68px;
-    border-radius: 50%;
-  }
+  body.design-digital .radial-trigger { display: flex !important; }
 
   body.design-digital .rail-main {
-    position: relative;
+    position: relative !important;
     display: flex !important;
     align-items: center;
     justify-content: center;
@@ -3609,148 +3435,70 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
     width: 64px !important;
     height: 64px !important;
     min-height: 0;
-    border-radius: 50% !important;
+    border-radius: 6px !important;
     padding: 6px 0 !important;
     opacity: 0 !important;
     pointer-events: none !important;
     transform: scale(0.4) !important;
     transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease !important;
     z-index: 1;
-  }
-
-  body.design-digital .rail-tab .rail-icon {
-    width: 20px;
-    height: 20px;
-  }
-
-  body.design-digital .rail-tab .span {
-    font-size: 11px;
-    letter-spacing: 0.02em !important;
+    clip-path: none !important;
   }
 
   body.design-digital .rail-nav.is-open .rail-tab:nth-child(2) {
     transform: translate(calc(-1 * var(--fan-r)), 0px) scale(1) !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transition-delay: 0ms !important;
+    opacity: 1 !important; pointer-events: auto !important; transition-delay: 0ms !important;
   }
-
   body.design-digital .rail-nav.is-open .rail-tab:nth-child(3) {
     transform: translate(calc(-1 * var(--fan-r30x)), var(--fan-r30y)) scale(1) !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transition-delay: 50ms !important;
+    opacity: 1 !important; pointer-events: auto !important; transition-delay: 50ms !important;
   }
-
   body.design-digital .rail-nav.is-open .rail-tab:nth-child(4) {
     transform: translate(calc(-1 * var(--fan-r30y)), var(--fan-r30x)) scale(1) !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transition-delay: 100ms !important;
+    opacity: 1 !important; pointer-events: auto !important; transition-delay: 100ms !important;
   }
-
   body.design-digital .rail-nav.is-open .rail-tab:nth-child(5) {
     transform: translate(0px, var(--fan-r)) scale(1) !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transition-delay: 150ms !important;
+    opacity: 1 !important; pointer-events: auto !important; transition-delay: 150ms !important;
   }
 
   body.design-digital .workspace-body {
-    padding-bottom: 84px;
+    padding: 32px 16px 60px 16px;
   }
 }
 
-/* ----------------------------------------------------
-   MOBILE LAYOUT FIXES FOR BROD3000.COM
-   ---------------------------------------------------- */
-@media (max-width: 900px) {
-
-  /* Body cleanup */
-  body.design-digital {
-    padding: 0;
-    overflow: auto;
-    display: block;
-    min-height: 100dvh;
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 
-  /* Main container becomes single-column */
-  .digital-container {
-    grid-template-columns: 1fr;
-    height: auto;
-    min-height: 100dvh;
-    border-radius: 0;
-    box-shadow: none;
+  .ambient-bg,
+  .ambient-canvas {
+    animation: none !important;
+    transform: none !important;
   }
 
-  /* Sidebar becomes top section */
-  .profile-card {
-    position: relative;
-    top: 0;
-    height: auto;
-    border-right: none;
-    grid-template-rows: auto auto;
-  }
+  .ambient-canvas { opacity: 0.42; }
 
-  .profile-content {
-    padding: 24px 20px;
+  .workflow-node,
+  .workflow-node::after,
+  .workflow-node.is-live {
+    animation: none !important;
+    transform: none !important;
+    box-shadow: none !important;
   }
+}
 
-  /* Workspace becomes normal flow */
-  .workspace-card {
-    height: auto;
-  }
-
-  .workspace-body {
-    padding: 24px 16px 80px;
-  }
-
-  /* Stage cards: reduce huge padding */
-  .stage-card {
-    padding: 60px 20px 60px;
-  }
-
-  /* Fix ghost text scaling */
-  .stage-card::before {
-    font-size: 22vw;
-    right: 10px;
-    top: 10px;
-  }
-
-  /* Rail nav becomes bottom mobile nav */
-  .rail-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    grid-auto-flow: column;
-    background: rgba(255,255,255,0.92);
-    padding: 10px 6px;
-    z-index: 9999;
-    border-top: 1px solid rgba(0,0,0,0.08);
-  }
-
-  .rail-tab {
-    width: auto;
-    height: auto;
-    padding: 8px 12px;
-    font-size: 0.65rem;
-  }
-
-  /* Remove sticky behavior */
-  .profile-card {
-    position: relative;
-  }
-
-  /* Fix overflow from large images */
-  img, video, iframe {
-    max-width: 100%;
-    height: auto;
-  }
-
-  /* Fix grid sections that assume desktop width */
-  .resume-layout,
-  .about-grid {
-    grid-template-columns: 1fr;
-  }
+/* Ensure images are responsive globally */
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
 }

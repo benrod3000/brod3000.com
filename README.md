@@ -5,7 +5,6 @@ Standalone resume and case study site for Ben Rodriguez, focused on growth syste
 ## Live Site
 
 - Live site: https://brod3000.com/
-- Classic archive: https://brod3000.com/index-classic.html
 
 ## Project Structure
 

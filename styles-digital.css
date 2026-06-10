@@ -1218,11 +1218,11 @@ p {
 
 .card-kicker {
   display: inline-block;
-  padding: 10px 10px;
+  padding: 5px 8px;
   border-radius: 999px;
   background: rgba(86, 129, 106, 0.11);
   color: var(--accent);
-  font-size: 14px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -1363,10 +1363,10 @@ p {
 }
 
 .stats-row {
-  margin-top: 50px;
+  margin-top: 12px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+  gap: 8px;
 }
 
 .stat-pill {
@@ -2618,12 +2618,18 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
   }
 
   /* ----- Container ----- */
+  /* overflow:hidden + transform-style on the parent traps fixed children
+     (the nav) relative to the container, not the viewport. Clear both. */
   .digital-container {
     grid-template-columns: 1fr;
     height: auto;
     min-height: 100dvh;
     border-radius: 0;
     box-shadow: none;
+    overflow: visible;
+    transform-style: flat;
+    transform: none;
+    animation: none;
   }
 
   /* ----- Brutalist card-profile: simple vertical stack ----- */
@@ -3234,6 +3240,10 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
     height: auto !important;
     min-height: 100dvh;
     column-gap: 0 !important;
+    overflow: visible !important;
+    transform-style: flat !important;
+    transform: none !important;
+    animation: none !important;
   }
 
   /* Brutalist profile card mobile — explicit block flow, no grid columns */

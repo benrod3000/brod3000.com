@@ -1218,11 +1218,11 @@ p {
 
 .card-kicker {
   display: inline-block;
-  padding: 5px 8px;
+  padding: 10px 10px;
   border-radius: 999px;
   background: rgba(86, 129, 106, 0.11);
   color: var(--accent);
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 4px;
   text-transform: uppercase;

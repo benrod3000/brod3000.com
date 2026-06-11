@@ -3532,3 +3532,78 @@ img, video, iframe {
   max-width: 100%;
   height: auto;
 }
+
+/* ====================== COMIC BOOK NAV ====================== */
+.comic-radio-group {
+  --bg: #ffd700;
+  --text-light: #ffffff;
+  --text-dark: #0a0a0a;
+  display: flex;
+  position: relative;
+  background: var(--bg);
+  border-radius: 12px;
+  border: 4px solid var(--text-dark);
+  box-shadow: 6px 6px 0 var(--text-dark);
+  overflow: hidden;
+  width: fit-content;
+  font-family: "Bebas Neue", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin: 0 auto;
+}
+
+.comic-radio-group input {
+  display: none;
+}
+
+.comic-radio-group label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 110px;
+  font-size: 1.35rem;
+  padding: 14px 18px;
+  cursor: pointer;
+  color: var(--text-dark);
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+  white-space: nowrap;
+}
+
+.comic-radio-group input:checked + label {
+  color: var(--text-light);
+  text-shadow: -2px -2px 0 var(--text-dark), 2px -2px 0 var(--text-dark),
+               -2px 2px 0 var(--text-dark), 2px 2px 0 var(--text-dark);
+}
+
+.comic-glider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: calc(100% / 4);
+  border-radius: 8px;
+  z-index: 1;
+  transition: transform 0.5s cubic-bezier(0.37, 1.95, 0.66, 0.56),
+              background 0.4s ease;
+  border-right: 4px solid var(--text-dark);
+  border-left: 4px solid var(--text-dark);
+}
+
+/* Glider colors */
+#nav-about:checked ~ .comic-glider { transform: translateX(0%); background: #e74c3c; }
+#nav-services:checked ~ .comic-glider { transform: translateX(100%); background: #3498db; }
+#nav-portfolio:checked ~ .comic-glider { transform: translateX(200%); background: #2ecc71; }
+#nav-contact:checked ~ .comic-glider { transform: translateX(300%); background: #f39c12; }
+
+/* Mobile adjustments */
+@media (max-width: 920px) {
+  .comic-radio-group label {
+    font-size: 1.1rem;
+    padding: 12px 10px;
+    min-width: 80px;
+  }
+}

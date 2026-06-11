@@ -3546,6 +3546,7 @@ img, video, iframe {
   box-shadow: 6px 6px 0 var(--text-dark);
   overflow: hidden;
   width: fit-content;
+  max-width: 100%;
   font-family: "Bebas Neue", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-style: italic;
   font-weight: 700;
@@ -3553,18 +3554,13 @@ img, video, iframe {
   margin: 0 auto;
 }
 
-.comic-radio-group input {
-  display: none;
-}
-
 .comic-radio-group label {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 110px;
-  font-size: 1.35rem;
-  padding: 14px 18px;
+  font-size: 1.22rem;
+  padding: 16px 12px;
   cursor: pointer;
   color: var(--text-dark);
   position: relative;
@@ -3572,6 +3568,7 @@ img, video, iframe {
   transition: color 0.3s ease;
   text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
   white-space: nowrap;
+  min-width: 85px;
 }
 
 .comic-radio-group input:checked + label {
@@ -3602,8 +3599,16 @@ img, video, iframe {
 /* Mobile adjustments */
 @media (max-width: 920px) {
   .comic-radio-group label {
-    font-size: 1.1rem;
-    padding: 12px 10px;
-    min-width: 80px;
+    font-size: 1.05rem;
+    padding: 14px 8px;
+    min-width: 72px;
+  }
+}
+
+@media (max-width: 680px) {
+  .comic-radio-group label {
+    font-size: 0.95rem;
+    padding: 13px 6px;
+    min-width: 65px;
   }
 }

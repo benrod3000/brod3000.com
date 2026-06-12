@@ -3524,3 +3524,14 @@ img, video, iframe {
   max-width: 100%;
   height: auto;
 }
+
+header,
+nav {
+  position: relative !important;
+  z-index: 999999 !important;
+}
+
+header a,
+nav a {
+  pointer-events: auto !important;
+}

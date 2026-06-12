@@ -21,16 +21,29 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-X42B535184"></script>
   <script src="gtag-init.js?v=1"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous">
-  <link rel="stylesheet" href="styles-digital.css?v=61">
-  <!-- GSAP and plugins -->
+  <link rel="stylesheet" href="styles-digital.css?v=64">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw==" crossorigin="anonymous"></script>
   <script src="script.js?v=15" defer></script>
-  <script src="digital-runtime.js?v=5" defer></script>
+  <script src="digital-runtime.js?v=8" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ben Rodriguez",
+    "url": "https://brod3000.com/",
+    "jobTitle": "Digital Marketing Manager",
+    "description": "Growth systems, strategy, and audience ownership infrastructure.",
+    "image": "https://brod3000.com/images/profile.jpg",
+    "sameAs": [
+      "https://github.com/benrod3000",
+      "https://www.reddit.com/user/benrod1/"
+    ]
+  }
+  </script>
 </head>
 <body class="design-digital">
   <div class="ambient-bg" aria-hidden="true"></div>
@@ -38,61 +51,64 @@
   <div class="ambient-grain" aria-hidden="true"></div>
   <div class="ui-cursor" id="ui-cursor" aria-hidden="true"></div>
 
-  <div class="digital-container">
-    <nav class="rail-nav" aria-label="Section navigation">
-      <div class="rail-main">
-        <button class="radial-trigger" aria-label="Open navigation" aria-expanded="false">
-          <span class="radial-trigger-bar" aria-hidden="true"></span>
-          <span class="radial-trigger-bar" aria-hidden="true"></span>
-          <span class="radial-trigger-bar" aria-hidden="true"></span>
-        </button>
-        <button class="rail-tab active" data-section="about" aria-label="About">
-          <svg class="rail-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M5 20c1.2-3.2 4-5 7-5s5.8 1.8 7 5"/></svg>
-          <span class="span rail-label">About</span>
-          <span class="second rail-second" aria-hidden="true">
-            <svg width="34" height="14" viewBox="0 0 66 43" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
-              <path class="one" d="M40.154 3.895L43.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L44.677 42.861a.36.36 0 0 1-.701 0l-3.822-3.754a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L40.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
-              <path class="two" d="M20.154 3.895L23.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L24.677 42.861a.36.36 0 0 1-.701 0l-3.822-3.754a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L20.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
-              <path class="three" d="M.154 3.895L3.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L4.677 42.861a.36.36 0 0 1-.701 0L.154 39.107a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
-            </svg>
-          </span>
-        </button>
-        <button class="rail-tab" data-section="services" aria-label="Resume">
-          <svg class="rail-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h5"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>
-          <span class="span rail-label">Resume</span>
-          <span class="second rail-second" aria-hidden="true">
-            <svg width="34" height="14" viewBox="0 0 66 43" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
-              <path class="one" d="M40.154 3.895L43.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L44.677 42.861a.36.36 0 0 1-.701 0l-3.822-3.754a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L40.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
-              <path class="two" d="M20.154 3.895L23.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L24.677 42.861a.36.36 0 0 1-.701 0l-3.822-3.754a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L20.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
-              <path class="three" d="M.154 3.895L3.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L4.677 42.861a.36.36 0 0 1-.701 0L.154 39.107a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
-            </svg>
-          </span>
-        </button>
-        <button class="rail-tab" data-section="portfolio" aria-label="Concepts">
-          <svg class="rail-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-          <span class="span rail-label">Concepts</span>
-          <span class="second rail-second" aria-hidden="true">
-            <svg width="34" height="14" viewBox="0 0 66 43" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
-              <path class="one" d="M40.154 3.895L43.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L44.677 42.861a.36.36 0 0 1-.701 0l-3.822-3.754a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L40.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
-              <path class="two" d="M20.154 3.895L23.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L24.677 42.861a.36.36 0 0 1-.701 0l-3.822-3.754a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L20.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
-              <path class="three" d="M.154 3.895L3.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L4.677 42.861a.36.36 0 0 1-.701 0L.154 39.107a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
-            </svg>
-          </span>
-        </button>
-        <button class="rail-tab" data-section="contact" aria-label="Contact">
-          <svg class="rail-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
-          <span class="span rail-label">Contact</span>
-          <span class="second rail-second" aria-hidden="true">
-            <svg width="34" height="14" viewBox="0 0 66 43" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
-              <path class="one" d="M40.154 3.895L43.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L44.677 42.861a.36.36 0 0 1-.701 0l-3.822-3.754a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L40.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
-              <path class="two" d="M20.154 3.895L23.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L24.677 42.861a.36.36 0 0 1-.701 0l-3.822-3.754a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L20.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
-              <path class="three" d="M.154 3.895L3.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L4.677 42.861a.36.36 0 0 1-.701 0L.154 39.107a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
-            </svg>
-          </span>
-        </button>
-      </div>
-    </nav>
+  <!-- Nav is a direct child of <body>, outside .digital-container.
+       This is the only reliable way to make position:fixed work when
+       the container has overflow:hidden, transforms, or animations. -->
+  <nav class="rail-nav" aria-label="Section navigation">
+    <div class="rail-main">
+      <button class="radial-trigger" aria-label="Open navigation" aria-expanded="false">
+        <span class="radial-trigger-bar" aria-hidden="true"></span>
+        <span class="radial-trigger-bar" aria-hidden="true"></span>
+        <span class="radial-trigger-bar" aria-hidden="true"></span>
+      </button>
+      <button class="rail-tab active" data-section="about" aria-label="About">
+        <svg class="rail-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M5 20c1.2-3.2 4-5 7-5s5.8 1.8 7 5"/></svg>
+        <span class="span rail-label">About</span>
+        <span class="second rail-second" aria-hidden="true">
+          <svg width="34" height="14" viewBox="0 0 66 43" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
+            <path class="one" d="M40.154 3.895L43.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L44.677 42.861a.36.36 0 0 1-.701 0l-3.822-3.754a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L40.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
+            <path class="two" d="M20.154 3.895L23.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L24.677 42.861a.36.36 0 0 1-.701 0l-3.822-3.754a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L20.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
+            <path class="three" d="M.154 3.895L3.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L4.677 42.861a.36.36 0 0 1-.701 0L.154 39.107a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
+          </svg>
+        </span>
+      </button>
+      <button class="rail-tab" data-section="services" aria-label="Resume">
+        <svg class="rail-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h5"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>
+        <span class="span rail-label">Resume</span>
+        <span class="second rail-second" aria-hidden="true">
+          <svg width="34" height="14" viewBox="0 0 66 43" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
+            <path class="one" d="M40.154 3.895L43.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L44.677 42.861a.36.36 0 0 1-.701 0l-3.822-3.754a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L40.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
+            <path class="two" d="M20.154 3.895L23.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L24.677 42.861a.36.36 0 0 1-.701 0l-3.822-3.754a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L20.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
+            <path class="three" d="M.154 3.895L3.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L4.677 42.861a.36.36 0 0 1-.701 0L.154 39.107a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
+          </svg>
+        </span>
+      </button>
+      <button class="rail-tab" data-section="portfolio" aria-label="Concepts">
+        <svg class="rail-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        <span class="span rail-label">Concepts</span>
+        <span class="second rail-second" aria-hidden="true">
+          <svg width="34" height="14" viewBox="0 0 66 43" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
+            <path class="one" d="M40.154 3.895L43.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L44.677 42.861a.36.36 0 0 1-.701 0l-3.822-3.754a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L40.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
+            <path class="two" d="M20.154 3.895L23.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L24.677 42.861a.36.36 0 0 1-.701 0l-3.822-3.754a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L20.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
+            <path class="three" d="M.154 3.895L3.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L4.677 42.861a.36.36 0 0 1-.701 0L.154 39.107a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
+          </svg>
+        </span>
+      </button>
+      <button class="rail-tab" data-section="contact" aria-label="Contact">
+        <svg class="rail-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
+        <span class="span rail-label">Contact</span>
+        <span class="second rail-second" aria-hidden="true">
+          <svg width="34" height="14" viewBox="0 0 66 43" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
+            <path class="one" d="M40.154 3.895L43.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L44.677 42.861a.36.36 0 0 1-.701 0l-3.822-3.754a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L40.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
+            <path class="two" d="M20.154 3.895L23.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L24.677 42.861a.36.36 0 0 1-.701 0l-3.822-3.754a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L20.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
+            <path class="three" d="M.154 3.895L3.976.139a.36.36 0 0 1 .701 0l21.014 20.646a1 1 0 0 1 0 1.427L4.677 42.861a.36.36 0 0 1-.701 0L.154 39.107a.5.5 0 0 1 0-.707l16.84-16.537a.5.5 0 0 0 0-.713L.154 4.608a.5.5 0 0 1 0-.713z" fill="currentColor"/>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </nav>
 
+  <div class="digital-container">
     <aside class="profile-card card-profile" aria-label="Profile panel">
       <div class="prof-photo profile-cover">
         <div class="img-spinner" aria-hidden="true"></div>

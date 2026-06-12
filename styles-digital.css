@@ -128,8 +128,9 @@ p {
   backdrop-filter: blur(10px);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
-  animation: card-in 0.72s cubic-bezier(.4, 0, .2, 1) forwards;
+  animation: card-in 0.72s cubic-bezier(.4, 0, .2, 1) both;
   transition: transform 0.2s ease-out;
+  transform-style: preserve-3d;
 }
 
 .digital-container::before {
@@ -137,8 +138,15 @@ p {
 }
 
 @keyframes card-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .rail-nav {
@@ -1092,11 +1100,11 @@ p {
 }
 
 .stage-card {
-  --ghost-size: clamp(48px, 6.5vw, 104px);
-  --ghost-track: 0.06em;
+  --ghost-size: clamp(72px, 11vw, 160px);
+  --ghost-track: -0.02em;
   --ghost-line-height: 1;
-  --ghost-top: 22px;
-  --ghost-right: 22px;
+  --ghost-top: 0px;
+  --ghost-right: -8px;
   width: 100%;
   max-width: none;
   margin: 0;
@@ -1106,7 +1114,7 @@ p {
     radial-gradient(circle at 18% 8%, rgba(74, 141, 245, 0.03) 0%, transparent 36%),
     radial-gradient(circle at 86% 88%, rgba(39, 195, 159, 0.025) 0%, transparent 38%),
     linear-gradient(155deg, rgba(255, 255, 255, 0.98) 0%, rgba(251, 252, 253, 0.96) 56%, rgba(247, 248, 250, 0.96) 100%);
-  padding: 208px 40px 150px 40px;
+  padding: 56px 40px 80px 40px;
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.8),
     inset 0 0 0 2px rgba(132, 112, 94, 0.06),
@@ -1159,30 +1167,28 @@ p {
   right: var(--ghost-right);
   top: var(--ghost-top);
   font-size: var(--ghost-size);
-  font-weight: 700;
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 800;
   letter-spacing: var(--ghost-track);
   line-height: var(--ghost-line-height);
-  color: rgba(95, 125, 108, 0.09);
+  color: rgba(44, 38, 33, 0.055);
   pointer-events: none;
   z-index: 0;
+  user-select: none;
 }
 
 .stage-card[data-section="contact"] {
-  padding-bottom: 96px;
+  padding-bottom: 80px;
 }
 
 .stage-card[data-section="about"] .stats-row {
-  margin-bottom: 120px;
-}
-
-.stage-card[data-section="about"] {
-  padding-top: 180px;
+  margin-bottom: 48px;
 }
 
 .about-bridge {
   width: min(140px, 42%);
   height: 1px;
-  margin: 0 auto 120px;
+  margin: 0 auto 56px;
   background: color-mix(in srgb, var(--accent) 28%, transparent);
   position: relative;
 }
@@ -1205,24 +1211,24 @@ p {
 }
 
 .card-title-wrap {
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 
 .card-kicker {
   display: inline-block;
-  padding: 5px 8px;
+  padding: 4px 10px;
   border-radius: 999px;
   background: rgba(86, 129, 106, 0.11);
   color: var(--accent);
-  font-size: 10px;
+  font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 4px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
 .card-title-wrap h3 {
-  margin: 16px 0 14px;
-  font-size: clamp(2.45rem, 3.2vw, 3.2rem);
+  margin: 12px 0 16px;
+  font-size: clamp(2rem, 3vw, 2.8rem);
   font-family: "Playfair Display", Georgia, serif;
   font-weight: 800;
   letter-spacing: -0.015em;
@@ -1230,10 +1236,10 @@ p {
 }
 
 .card-title-wrap p {
-  margin: 0 0 16px;
+  margin: 0 0 14px;
   color: var(--muted);
-  line-height: 1.9;
-  font-size: 1.05rem;
+  line-height: 1.75;
+  font-size: 0.98rem;
   max-width: 820px;
 }
 
@@ -1251,8 +1257,8 @@ p {
 .resume-layout {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 24px;
+  margin-bottom: 32px;
 }
 
 .resume-column {
@@ -1266,17 +1272,17 @@ p {
 }
 
 .resume-heading {
-  margin: 0 0 12px;
-  font-size: 0.76rem;
+  margin: 0 0 16px;
+  font-size: 0.65rem;
   font-weight: 700;
   color: #6f6558;
-  letter-spacing: 3px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
 .timeline-list {
   display: grid;
-  gap: 10px;
+  gap: 0;
 }
 
 .timeline-item {
@@ -1286,8 +1292,8 @@ p {
   background: transparent;
   transition: border-color 0.2s ease, transform 0.2s ease;
   border-bottom: 1px solid rgba(62, 48, 36, 0.12);
-  padding-bottom: 12px;
-  margin-bottom: 12px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 .timeline-item:hover {
@@ -1302,30 +1308,32 @@ p {
 
 .timeline-date {
   display: inline-block;
-  margin-bottom: 5px;
-  font-size: 0.72rem;
-  letter-spacing: 2px;
+  margin-bottom: 6px;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent-2);
 }
 
 .timeline-item h5 {
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .timeline-item p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.86rem;
-  line-height: 1.55;
+  font-size: 0.88rem;
+  line-height: 1.65;
 }
 
 .about-grid {
   display: grid;
   gap: 24px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-bottom: 12px;
+  margin-bottom: 32px;
 }
 
 .about-block {
@@ -1339,23 +1347,23 @@ p {
 }
 
 .about-block h4 {
-  margin: 0 0 12px;
+  margin: 0 0 10px;
   font-family: "Playfair Display", Georgia, serif;
   font-weight: 700;
   color: var(--text);
-  font-size: 1.08rem;
+  font-size: 1.05rem;
 }
 
 .about-block p {
   margin: 0;
   color: var(--muted);
-  line-height: 1.75;
-  font-size: 1.02rem;
+  line-height: 1.7;
+  font-size: 0.93rem;
   max-width: none;
 }
 
 .stats-row {
-  margin-top: 12px;
+  margin-top: 32px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
@@ -1374,14 +1382,16 @@ p {
 .stat-pill strong {
   display: block;
   color: var(--accent);
-  font-size: 1.15rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .stat-pill span {
   color: var(--muted);
-  font-size: 0.74rem;
+  font-size: 0.65rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
 }
 
 .service-grid {
@@ -1460,12 +1470,12 @@ p {
 .service-card p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.955rem;
-  line-height: 1.6;
+  font-size: 0.88rem;
+  line-height: 1.65;
 }
 
 .service-grid {
-  margin-bottom: 150px;
+  margin-bottom: 48px;
 }
 
 .tag {
@@ -1478,10 +1488,10 @@ p {
 }
 
 .proof-grid {
-  margin-top: 14px;
+  margin-top: 32px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  gap: 12px;
 }
 
 .proof-card {
@@ -1498,9 +1508,9 @@ p {
   display: inline-block;
   margin-bottom: 6px;
   color: var(--accent-2);
-  font-size: 0.64rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -1646,8 +1656,8 @@ p {
 .method-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: 14px;
+  gap: 24px;
+  margin-top: 32px;
 }
 
 .method-card {
@@ -1662,11 +1672,12 @@ p {
 
 .method-index {
   display: inline-block;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   color: var(--accent-2);
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
   font-weight: 700;
+  text-transform: uppercase;
 }
 
 .method-card h4 {
@@ -1873,10 +1884,12 @@ p {
 }
 
 .blog-meta {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   color: var(--accent-2);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
 }
 
 .blog-card h5 {
@@ -3523,19 +3536,4 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
 img, video, iframe {
   max-width: 100%;
   height: auto;
-}
-
-header,
-nav {
-  position: relative !important;
-  z-index: 999999 !important;
-}
-
-header a,
-nav a {
-  pointer-events: auto !important;
-}
-body::before,
-body::after {
-  pointer-events: none !important;
 }

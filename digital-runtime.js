@@ -5,9 +5,9 @@ const cardShell = document.querySelector('.digital-container');
     const ambientCanvas = document.getElementById('ambient-canvas');
     const profileCard = document.querySelector('.profile-card');
       const railNav = document.querySelector('.rail-nav');
-    const railTabs = [...document.querySelectorAll('#comic-nav label')];
+    const railTabs = [...document.querySelectorAll('.rail-tab')];
     const radialTrigger = document.querySelector('.radial-trigger');
-    const interactiveTargets = () => document.querySelectorAll('#comic-nav label, .workspace-back, .profile-cta, .profile-socials a, .contact-form button');
+    const interactiveTargets = () => document.querySelectorAll('.rail-tab, .workspace-back, .profile-cta, .profile-socials a, .contact-form button');
     const phrases = ['Growth Systems Architect', 'Audience Ownership Strategist', 'Paid + Organic Scale Operator'];
     let bindCursorTargets = () => {};
     let phraseIndex = 0;
@@ -293,36 +293,23 @@ const cardShell = document.querySelector('.digital-container');
 
     const isMobile = window.matchMedia('(max-width: 920px)').matches;
 
-    // Strip any inline transform from .digital-container on mobile.
-    // The card-in CSS animation (even opacity-only) can leave stale inline
-    // styles, and transform-style/transition also create stacking contexts
-    // that trap position:fixed children (the nav bar).
+    // On mobile, the CSS card-in animation leaves an inline transform on
+    // .digital-container after it finishes. Any transform (even scale(1))
+    // creates a stacking context that traps position:fixed children (the nav).
+    // removeProperty first, then force 'none' with !important priority.
     if (cardShell) {
       const clearContainerTransform = () => {
         if (window.matchMedia('(max-width: 920px)').matches) {
           cardShell.style.removeProperty('transform');
           cardShell.style.removeProperty('animation');
-          cardShell.style.removeProperty('transform-style');
           cardShell.style.setProperty('transform', 'none', 'important');
-          cardShell.style.setProperty('overflow', 'visible', 'important');
         }
       };
-
-      // Run immediately and after animation window
+      // Run immediately, after short delay, and after animation completes
       clearContainerTransform();
       setTimeout(clearContainerTransform, 100);
       setTimeout(clearContainerTransform, 800);
       window.addEventListener('resize', clearContainerTransform);
-
-      // Also watch for any style mutation and clear immediately
-      const transformObserver = new MutationObserver(() => {
-        if (window.matchMedia('(max-width: 920px)').matches &&
-            cardShell.style.transform &&
-            cardShell.style.transform !== 'none') {
-          clearContainerTransform();
-        }
-      });
-      transformObserver.observe(cardShell, { attributes: true, attributeFilter: ['style'] });
     }
 
     if (window.matchMedia('(hover: hover)').matches && !isMobile && cardShell) {

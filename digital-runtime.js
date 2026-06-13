@@ -18,9 +18,13 @@ const compactProfileThreshold = 36;
 const dockScrollThreshold = 18;
 
 function initAmbientCanvas() {
-  if (!ambientCanvas) {
-    return;
+  // Canvas animation disabled for performance
+  // Keeps the ambient background simple
+  const canvas = document.getElementById('ambient-canvas');
+  if (canvas) {
+    canvas.style.display = 'none';
   }
+}
 
   const viewCtx = ambientCanvas.getContext('2d', { alpha: true });
   if (!viewCtx) {
@@ -344,84 +348,99 @@ if (cursor && window.matchMedia('(hover: hover)').matches) {
     cursor.style.left = `${event.clientX}px`;
     cursor.style.top = `${event.clientY}px`;
   });
+if (section === 'portfolio') {
+  return `
+    <article class="stage-card section-enter" data-section="portfolio" data-ghost="PORTFOLIO">
+      <div class="card-title-wrap">
+        <span class="card-kicker">Concepts</span>
+        <h3>Theory library for durable digital operation</h3>
+        <p>Core principles that guide planning, channel execution, and performance control across the full system.</p>
+      </div>
 
-  bindCursorTargets = () => {
-    interactiveTargets().forEach((el) => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('active'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
-    });
-  };
+      <div class="method-grid">
+        <article class="method-card animate">
+          <span class="method-index">01</span>
+          <h4>Systems Over Tactics</h4>
+          <p><strong class="scan-lead">Architectural stability logic</strong> Infrastructure led growth prioritizes repeatable frameworks over transient platform hacks. Strategic resilience is achieved by building systems that outlast individual campaign cycles.</p>
+        </article>
+        <article class="method-card animate">
+          <span class="method-index">02</span>
+          <h4>The Durable Narrative</h4>
+          <p><strong class="scan-lead">Contextual brand filtering</strong> Narrative serves as the primary filter for all incoming data and outgoing creative. A coherent brand identity reduces market friction and accelerates consumer trust building.</p>
+        </article>
+        <article class="method-card animate">
+          <span class="method-index">03</span>
+          <h4>Compound Retention</h4>
+          <p><strong class="scan-lead">Compounding lifecycle physics</strong> Revenue growth is a function of minimizing churn through rigorous user experience design. Sustainable scaling is driven by the lifetime value of established audiences rather than constant acquisition.</p>
+        </article>
+      </div>
 
-  bindCursorTargets();
+      <section class="workflow-container" aria-label="Operating workflow schematic">
+        <div class="workflow-header">
+          <h4>Operating Workflow</h4>
+          <p>From raw signal to hardened system.</p>
+        </div>
+
+        <ul class="workflow-track">
+          <li class="workflow-node">
+            <span class="workflow-meta">STEP 01</span>
+            <h5>Signal Intake</h5>
+            <p>Aggregating raw data, market sentiment, and brand objectives into a single source of truth.</p>
+          </li>
+          <li class="workflow-node">
+            <span class="workflow-meta">STEP 02</span>
+            <h5>Diagnostic Mapping</h5>
+            <p>Identifying systemic bottlenecks and friction points within the existing digital structure.</p>
+          </li>
+          <li class="workflow-node">
+            <span class="workflow-meta">STEP 03</span>
+            <h5>System Architecture</h5>
+            <p>Designing the durable framework and logic flows required to solve the identified friction.</p>
+          </li>
+          <li class="workflow-node">
+            <span class="workflow-meta">STEP 04</span>
+            <h5>Multi Channel Execution</h5>
+            <p>Deploying the architecture across relevant platforms with unified brand logic.</p>
+          </li>
+          <li class="workflow-node">
+            <span class="workflow-meta">STEP 05</span>
+            <h5>Feedback Integration</h5>
+            <p>Capturing real time performance data to refine the system responsiveness.</p>
+          </li>
+          <li class="workflow-node">
+            <span class="workflow-meta">STEP 06</span>
+            <h5>Iterative Optimization</h5>
+            <p>Hardening the system for long term retention and compounding growth.</p>
+          </li>
+        </ul>
+      </section>
+
+      <div class="blog-panel">
+        <div class="blog-panel-head">
+          <h4>Applied Signals</h4>
+          <p>Clear outcome snapshots: context, action, impact.</p>
+        </div>
+        <div class="blog-grid">
+          <article class="blog-card">
+            <span class="blog-meta">Systems Deployment</span>
+            <h5>Audience ownership framework rollout</h5>
+            <p><strong>Context:</strong> Planning was fragmented across teams and channels.<br><strong>Action:</strong> Implemented one planning cadence linking content, paid media, and web priorities.<br><strong>Impact:</strong> Faster decisions, clearer campaign choices, steadier execution quality.</p>
+          </article>
+          <article class="blog-card">
+            <span class="blog-meta">Paid Media Operations</span>
+            <h5>Creative testing system for paid social</h5>
+            <p><strong>Context:</strong> Testing was inconsistent and scaling decisions were slow.<br><strong>Action:</strong> Built a repeatable creative test cadence with cleaner hypotheses and reporting loops.<br><strong>Impact:</strong> More learnings per cycle, faster iteration, stronger budget confidence.</p>
+          </article>
+          <article class="blog-card">
+            <span class="blog-meta">Retention Systems</span>
+            <h5>Email automation reset for dormant audiences</h5>
+            <p><strong>Context:</strong> Lifecycle messaging lacked segmentation and reactivation control.<br><strong>Action:</strong> Rebuilt automation flows for nurture, re engagement, and list health management.<br><strong>Impact:</strong> Better audience quality, steadier retention performance, stronger long term value.</p>
+          </article>
+        </div>
+      </div>
+    </article>
+  `;
 }
-
-setInterval(() => {
-  phraseIndex = (phraseIndex + 1) % phrases.length;
-  rotator.textContent = phrases[phraseIndex];
-}, 2600);
-
-function sectionTemplate(section) {
-  if (section === 'about') {
-    return `
-      <article class="stage-card section-enter" data-section="about" data-ghost="ABOUT">
-        <div class="card-title-wrap">
-          <span class="card-kicker">About</span>
-          <h3>I build systems for growth.</h3>
-          <p><strong>Systems first growth architecture</strong> demands a move away from "growth hacks" toward durable, high leverage digital structures.</p>
-          <p><strong>Complexity requires clarity</strong> when managing multi channel campaigns; we solve for the bottleneck before we solve for the volume.</p>
-          <p><strong>Engineered for scale</strong> is how I approach every campaign, ensuring that the infrastructure can support the ambition.</p>
-        </div>
-
-        <div class="about-grid">
-          <div class="about-block">
-            <h4>Alignment</h4>
-            <p><strong>Methodology over history</strong> is the cornerstone of my practice; I provide the operating manual, not just the labor.</p>
-          </div>
-          <div class="about-block">
-            <h4>Principle</h4>
-            <p><strong>Eleven years' tenure</strong> at the intersection of culture and commerce has refined my ability to scale brands without losing their soul.</p>
-          </div>
-        </div>
-
-        <div class="stats-row">
-          <div class="stat-pill"><strong data-count-target="11" data-count-suffix="+">0+</strong><span>Years in Talent Management</span></div>
-          <div class="stat-pill"><strong data-count-target="20" data-count-suffix="+">0+</strong><span>Campaigns Launched</span></div>
-          <div class="stat-pill"><strong data-count-target="3" data-count-suffix="x">0x</strong><span>Average Return on Ad Spend</span></div>
-        </div>
-
-        <div class="about-bridge" aria-hidden="true"></div>
-      </article>
-    `;
-  }
-
-  if (section === 'services') {
-    return `
-      <article class="stage-card section-enter" data-section="services" data-ghost="RESUME">
-        <div class="card-title-wrap">
-          <span class="card-kicker">Capabilities</span>
-          <h3>Results built on repeatable systems</h3>
-          <p><strong>Unified operating logic</strong> aligns strategy, paid media, web, and lifecycle so execution stays fast, measurable, and resilient.</p>
-        </div>
-
-        <div class="resume-layout">
-          <div class="resume-column">
-            <h4 class="resume-heading">Experience</h4>
-            <div class="timeline-list">
-              <article class="timeline-item active">
-                <span class="timeline-date">2016 to 2021</span>
-                <h5>Digital Marketing Director</h5>
-                <p>Owned the digital roadmap across paid media, web, email, and reporting operations. Led cross functional launches, standardized campaign QA, and aligned channel KPIs to business goals. Result: faster launch cycles, cleaner attribution, and sustained performance with average return on ad spend around 3x on core campaigns.</p>
-              </article>
-              <article class="timeline-item">
-                <span class="timeline-date">2011 to 2016</span>
-                <h5>Digital Marketing Manager</h5>
-                <p>Managed day to day campaign execution, content calendars, landing page workflows, and stakeholder reporting. Built repeatable testing and weekly optimization rhythms that improved decision speed and reduced channel drift across active campaigns.</p>
-              </article>
-              <article class="timeline-item">
-                <span class="timeline-date">2010 to 2011</span>
-                <h5>Assistant Tour Manager / Merch Manager</h5>
-                <p>Managed tour logistics and merch operations across venues, including inventory forecasting, point of sale reconciliation, and nightly reporting. Built execution discipline under pressure that later translated directly into digital operations leadership.</p>
-              </article>
             </div>
           </div>
           <div class="resume-column">

@@ -25,10 +25,25 @@
   <script src="gtag-init.js?v=1"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous">
   <link rel="stylesheet" href="styles-digital.css?v=64">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw==" crossorigin="anonymous"></script>
+  <!-- Lazy load heavy scripts -->
+  <script>
+    // Defer non-critical scripts
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        var gsapScript = document.createElement('script');
+        gsapScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
+        gsapScript.defer = true;
+        document.body.appendChild(gsapScript);
+        
+        var scrollScript = document.createElement('script');
+        scrollScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
+        scrollScript.defer = true;
+        document.body.appendChild(scrollScript);
+      }, 100);
+    });
+  </script>
   <script src="script.js?v=15" defer></script>
-  <script src="digital-runtime.js?v=8" defer></script>
+  <script src="digital-runtime.js?v=9" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",

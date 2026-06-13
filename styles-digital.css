@@ -3583,3 +3583,125 @@ img, video, iframe {
 .stage-card[data-section="portfolio"] .workflow-track {
   display: grid !important;
 }
+
+/* ============================================================
+   FIXES FOR MENU ISSUES
+   ============================================================ */
+
+/* Hide hamburger button on desktop */
+@media (min-width: 921px) {
+  .radial-trigger {
+    display: none !important;
+  }
+}
+
+/* Remove empty table behind menu */
+.rail-nav::before,
+.rail-nav::after,
+.rail-main::before,
+.rail-main::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Remove any table borders or backgrounds */
+.rail-nav,
+.rail-main,
+.rail-tab {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* ============================================================
+   FIXES FOR MENU ISSUES
+   ============================================================ */
+
+/* Hide hamburger button on desktop */
+@media (min-width: 921px) {
+  .radial-trigger {
+    display: none !important;
+  }
+}
+
+/* Remove empty table behind menu */
+.rail-nav::before,
+.rail-nav::after,
+.rail-main::before,
+.rail-main::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Remove any table borders or backgrounds */
+.rail-nav,
+.rail-main,
+.rail-tab {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Fix for the workflow display (your flowchart) */
+.stage-card[data-section="portfolio"] .workflow-container,
+.stage-card[data-section="portfolio"] .workflow-track,
+.stage-card[data-section="portfolio"] .workflow-node {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.stage-card[data-section="portfolio"] .workflow-track {
+  display: grid !important;
+}
+/* ========== FIXES ========== */
+
+/* 1. Hide the hamburger button on desktop */
+@media (min-width: 921px) {
+  .radial-trigger {
+    display: none !important;
+  }
+}
+
+/* 2. Hide the Cloudflare table/iframe causing the empty box */
+iframe[src*="cloudflareinsights"],
+iframe[src*="beacon"],
+.cloudflare-iframe,
+table:empty,
+tr:empty,
+td:empty {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  position: absolute !important;
+  pointer-events: none !important;
+}
+
+/* 3. Also hide any empty divs from Cloudflare */
+div[data-cf-beacon],
+script[src*="cloudflare"] {
+  display: none !important;
+}
+
+/* 4. Make sure the menu has no extra backgrounds */
+.rail-nav,
+.rail-main {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 5. Show the flowchart on Concepts page */
+.stage-card[data-section="portfolio"] .workflow-container,
+.stage-card[data-section="portfolio"] .workflow-track,
+.stage-card[data-section="portfolio"] .workflow-node {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.stage-card[data-section="portfolio"] .workflow-track {
+  display: grid !important;
+}

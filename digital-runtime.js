@@ -797,27 +797,33 @@ gsap.registerPlugin(ScrollTrigger);
 // Watch for new .animate elements and animate them
 const animatePortfolioCards = () => {
   const isPortfolio = currentSection === 'portfolio';
-  const selector = isPortfolio
-    ? '.workspace-body .method-card.animate, .workspace-body .workflow-container.animate, .workspace-body .workflow-node.animate, .workspace-body .blog-card.animate'
-    : '.workspace-body .animate';
+  
+  // For portfolio section, just show everything without animation
+  if (isPortfolio) {
+    const portfolioElements = document.querySelectorAll('.workspace-body .method-card, .workspace-body .workflow-container, .workspace-body .workflow-node, .workspace-body .blog-card');
+    portfolioElements.forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+    return;
+  }
+  
+  const selector = '.workspace-body .animate';
   const animateElements = document.querySelectorAll(selector);
   if (!animateElements.length) return;
 
   // Remove any existing animations
   gsap.killTweensOf(animateElements);
 
-  // Use scroller: workspace-body so ScrollTrigger measures scroll
-  // inside the container, not the viewport. Start immediately when
-  // section loads so nothing is hidden behind a scroll gate.
   gsap.fromTo(animateElements,
-    { opacity: 0, y: isPortfolio ? 22 : 30 },
+    { opacity: 0, y: 30 },
     {
       opacity: 1,
       y: 0,
-      duration: isPortfolio ? 0.86 : 0.6,
-      delay: isPortfolio ? 0.06 : 0,
+      duration: 0.6,
+      delay: 0,
       stagger: {
-        amount: isPortfolio ? 0.42 : 0.2,
+        amount: 0.2,
         from: "start"
       },
       ease: "power3.out",

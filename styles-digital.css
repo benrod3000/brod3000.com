@@ -120,7 +120,7 @@ p {
   width: min(1140px, 100%);
   height: min(92dvh, 920px);
   display: grid;
-  grid-template-columns: auto 340px minmax(0, 1fr);
+  grid-template-columns: 72px 340px minmax(0, 1fr);
   column-gap: 18px;
   border: 1px solid rgba(132, 112, 94, 0.08);
   border-radius: var(--radius-lg);
@@ -145,6 +145,7 @@ p {
   grid-auto-flow: row;
   align-content: center;
   justify-items: center;
+  align-self: center;
   gap: 4px;
   padding: 6px 0;
   border: none;
@@ -152,10 +153,10 @@ p {
   box-shadow: none;
   width: fit-content;
   height: auto;
-  margin: 0;
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 12px;
   z-index: 16;
-  position: relative;
 }
 
 .rail-main {
@@ -1547,7 +1548,6 @@ p {
   border-radius: 50%;
   top: 0;
   border: 2px solid var(--bg);
-}
 
 /* ======================
    GSAP ANIMATIONS
@@ -1562,6 +1562,7 @@ p {
 .blog-card.animate {
   opacity: 0;
   transform: translateY(30px);
+}
 }
 
 @media (min-width: 921px) {
@@ -1702,6 +1703,53 @@ p {
   border-top: 1px solid rgba(62, 48, 36, 0.2);
   border-bottom: 1px solid rgba(62, 48, 36, 0.12);
   padding: 18px 0 20px;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.workflow-track {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.workflow-node {
+  position: relative;
+  border: 1px solid rgba(62, 48, 36, 0.14);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.18) 100%);
+  padding: 12px 12px 14px;
+  min-height: 185px;
+  overflow: visible;
+  display: block !important;
+}
+
+.workflow-meta {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #b8941f;
+  font-weight: 700;
+}
+
+.workflow-node h5 {
+  margin: 0 0 7px;
+  font-size: 0.84rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em !important;
+}
+
+.workflow-node p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.55;
 }
 
 .workflow-header h4 {
@@ -3521,4 +3569,17 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
 img, video, iframe {
   max-width: 100%;
   height: auto;
+}
+
+/* FIX: Show the flowchart on Concepts page */
+.stage-card[data-section="portfolio"] .workflow-container,
+.stage-card[data-section="portfolio"] .workflow-track,
+.stage-card[data-section="portfolio"] .workflow-node {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.stage-card[data-section="portfolio"] .workflow-track {
+  display: grid !important;
 }

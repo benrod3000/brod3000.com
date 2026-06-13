@@ -1033,7 +1033,7 @@ p {
 .workspace-body {
   flex: 1;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: visible;
   scroll-behavior: smooth;
   padding: 40px 0 88px 0;
   min-height: 0;

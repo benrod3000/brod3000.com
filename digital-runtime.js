@@ -806,22 +806,24 @@ const animatePortfolioCards = () => {
   // Remove any existing animations
   gsap.killTweensOf(animateElements);
 
-  gsap.from(animateElements, {
-    scrollTrigger: {
-      trigger: '.workspace-body',
-      start: "top center",
-      toggleActions: "play none none none"
-    },
-    opacity: 0,
-    y: isPortfolio ? 22 : 30,
-    duration: isPortfolio ? 0.86 : 0.6,
-    delay: isPortfolio ? 0.06 : 0,
-    stagger: {
-      amount: isPortfolio ? 0.42 : 0.2,
-      from: "start"
-    },
-    ease: "power3.out"
-  });
+  // Use scroller: workspace-body so ScrollTrigger measures scroll
+  // inside the container, not the viewport. Start immediately when
+  // section loads so nothing is hidden behind a scroll gate.
+  gsap.fromTo(animateElements,
+    { opacity: 0, y: isPortfolio ? 22 : 30 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: isPortfolio ? 0.86 : 0.6,
+      delay: isPortfolio ? 0.06 : 0,
+      stagger: {
+        amount: isPortfolio ? 0.42 : 0.2,
+        from: "start"
+      },
+      ease: "power3.out",
+      clearProps: "opacity,transform"
+    }
+  );
 };
 
 // Use MutationObserver to catch when new elements are added

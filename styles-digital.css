@@ -3478,250 +3478,63 @@ img, video, iframe {
   height: auto;
 }
 
-/* ========== FINAL FIXES - OVERRIDE EVERYTHING ========== */
-
-/* 1. Hide the hamburger button on desktop - FORCE HIDE */
-.radial-trigger {
-  display: none !important;
-}
-
-/* 2. Remove any empty table/box behind menu */
-.rail-nav::before,
-.rail-nav::after,
-.rail-main::before,
-.rail-main::after,
-.digital-container::before,
-.digital-container::after {
-  display: none !important;
-  content: none !important;
-}
-
-/* 3. Fix menu position - attached to left of vcard */
-.rail-nav {
-  position: relative !important;
-  top: auto !important;
-  left: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  margin: 0 !important;
-  padding: 6px 0 !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  width: fit-content !important;
-  height: auto !important;
-}
-
-/* 4. Make sure the container allows proper spacing */
-.digital-container {
-  grid-template-columns: auto 340px minmax(0, 1fr) !important;
-  column-gap: 12px !important;
-  overflow: hidden !important;
-}
-
-/* 5. Remove any stray table elements */
-table, tbody, tr, td {
-  display: none !important;
-}
-
-/* 6. Show the flowchart on Concepts page */
-.stage-card[data-section="portfolio"] .workflow-container,
-.stage-card[data-section="portfolio"] .workflow-track,
-.stage-card[data-section="portfolio"] .workflow-node {
+/* ========== WORKFLOW FIX ========== */
+.workflow-container {
   display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+  margin-top: 40px !important;
+  margin-bottom: 40px !important;
+  border-top: 1px solid rgba(62, 48, 36, 0.2) !important;
+  border-bottom: 1px solid rgba(62, 48, 36, 0.12) !important;
+  padding: 20px 0 !important;
 }
 
-.stage-card[data-section="portfolio"] .workflow-track {
+.workflow-track {
   display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 20px !important;
+  list-style: none !important;
+  margin: 20px 0 0 !important;
+  padding: 0 !important;
 }
 
-/* ========== FIX LARGE GAP ON CONCEPTS PAGE ========== */
-
-/* Remove large padding from stage cards */
-.stage-card {
-  padding-top: 40px !important;
-  padding-bottom: 60px !important;
+.workflow-node {
+  display: block !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+  background: #f9f9f9 !important;
+  padding: 20px !important;
+  border-radius: 12px !important;
 }
 
-/* Specifically fix the concepts/portfolio page */
-.stage-card[data-section="portfolio"] {
-  padding-top: 40px !important;
-  padding-bottom: 60px !important;
-}
-
-/* Remove the large ghost text spacing */
-.stage-card::before {
-  display: none !important;
-}
-
-/* Fix any extra margins on cards */
-.card-title-wrap {
-  margin-bottom: 20px !important;
-}
-
-.card-title-wrap h3 {
-  margin-top: 10px !important;
+.workflow-meta {
+  display: block !important;
+  color: #b8941f !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
   margin-bottom: 10px !important;
+  font-family: monospace !important;
 }
 
-/* ========== REMOVE LARGE GAP FROM GHOST TEXT ========== */
-
-/* Completely remove the ghost text element */
-.stage-card::before {
-  display: none !important;
-  content: none !important;
+.workflow-node h5 {
+  display: block !important;
+  font-size: 16px !important;
+  margin: 0 0 10px 0 !important;
+  font-weight: 600 !important;
 }
 
-/* Reset padding on all stage cards to normal */
-.stage-card {
-  padding: 40px 40px 60px 40px !important;
+.workflow-node p {
+  display: block !important;
+  font-size: 13px !important;
+  color: #666 !important;
+  margin: 0 !important;
+  line-height: 1.5 !important;
 }
 
-/* Remove any extra top margin from first elements */
-.stage-card .card-title-wrap {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
+/* Override animate class for workflow */
+.workflow-container.animate,
+.workflow-track.animate,
+/* workflow-node animation handled by GSAP */
 
-/* Reset the about page specific padding */
-.stage-card[data-section="about"] {
-  padding-top: 40px !important;
-}
-
-/* Reset the portfolio page specific padding */
-.stage-card[data-section="portfolio"] {
-  padding-top: 40px !important;
-}
-
-/* Fix large gap - remove ghost text spacing */
-.stage-card::before {
-  display: none !important;
-  content: none !important;
-}
-
-.stage-card {
-  padding-top: 30px !important;
-}
-/* Hide hamburger menu button on desktop only */
-@media (min-width: 921px) {
-  .radial-trigger {
-    display: none !important;
-  }
-}
-/* Brutalist contact input style */
-.brutalist-container {
-  position: relative;
-  width: 100%;
-  font-family: monospace;
-}
-
-.brutalist-input {
-  width: 100%;
-  padding: 15px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #000;
-  background-color: #fff;
-  border: 4px solid #000;
-  border-radius: 0;
-  outline: none;
-  transition: all 0.3s ease;
-  box-shadow: 5px 5px 0 #000, 10px 10px 0 var(--accent);
-}
-
-.brutalist-input:focus {
-  animation: focus-pulse 4s infinite;
-}
-
-@keyframes focus-pulse {
-  0%, 100% { border-color: #000; }
-  50% { border-color: var(--accent); }
-}
-
-.brutalist-label {
-  position: absolute;
-  left: -3px;
-  top: -35px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #fff;
-  background-color: #000;
-  padding: 5px 10px;
-  transform: rotate(-1deg);
-  z-index: 1;
-}
-
-.brutalist-input:focus + .brutalist-label {
-  transform: rotate(0deg) scale(1.05);
-  background-color: var(--accent);
-}
-/* Brutalist contact input style */
-.brutalist-container {
-  position: relative;
-  width: 100%;
-  font-family: monospace;
-}
-
-.brutalist-input {
-  width: 100%;
-  padding: 15px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #000;
-  background-color: #fff;
-  border: 4px solid #000;
-  border-radius: 0;
-  outline: none;
-  transition: all 0.3s ease;
-  box-shadow: 5px 5px 0 #000, 10px 10px 0 var(--accent);
-}
-
-.brutalist-input:focus {
-  animation: focus-pulse 4s infinite;
-}
-
-@keyframes focus-pulse {
-  0%, 100% { border-color: #000; }
-  50% { border-color: var(--accent); }
-}
-
-.brutalist-label {
-  position: absolute;
-  left: -3px;
-  top: -35px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #fff;
-  background-color: #000;
-  padding: 5px 10px;
-  transform: rotate(-1deg);
-  z-index: 1;
-}
-
-.brutalist-input:focus + .brutalist-label {
-  transform: rotate(0deg) scale(1.05);
-  background-color: var(--accent);
-}
-
-.brutalist-input::placeholder {
-  color: #888;
-  transition: color 0.3s ease;
-}
-
-.brutalist-input:focus::placeholder {
-  color: transparent;
-}
-
-/* ========== PROFILE IMAGE FIX - LARGER CIRCULAR AVATAR ========== */
-.profile-cover {
-  min-height: 180px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 0 !important;
-}
+/* profile-cover layout handled by existing rules */
 
 .profile-cover img {
   position: relative !important;
@@ -3738,91 +3551,6 @@ table, tbody, tr, td {
 
 .prof-photo-num, .prof-avatar {
   display: none !important;
-}
-
-/* ========== TIGHTEN PROFILE CARD SPACING ========== */
-.profile-content {
-  padding: 16px 20px 12px 20px !important;
-}
-
-.prof-name {
-  margin-bottom: 4px !important;
-  font-size: 1.6rem !important;
-}
-
-.prof-bio {
-  margin-bottom: 12px !important;
-  padding-bottom: 8px !important;
-}
-
-.prof-stats {
-  margin-bottom: 12px !important;
-  gap: 6px !important;
-}
-
-.pstat {
-  padding: 6px 4px !important;
-}
-
-.psv {
-  font-size: 1.1rem !important;
-}
-
-.profile-cta {
-  padding: 10px 16px !important;
-  margin-bottom: 12px !important;
-}
-
-/* ========== HIDE HAMBURGER MENU ON DESKTOP ========== */
-@media (min-width: 921px) {
-  .radial-trigger {
-    display: none !important;
-  }
-}
-
-/* ========== REMOVE GHOST TEXT AND LARGE GAPS ========== */
-.stage-card::before {
-  display: none !important;
-  content: none !important;
-}
-
-.stage-card {
-  padding-top: 30px !important;
-}
-
-/* ========== PROFILE IMAGE FIX ========== */
-.profile-cover {
-  min-height: 180px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 0 !important;
-}
-
-.profile-cover img {
-  position: relative !important;
-  top: auto !important;
-  left: auto !important;
-  transform: none !important;
-  width: 120px !important;
-  height: 120px !important;
-  border-radius: 50% !important;
-  object-fit: cover !important;
-  border: 4px solid white !important;
-  margin-top: 20px !important;
-}
-
-.prof-photo-num, .prof-avatar {
-  display: none !important;
-}
-
-.profile-content {
-  padding: 16px 20px 12px 20px !important;
-}
-
-.prof-name {
-  margin-bottom: 4px !important;
-  font-size: 1.6rem !important;
 }
 
 /* Hide hamburger on desktop */
@@ -3832,60 +3560,37 @@ table, tbody, tr, td {
   }
 }
 
-/* Remove ghost text gaps */
+/* Remove ghost text */
 .stage-card::before {
   display: none !important;
-  content: none !important;
 }
 
 .stage-card {
   padding-top: 30px !important;
 }
-
-/* Brutalist input styles */
-.brutalist-container {
-  position: relative;
-  width: 100%;
-  font-family: monospace;
+/* ========== FORCE WORKFLOW TO SHOW ========== */
+.workflow-container,
+.workflow-track,
+.workflow-node {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
-.brutalist-input {
-  width: 100%;
-  padding: 14px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #000;
-  background-color: #fff;
-  border: 3px solid #000;
-  border-radius: 0;
-  outline: none;
-  transition: all 0.3s ease;
-  box-shadow: 4px 4px 0 #000, 8px 8px 0 var(--accent);
+.workflow-track {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 20px !important;
 }
 
-.brutalist-input:focus {
-  animation: focus-pulse 4s infinite;
+.workflow-node {
+  border: 2px solid #000 !important;
+  background: #fff !important;
+  padding: 20px !important;
+  margin: 0 !important;
 }
 
-@keyframes focus-pulse {
-  0%, 100% { border-color: #000; }
-  50% { border-color: var(--accent); }
-}
-
-.brutalist-label {
-  position: absolute;
-  left: -3px;
-  top: -32px;
-  font-size: 12px;
-  font-weight: bold;
-  color: #fff;
-  background-color: #000;
-  padding: 4px 8px;
-  transform: rotate(-1deg);
-  z-index: 1;
-}
-
-.brutalist-input:focus + .brutalist-label {
-  transform: rotate(0deg) scale(1.05);
-  background-color: var(--accent);
+/* Also check if the section is even loading */
+.stage-card[data-section="portfolio"] {
+  display: block !important;
 }

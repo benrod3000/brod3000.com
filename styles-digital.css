@@ -127,7 +127,7 @@ p {
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(10px);
   box-shadow: var(--shadow-lg);
-  overflow: hidden;
+  overflow: visible;
   animation: card-in 0.72s cubic-bezier(.4, 0, .2, 1) forwards;
 }
 

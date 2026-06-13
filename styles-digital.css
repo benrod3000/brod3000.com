@@ -3443,6 +3443,89 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
     padding: 32px 16px 60px 16px;
   }
 }
+/* Brutalist styling for workflow in portfolio section */
+body.design-digital .stage-card[data-section="portfolio"] .workflow-container {
+  background: var(--brut-bg) !important;
+  border: 5px solid #0a0a0a !important;
+  box-shadow: 8px 8px 0 #0a0a0a !important;
+  margin: 40px 0 !important;
+  padding: 24px !important;
+}
+
+body.design-digital .stage-card[data-section="portfolio"] .workflow-track {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 20px !important;
+}
+
+body.design-digital .stage-card[data-section="portfolio"] .workflow-node {
+  background: #ffffff !important;
+  border: 3px solid #0a0a0a !important;
+  box-shadow: 4px 4px 0 #0a0a0a !important;
+  border-radius: 0 !important;
+  padding: 20px !important;
+  transition: all 0.2s ease !important;
+}
+
+body.design-digital .stage-card[data-section="portfolio"] .workflow-node.is-live {
+  background: #f5e642 !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 8px 8px 0 #0a0a0a !important;
+}
+
+body.design-digital .stage-card[data-section="portfolio"] .workflow-meta {
+  font-family: "Bebas Neue", Impact, "Arial Black", sans-serif !important;
+  font-size: 14px !important;
+  letter-spacing: 0.1em !important;
+  color: #0a0a0a !important;
+  background: transparent !important;
+}
+
+body.design-digital .stage-card[data-section="portfolio"] .workflow-node h5 {
+  font-family: "Bebas Neue", Impact, "Arial Black", sans-serif !important;
+  font-size: 18px !important;
+  text-transform: uppercase !important;
+  margin: 10px 0 !important;
+  color: #0a0a0a !important;
+}
+
+body.design-digital .stage-card[data-section="portfolio"] .workflow-node p {
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 13px !important;
+  color: #0a0a0a !important;
+}
+
+body.design-digital .stage-card[data-section="portfolio"] .blog-panel {
+  border-top: 5px solid #0a0a0a !important;
+  margin-top: 40px !important;
+  padding-top: 24px !important;
+}
+
+body.design-digital .stage-card[data-section="portfolio"] .blog-card {
+  border: 3px solid #0a0a0a !important;
+  box-shadow: 4px 4px 0 #0a0a0a !important;
+  padding: 16px !important;
+  margin-bottom: 16px !important;
+  background: #ffffff !important;
+}
+
+body.design-digital .stage-card[data-section="portfolio"] .blog-card .blog-meta {
+  font-family: "Bebas Neue", Impact, "Arial Black", sans-serif !important;
+  font-size: 12px !important;
+  color: #e8180a !important;
+}
+
+body.design-digital .stage-card[data-section="portfolio"] .blog-card h5 {
+  font-family: "Bebas Neue", Impact, "Arial Black", sans-serif !important;
+  font-size: 16px !important;
+  text-transform: uppercase !important;
+}
+
+@media (max-width: 920px) {
+  body.design-digital .stage-card[data-section="portfolio"] .workflow-track {
+    grid-template-columns: 1fr !important;
+  }
+}
 
 /* ============================================================
    REDUCED MOTION

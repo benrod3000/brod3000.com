@@ -3594,3 +3594,70 @@ img, video, iframe {
 .stage-card[data-section="portfolio"] {
   display: block !important;
 }
+/* Force portfolio workflow container to show */
+.workspace-body .stage-card[data-section="portfolio"] .workflow-container,
+.workspace-body .stage-card[data-section="portfolio"] .workflow-track,
+.workspace-body .stage-card[data-section="portfolio"] .workflow-node {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.workspace-body .stage-card[data-section="portfolio"] .workflow-track {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 20px !important;
+  list-style: none !important;
+  margin: 20px 0 0 !important;
+  padding: 0 !important;
+}
+
+.workspace-body .stage-card[data-section="portfolio"] .workflow-node {
+  border: 1px solid rgba(0,0,0,0.1) !important;
+  background: #f9f9f9 !important;
+  padding: 20px !important;
+  border-radius: 12px !important;
+}
+
+.workspace-body .stage-card[data-section="portfolio"] .workflow-meta {
+  display: block !important;
+  color: #b8941f !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  margin-bottom: 10px !important;
+  font-family: monospace !important;
+}
+
+.workspace-body .stage-card[data-section="portfolio"] .workflow-node h5 {
+  display: block !important;
+  font-size: 16px !important;
+  margin: 0 0 10px 0 !important;
+  font-weight: 600 !important;
+}
+
+.workspace-body .stage-card[data-section="portfolio"] .workflow-node p {
+  display: block !important;
+  font-size: 13px !important;
+  color: #666 !important;
+  margin: 0 !important;
+  line-height: 1.5 !important;
+}
+
+/* Also ensure portfolio cards show */
+.workspace-body .stage-card[data-section="portfolio"] .method-card,
+.workspace-body .stage-card[data-section="portfolio"] .blog-card {
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Fix any overflow issues */
+.workspace-body .stage-card[data-section="portfolio"] {
+  overflow-x: visible !important;
+}
+
+@media (max-width: 920px) {
+  .workspace-body .stage-card[data-section="portfolio"] .workflow-track {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}

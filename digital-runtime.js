@@ -18,196 +18,10 @@ const compactProfileThreshold = 36;
 const dockScrollThreshold = 18;
 
 function initAmbientCanvas() {
-  // Canvas animation disabled for performance
-  // Keeps the ambient background simple
   const canvas = document.getElementById('ambient-canvas');
   if (canvas) {
     canvas.style.display = 'none';
   }
-}
-
-  const viewCtx = ambientCanvas.getContext('2d', { alpha: true });
-  if (!viewCtx) {
-    return;
-  }
-
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const lowPowerViewport = window.matchMedia('(max-width: 768px)');
-  const rootStyles = getComputedStyle(document.documentElement);
-  const accentHue = Number.parseFloat(rootStyles.getPropertyValue('--accent-h')) || 156;
-  const canvasSat = rootStyles.getPropertyValue('--canvas-sat').trim() || '50%';
-  const canvasLight = rootStyles.getPropertyValue('--canvas-light').trim() || '39%';
-  const canvasAlphaBase = Number.parseFloat(rootStyles.getPropertyValue('--canvas-alpha')) || 0.16;
-
-  const TAU = Math.PI * 2;
-  const propCount = 8;
-  const baseSpeed = 0.08;
-  const rangeSpeed = 0.6;
-  const baseTtl = 140;
-  const rangeTtl = 180;
-  const baseRadius = 72;
-  const rangeRadius = 170;
-  const rangeHue = 55;
-  const xOff = 0.0015;
-  const yOff = 0.0015;
-  const zOff = 0.0015;
-
-  const bufferCanvas = document.createElement('canvas');
-  const bufferCtx = bufferCanvas.getContext('2d', { alpha: true });
-  if (!bufferCtx) {
-    return;
-  }
-
-  let rafId = 0;
-  let width = 0;
-  let height = 0;
-  let dpr = 1;
-  let circleCount = 0;
-  let circleProps;
-  let baseHue = accentHue;
-
-  const rand = (n) => Math.random() * n;
-  const fadeInOut = (t, ttl) => {
-    const half = 0.5 * ttl;
-    return Math.abs(((t + half) % ttl) - half) / half;
-  };
-
-  const pseudoNoise3D = (x, y, z) => {
-    const value = Math.sin(x * 12.9898 + y * 78.233 + z * 37.719) * 43758.5453;
-    return (value - Math.floor(value)) * 2 - 1;
-  };
-
-  function initCircle(offset) {
-    const x = rand(width);
-    const y = rand(height);
-    const n = pseudoNoise3D(x * xOff, y * yOff, baseHue * zOff);
-    const angle = rand(TAU);
-    const speed = baseSpeed + rand(rangeSpeed);
-    const vx = Math.cos(angle) * speed;
-    const vy = Math.sin(angle) * speed;
-    const life = 0;
-    const ttl = baseTtl + rand(rangeTtl);
-    const radius = baseRadius + rand(rangeRadius);
-    const hue = baseHue + n * rangeHue;
-
-    circleProps[offset] = x;
-    circleProps[offset + 1] = y;
-    circleProps[offset + 2] = vx;
-    circleProps[offset + 3] = vy;
-    circleProps[offset + 4] = life;
-    circleProps[offset + 5] = ttl;
-    circleProps[offset + 6] = radius;
-    circleProps[offset + 7] = hue;
-  }
-
-  function initCircles() {
-    circleCount = lowPowerViewport.matches ? 90 : 150;
-    circleProps = new Float32Array(circleCount * propCount);
-
-    for (let i = 0; i < circleProps.length; i += propCount) {
-      initCircle(i);
-    }
-  }
-
-  function drawCircle(x, y, life, ttl, radius, hue) {
-    const alpha = fadeInOut(life, ttl) * canvasAlphaBase;
-    bufferCtx.fillStyle = `hsla(${hue}, ${canvasSat}, ${canvasLight}, ${alpha})`;
-    bufferCtx.beginPath();
-    bufferCtx.arc(x, y, radius, 0, TAU);
-    bufferCtx.fill();
-  }
-
-  function isOutOfBounds(x, y, radius) {
-    return x < -radius || x > width + radius || y < -radius || y > height + radius;
-  }
-
-  function updateCircles() {
-    baseHue += 0.25;
-
-    for (let i = 0; i < circleProps.length; i += propCount) {
-      const x = circleProps[i];
-      const y = circleProps[i + 1];
-      const vx = circleProps[i + 2];
-      const vy = circleProps[i + 3];
-      const life = circleProps[i + 4];
-      const ttl = circleProps[i + 5];
-      const radius = circleProps[i + 6];
-      const hue = circleProps[i + 7];
-
-      drawCircle(x, y, life, ttl, radius, hue);
-
-      const nextLife = life + 1;
-      circleProps[i] = x + vx;
-      circleProps[i + 1] = y + vy;
-      circleProps[i + 4] = nextLife;
-
-      if (nextLife > ttl || isOutOfBounds(x, y, radius)) {
-        initCircle(i);
-      }
-    }
-  }
-
-  function resizeCanvas() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    ambientCanvas.width = Math.max(1, Math.floor(width * dpr));
-    ambientCanvas.height = Math.max(1, Math.floor(height * dpr));
-    bufferCanvas.width = ambientCanvas.width;
-    bufferCanvas.height = ambientCanvas.height;
-    ambientCanvas.style.width = `${width}px`;
-    ambientCanvas.style.height = `${height}px`;
-
-    viewCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    bufferCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    initCircles();
-  }
-
-  function paintFrame() {
-    bufferCtx.clearRect(0, 0, width, height);
-    viewCtx.clearRect(0, 0, width, height);
-
-    updateCircles();
-
-    viewCtx.save();
-    viewCtx.filter = lowPowerViewport.matches ? 'blur(38px)' : 'blur(52px)';
-    viewCtx.drawImage(bufferCanvas, 0, 0, width, height);
-    viewCtx.restore();
-
-    viewCtx.save();
-    viewCtx.globalAlpha = 0.32;
-    viewCtx.drawImage(bufferCanvas, 0, 0, width, height);
-    viewCtx.restore();
-  }
-
-  function frame() {
-    paintFrame();
-    rafId = window.requestAnimationFrame(frame);
-  }
-
-  function refreshAnimationMode() {
-    if (rafId) {
-      window.cancelAnimationFrame(rafId);
-      rafId = 0;
-    }
-
-    paintFrame();
-
-    if (!prefersReducedMotion.matches) {
-      rafId = window.requestAnimationFrame(frame);
-    }
-  }
-
-  resizeCanvas();
-  refreshAnimationMode();
-
-  window.addEventListener('resize', () => {
-    resizeCanvas();
-    refreshAnimationMode();
-  });
-
-  prefersReducedMotion.addEventListener('change', refreshAnimationMode);
 }
 
 initAmbientCanvas();
@@ -297,10 +111,6 @@ function animateAboutStats(root) {
 
 const isMobile = window.matchMedia('(max-width: 920px)').matches;
 
-// On mobile, the CSS card-in animation leaves an inline transform on
-// .digital-container after it finishes. Any transform (even scale(1))
-// creates a stacking context that traps position:fixed children (the nav).
-// removeProperty first, then force 'none' with !important priority.
 if (cardShell) {
   const clearContainerTransform = () => {
     if (window.matchMedia('(max-width: 920px)').matches) {
@@ -309,7 +119,6 @@ if (cardShell) {
       cardShell.style.setProperty('transform', 'none', 'important');
     }
   };
-  // Run immediately, after short delay, and after animation completes
   clearContainerTransform();
   setTimeout(clearContainerTransform, 100);
   setTimeout(clearContainerTransform, 800);
@@ -348,99 +157,84 @@ if (cursor && window.matchMedia('(hover: hover)').matches) {
     cursor.style.left = `${event.clientX}px`;
     cursor.style.top = `${event.clientY}px`;
   });
-if (section === 'portfolio') {
-  return `
-    <article class="stage-card section-enter" data-section="portfolio" data-ghost="PORTFOLIO">
-      <div class="card-title-wrap">
-        <span class="card-kicker">Concepts</span>
-        <h3>Theory library for durable digital operation</h3>
-        <p>Core principles that guide planning, channel execution, and performance control across the full system.</p>
-      </div>
 
-      <div class="method-grid">
-        <article class="method-card animate">
-          <span class="method-index">01</span>
-          <h4>Systems Over Tactics</h4>
-          <p><strong class="scan-lead">Architectural stability logic</strong> Infrastructure led growth prioritizes repeatable frameworks over transient platform hacks. Strategic resilience is achieved by building systems that outlast individual campaign cycles.</p>
-        </article>
-        <article class="method-card animate">
-          <span class="method-index">02</span>
-          <h4>The Durable Narrative</h4>
-          <p><strong class="scan-lead">Contextual brand filtering</strong> Narrative serves as the primary filter for all incoming data and outgoing creative. A coherent brand identity reduces market friction and accelerates consumer trust building.</p>
-        </article>
-        <article class="method-card animate">
-          <span class="method-index">03</span>
-          <h4>Compound Retention</h4>
-          <p><strong class="scan-lead">Compounding lifecycle physics</strong> Revenue growth is a function of minimizing churn through rigorous user experience design. Sustainable scaling is driven by the lifetime value of established audiences rather than constant acquisition.</p>
-        </article>
-      </div>
+  bindCursorTargets = () => {
+    interactiveTargets().forEach((el) => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+    });
+  };
 
-      <section class="workflow-container" aria-label="Operating workflow schematic">
-        <div class="workflow-header">
-          <h4>Operating Workflow</h4>
-          <p>From raw signal to hardened system.</p>
-        </div>
-
-        <ul class="workflow-track">
-          <li class="workflow-node">
-            <span class="workflow-meta">STEP 01</span>
-            <h5>Signal Intake</h5>
-            <p>Aggregating raw data, market sentiment, and brand objectives into a single source of truth.</p>
-          </li>
-          <li class="workflow-node">
-            <span class="workflow-meta">STEP 02</span>
-            <h5>Diagnostic Mapping</h5>
-            <p>Identifying systemic bottlenecks and friction points within the existing digital structure.</p>
-          </li>
-          <li class="workflow-node">
-            <span class="workflow-meta">STEP 03</span>
-            <h5>System Architecture</h5>
-            <p>Designing the durable framework and logic flows required to solve the identified friction.</p>
-          </li>
-          <li class="workflow-node">
-            <span class="workflow-meta">STEP 04</span>
-            <h5>Multi Channel Execution</h5>
-            <p>Deploying the architecture across relevant platforms with unified brand logic.</p>
-          </li>
-          <li class="workflow-node">
-            <span class="workflow-meta">STEP 05</span>
-            <h5>Feedback Integration</h5>
-            <p>Capturing real time performance data to refine the system responsiveness.</p>
-          </li>
-          <li class="workflow-node">
-            <span class="workflow-meta">STEP 06</span>
-            <h5>Iterative Optimization</h5>
-            <p>Hardening the system for long term retention and compounding growth.</p>
-          </li>
-        </ul>
-      </section>
-
-      <div class="blog-panel">
-        <div class="blog-panel-head">
-          <h4>Applied Signals</h4>
-          <p>Clear outcome snapshots: context, action, impact.</p>
-        </div>
-        <div class="blog-grid">
-          <article class="blog-card">
-            <span class="blog-meta">Systems Deployment</span>
-            <h5>Audience ownership framework rollout</h5>
-            <p><strong>Context:</strong> Planning was fragmented across teams and channels.<br><strong>Action:</strong> Implemented one planning cadence linking content, paid media, and web priorities.<br><strong>Impact:</strong> Faster decisions, clearer campaign choices, steadier execution quality.</p>
-          </article>
-          <article class="blog-card">
-            <span class="blog-meta">Paid Media Operations</span>
-            <h5>Creative testing system for paid social</h5>
-            <p><strong>Context:</strong> Testing was inconsistent and scaling decisions were slow.<br><strong>Action:</strong> Built a repeatable creative test cadence with cleaner hypotheses and reporting loops.<br><strong>Impact:</strong> More learnings per cycle, faster iteration, stronger budget confidence.</p>
-          </article>
-          <article class="blog-card">
-            <span class="blog-meta">Retention Systems</span>
-            <h5>Email automation reset for dormant audiences</h5>
-            <p><strong>Context:</strong> Lifecycle messaging lacked segmentation and reactivation control.<br><strong>Action:</strong> Rebuilt automation flows for nurture, re engagement, and list health management.<br><strong>Impact:</strong> Better audience quality, steadier retention performance, stronger long term value.</p>
-          </article>
-        </div>
-      </div>
-    </article>
-  `;
+  bindCursorTargets();
 }
+
+setInterval(() => {
+  phraseIndex = (phraseIndex + 1) % phrases.length;
+  if (rotator) rotator.textContent = phrases[phraseIndex];
+}, 2600);
+
+function sectionTemplate(section) {
+  if (section === 'about') {
+    return `
+      <article class="stage-card section-enter" data-section="about" data-ghost="ABOUT">
+        <div class="card-title-wrap">
+          <span class="card-kicker">About</span>
+          <h3>I build systems for growth.</h3>
+          <p><strong>Systems first growth architecture</strong> demands a move away from "growth hacks" toward durable, high leverage digital structures.</p>
+          <p><strong>Complexity requires clarity</strong> when managing multi channel campaigns; we solve for the bottleneck before we solve for the volume.</p>
+          <p><strong>Engineered for scale</strong> is how I approach every campaign, ensuring that the infrastructure can support the ambition.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-block">
+            <h4>Alignment</h4>
+            <p><strong>Methodology over history</strong> is the cornerstone of my practice; I provide the operating manual, not just the labor.</p>
+          </div>
+          <div class="about-block">
+            <h4>Principle</h4>
+            <p><strong>Eleven years' tenure</strong> at the intersection of culture and commerce has refined my ability to scale brands without losing their soul.</p>
+          </div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-pill"><strong data-count-target="11" data-count-suffix="+">0+</strong><span>Years in Talent Management</span></div>
+          <div class="stat-pill"><strong data-count-target="20" data-count-suffix="+">0+</strong><span>Campaigns Launched</span></div>
+          <div class="stat-pill"><strong data-count-target="3" data-count-suffix="x">0x</strong><span>Average Return on Ad Spend</span></div>
+        </div>
+
+        <div class="about-bridge" aria-hidden="true"></div>
+      </article>
+    `;
+  }
+
+  if (section === 'services') {
+    return `
+      <article class="stage-card section-enter" data-section="services" data-ghost="RESUME">
+        <div class="card-title-wrap">
+          <span class="card-kicker">Capabilities</span>
+          <h3>Results built on repeatable systems</h3>
+          <p><strong>Unified operating logic</strong> aligns strategy, paid media, web, and lifecycle so execution stays fast, measurable, and resilient.</p>
+        </div>
+
+        <div class="resume-layout">
+          <div class="resume-column">
+            <h4 class="resume-heading">Experience</h4>
+            <div class="timeline-list">
+              <article class="timeline-item active">
+                <span class="timeline-date">2016 to 2021</span>
+                <h5>Digital Marketing Director</h5>
+                <p>Owned the digital roadmap across paid media, web, email, and reporting operations. Led cross functional launches, standardized campaign QA, and aligned channel KPIs to business goals. Result: faster launch cycles, cleaner attribution, and sustained performance with average return on ad spend around 3x on core campaigns.</p>
+              </article>
+              <article class="timeline-item">
+                <span class="timeline-date">2011 to 2016</span>
+                <h5>Digital Marketing Manager</h5>
+                <p>Managed day to day campaign execution, content calendars, landing page workflows, and stakeholder reporting. Built repeatable testing and weekly optimization rhythms that improved decision speed and reduced channel drift across active campaigns.</p>
+              </article>
+              <article class="timeline-item">
+                <span class="timeline-date">2010 to 2011</span>
+                <h5>Assistant Tour Manager / Merch Manager</h5>
+                <p>Managed tour logistics and merch operations across venues, including inventory forecasting, point of sale reconciliation, and nightly reporting. Built execution discipline under pressure that later translated directly into digital operations leadership.</p>
+              </article>
             </div>
           </div>
           <div class="resume-column">
@@ -534,62 +328,62 @@ if (section === 'portfolio') {
         </div>
 
         <div class="method-grid">
-          <article class="method-card animate">
-            <span class="method-index">01</span>
+          <div class="method-card animate">
+            <div class="method-index">01</div>
             <h4>Systems Over Tactics</h4>
-            <p><strong>Architectural stability logic</strong> Infrastructure led growth prioritizes repeatable frameworks over transient platform hacks. Strategic resilience is achieved by building systems that outlast individual campaign cycles.</p>
-          </article>
-          <article class="method-card animate">
-            <span class="method-index">02</span>
+            <p><strong class="scan-lead">Architectural stability logic</strong> Infrastructure led growth prioritizes repeatable frameworks over transient platform hacks. Strategic resilience is achieved by building systems that outlast individual campaign cycles.</p>
+          </div>
+          <div class="method-card animate">
+            <div class="method-index">02</div>
             <h4>The Durable Narrative</h4>
-            <p><strong>Contextual brand filtering</strong> Narrative serves as the primary filter for all incoming data and outgoing creative. A coherent brand identity reduces market friction and accelerates consumer trust building.</p>
-          </article>
-          <article class="method-card animate">
-            <span class="method-index">03</span>
+            <p><strong class="scan-lead">Contextual brand filtering</strong> Narrative serves as the primary filter for all incoming data and outgoing creative. A coherent brand identity reduces market friction and accelerates consumer trust building.</p>
+          </div>
+          <div class="method-card animate">
+            <div class="method-index">03</div>
             <h4>Compound Retention</h4>
-            <p><strong>Compounding lifecycle physics</strong> Revenue growth is a function of minimizing churn through rigorous user experience design. Sustainable scaling is driven by the lifetime value of established audiences rather than constant acquisition.</p>
-          </article>
+            <p><strong class="scan-lead">Compounding lifecycle physics</strong> Revenue growth is a function of minimizing churn through rigorous user experience design. Sustainable scaling is driven by the lifetime value of established audiences rather than constant acquisition.</p>
+          </div>
         </div>
 
-        <section class="workflow-container animate" aria-label="Operating workflow schematic">
+        <div class="workflow-container">
           <div class="workflow-header">
             <h4>Operating Workflow</h4>
             <p>From raw signal to hardened system.</p>
           </div>
 
-          <ol class="workflow-track">
-            <li class="workflow-node animate">
-              <span class="workflow-meta">STEP 01</span>
+          <div class="workflow-track">
+            <div class="workflow-node">
+              <div class="workflow-meta">STEP 01</div>
               <h5>Signal Intake</h5>
               <p>Aggregating raw data, market sentiment, and brand objectives into a single source of truth.</p>
-            </li>
-            <li class="workflow-node animate">
-              <span class="workflow-meta">STEP 02</span>
+            </div>
+            <div class="workflow-node">
+              <div class="workflow-meta">STEP 02</div>
               <h5>Diagnostic Mapping</h5>
               <p>Identifying systemic bottlenecks and friction points within the existing digital structure.</p>
-            </li>
-            <li class="workflow-node animate">
-              <span class="workflow-meta">STEP 03</span>
+            </div>
+            <div class="workflow-node">
+              <div class="workflow-meta">STEP 03</div>
               <h5>System Architecture</h5>
               <p>Designing the durable framework and logic flows required to solve the identified friction.</p>
-            </li>
-            <li class="workflow-node animate">
-              <span class="workflow-meta">STEP 04</span>
+            </div>
+            <div class="workflow-node">
+              <div class="workflow-meta">STEP 04</div>
               <h5>Multi Channel Execution</h5>
               <p>Deploying the architecture across relevant platforms with unified brand logic.</p>
-            </li>
-            <li class="workflow-node animate">
-              <span class="workflow-meta">STEP 05</span>
+            </div>
+            <div class="workflow-node">
+              <div class="workflow-meta">STEP 05</div>
               <h5>Feedback Integration</h5>
               <p>Capturing real time performance data to refine the system responsiveness.</p>
-            </li>
-            <li class="workflow-node animate">
-              <span class="workflow-meta">STEP 06</span>
+            </div>
+            <div class="workflow-node">
+              <div class="workflow-meta">STEP 06</div>
               <h5>Iterative Optimization</h5>
               <p>Hardening the system for long term retention and compounding growth.</p>
-            </li>
-          </ol>
-        </section>
+            </div>
+          </div>
+        </div>
 
         <div class="blog-panel">
           <div class="blog-panel-head">
@@ -597,21 +391,21 @@ if (section === 'portfolio') {
             <p>Clear outcome snapshots: context, action, impact.</p>
           </div>
           <div class="blog-grid">
-            <article class="blog-card animate">
-              <span class="blog-meta">Systems Deployment</span>
+            <div class="blog-card">
+              <div class="blog-meta">Systems Deployment</div>
               <h5>Audience ownership framework rollout</h5>
               <p><strong>Context:</strong> Planning was fragmented across teams and channels.<br><strong>Action:</strong> Implemented one planning cadence linking content, paid media, and web priorities.<br><strong>Impact:</strong> Faster decisions, clearer campaign choices, steadier execution quality.</p>
-            </article>
-            <article class="blog-card animate">
-              <span class="blog-meta">Paid Media Operations</span>
+            </div>
+            <div class="blog-card">
+              <div class="blog-meta">Paid Media Operations</div>
               <h5>Creative testing system for paid social</h5>
               <p><strong>Context:</strong> Testing was inconsistent and scaling decisions were slow.<br><strong>Action:</strong> Built a repeatable creative test cadence with cleaner hypotheses and reporting loops.<br><strong>Impact:</strong> More learnings per cycle, faster iteration, stronger budget confidence.</p>
-            </article>
-            <article class="blog-card animate">
-              <span class="blog-meta">Retention Systems</span>
+            </div>
+            <div class="blog-card">
+              <div class="blog-meta">Retention Systems</div>
               <h5>Email automation reset for dormant audiences</h5>
               <p><strong>Context:</strong> Lifecycle messaging lacked segmentation and reactivation control.<br><strong>Action:</strong> Rebuilt automation flows for nurture, re engagement, and list health management.<br><strong>Impact:</strong> Better audience quality, steadier retention performance, stronger long term value.</p>
-            </article>
+            </div>
           </div>
         </div>
       </article>
@@ -711,7 +505,6 @@ function mountSection(section) {
         }, 460);
       }
     }
-
   };
 
   if (!currentCard) {
@@ -720,7 +513,7 @@ function mountSection(section) {
     requestAnimationFrame(() => {
       nextCard.classList.add('section-enter-active');
       activateSectionEffects();
-      bindCursorTargets();
+      if (bindCursorTargets) bindCursorTargets();
     });
     return;
   }
@@ -733,7 +526,7 @@ function mountSection(section) {
     requestAnimationFrame(() => {
       nextCard.classList.add('section-enter-active');
       activateSectionEffects();
-      bindCursorTargets();
+      if (bindCursorTargets) bindCursorTargets();
     });
   }, 300);
 }
@@ -760,12 +553,10 @@ railTabs.forEach((btn) => {
     btn.setAttribute('aria-pressed', 'true');
     btn.setAttribute('aria-current', 'page');
     mountSection(btn.dataset.section);
-    // Always scroll to top of workspace on section change
     if (stage) {
       stage.scrollTop = 0;
     }
     window.scrollTo({ top: 0, behavior: 'auto' });
-    // Close radial menu on nav
     if (railNav && railNav.classList.contains('is-open')) {
       railNav.classList.remove('is-open');
       if (radialTrigger) {
@@ -776,7 +567,6 @@ railTabs.forEach((btn) => {
   });
 });
 
-// Radial hamburger toggle
 if (radialTrigger && railNav) {
   radialTrigger.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -808,60 +598,52 @@ if (profileCard && stage) {
   syncMobileProfileCompaction();
 }
 
-/* =========================
-   GSAP SCROLL ANIMATIONS FOR PORTFOLIO
-========================= */
-gsap.registerPlugin(ScrollTrigger);
+// GSAP Scroll Animations
+if (typeof gsap !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
 
-// Watch for new .animate elements and animate them
-const animatePortfolioCards = () => {
-  const isPortfolio = currentSection === 'portfolio';
-  const selector = isPortfolio
-    ? '.workspace-body .method-card.animate, .workspace-body .workflow-container.animate, .workspace-body .workflow-node.animate, .workspace-body .blog-card.animate'
-    : '.workspace-body .animate';
-  const animateElements = document.querySelectorAll(selector);
-  if (!animateElements.length) return;
+  const animatePortfolioCards = () => {
+    const isPortfolio = currentSection === 'portfolio';
+    const selector = isPortfolio
+      ? '.workspace-body .method-card.animate, .workspace-body .workflow-container, .workspace-body .workflow-node, .workspace-body .blog-card'
+      : '.workspace-body .animate';
+    const animateElements = document.querySelectorAll(selector);
+    if (!animateElements.length) return;
 
-  // Remove any existing animations
-  gsap.killTweensOf(animateElements);
+    gsap.killTweensOf(animateElements);
 
-  // Use scroller: workspace-body so ScrollTrigger measures scroll
-  // inside the container, not the viewport. Start immediately when
-  // section loads so nothing is hidden behind a scroll gate.
-  gsap.fromTo(animateElements,
-    { opacity: 0, y: isPortfolio ? 22 : 30 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: isPortfolio ? 0.86 : 0.6,
-      delay: isPortfolio ? 0.06 : 0,
-      stagger: {
-        amount: isPortfolio ? 0.42 : 0.2,
-        from: "start"
-      },
-      ease: "power3.out",
-      clearProps: "opacity,transform"
-    }
-  );
-};
+    gsap.fromTo(animateElements,
+      { opacity: 0, y: isPortfolio ? 22 : 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: isPortfolio ? 0.86 : 0.6,
+        delay: isPortfolio ? 0.06 : 0,
+        stagger: {
+          amount: isPortfolio ? 0.42 : 0.2,
+          from: "start"
+        },
+        ease: "power3.out",
+        clearProps: "opacity,transform"
+      }
+    );
+  };
 
-// Use MutationObserver to catch when new elements are added
-const stageMutationObserver = new MutationObserver(() => {
-  // Debounce the animation trigger
-  clearTimeout(window.animateDebounce);
-  window.animateDebounce = setTimeout(() => {
+  const stageMutationObserver = new MutationObserver(() => {
+    clearTimeout(window.animateDebounce);
+    window.animateDebounce = setTimeout(() => {
+      animatePortfolioCards();
+      ScrollTrigger.refresh();
+    }, 50);
+  });
+
+  stageMutationObserver.observe(stage, {
+    childList: true,
+    subtree: true
+  });
+
+  setTimeout(() => {
     animatePortfolioCards();
     ScrollTrigger.refresh();
-  }, 50);
-});
-
-stageMutationObserver.observe(stage, {
-  childList: true,
-  subtree: true
-});
-
-// Initial animation for first section
-setTimeout(() => {
-  animatePortfolioCards();
-  ScrollTrigger.refresh();
-}, 300);
+  }, 300);
+}

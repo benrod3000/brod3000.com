@@ -145,8 +145,8 @@ p {
   grid-auto-flow: row;
   align-content: center;
   justify-items: center;
-  gap: 4px;
-  padding: 6px 0;
+  gap: 8px;
+  padding: 12px 0;
   border: none;
   background: transparent;
   box-shadow: none;
@@ -160,7 +160,7 @@ p {
 
 .rail-main {
   display: grid;
-  gap: 4px;
+  gap: 12px;
   padding-block: 0;
 }
 
@@ -168,8 +168,8 @@ p {
   position: relative;
   -webkit-appearance: none;
   appearance: none;
-  width: 58px;
-  height: 50px;
+  width: auto;
+  min-width: 70px;
   margin: 0;
   border-radius: 10px;
   border: 1px solid transparent;
@@ -177,14 +177,13 @@ p {
   color: color-mix(in srgb, var(--accent) 28%, var(--muted));
   opacity: 0.55;
   font: inherit;
-  line-height: 1;
-  display: grid;
-  grid-template-rows: auto auto;
-  align-content: center;
-  justify-items: center;
-  gap: 2px;
-  padding: 4px 0;
-  font-size: 0.56rem;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -210,7 +209,7 @@ p {
 
 .rail-tab:hover,
 .rail-tab:focus-visible {
-  transform: scale(1.15);
+  transform: scale(1.05);
   box-shadow: 0 8px 18px rgba(67, 111, 91, 0.12);
 }
 
@@ -248,8 +247,8 @@ p {
 }
 
 .rail-tab svg {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   display: block;
   flex-shrink: 0;
   stroke-linecap: round;
@@ -257,10 +256,9 @@ p {
 
 .rail-label {
   display: block;
-  margin-top: 1px;
   text-align: center;
-  line-height: 1;
-  font-size: 0.56rem;
+  line-height: 1.2;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -1709,8 +1707,8 @@ p {
   margin: 14px 0 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .workflow-node {
@@ -2276,16 +2274,16 @@ body.design-digital .rail-tab {
   display: flex !important;
   align-items: center;
   justify-content: flex-start;
-  gap: 3px;
+  gap: 12px;
   width: fit-content;
   min-width: 0;
   flex: 0 0 auto;
-  padding: 7px 8px !important;
+  padding: 12px 18px !important;
   text-decoration: none;
   font-family: "Bebas Neue", Impact, "Arial Black", sans-serif;
-  font-size: 25px;
+  font-size: 18px;
   font-weight: 700;
-  line-height: 0.95;
+  line-height: 1.2;
   white-space: nowrap;
   color: #ffffff !important;
   background: #6225e6 !important;
@@ -2314,7 +2312,7 @@ body.design-digital .rail-tab .rail-icon {
 body.design-digital .rail-tab .span {
   text-transform: uppercase;
   letter-spacing: 0.035em !important;
-  line-height: 1;
+  line-height: 1.2;
   margin-left: 0;
 }
 
@@ -2328,8 +2326,8 @@ body.design-digital .rail-tab.active {
   transition: 0.5s;
   background: #f5e642 !important;
   color: #0a0a0a !important;
-  padding-left: 8px !important;
-  padding-right: 9px !important;
+  padding-left: 18px !important;
+  padding-right: 19px !important;
   box-shadow: 10px 10px 0 #fbc638 !important;
 }
 
@@ -2862,7 +2860,10 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
 
   .project-card::before { left: 2px !important; top: 2px; }
 
-  .workflow-track { grid-template-columns: 1fr; gap: 8px; }
+  .workflow-track { 
+    grid-template-columns: 1fr !important; 
+    gap: 16px !important; 
+  }
   .workflow-node { min-height: auto; }
 
   .workflow-node::after {
@@ -3478,7 +3479,7 @@ img, video, iframe {
   height: auto;
 }
 
-/* ========== WORKFLOW FIX ========== */
+/* Final cleanup for workflow grid */
 .workflow-container {
   display: block !important;
   margin-top: 40px !important;
@@ -3486,15 +3487,6 @@ img, video, iframe {
   border-top: 1px solid rgba(62, 48, 36, 0.2) !important;
   border-bottom: 1px solid rgba(62, 48, 36, 0.12) !important;
   padding: 20px 0 !important;
-}
-
-.workflow-track {
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important;
-  gap: 20px !important;
-  list-style: none !important;
-  margin: 20px 0 0 !important;
-  padding: 0 !important;
 }
 
 .workflow-node {
@@ -3529,12 +3521,17 @@ img, video, iframe {
   line-height: 1.5 !important;
 }
 
-/* Override animate class for workflow */
-.workflow-container.animate,
-.workflow-track.animate,
-/* workflow-node animation handled by GSAP */
+.stage-card[data-section="portfolio"] .workflow-track {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 20px !important;
+}
 
-/* profile-cover layout handled by existing rules */
+@media (max-width: 920px) {
+  .stage-card[data-section="portfolio"] .workflow-track {
+    grid-template-columns: 1fr !important;
+  }
+}
 
 .profile-cover img {
   position: relative !important;
@@ -3553,65 +3550,16 @@ img, video, iframe {
   display: none !important;
 }
 
-/* Hide hamburger on desktop */
 @media (min-width: 921px) {
   .radial-trigger {
     display: none !important;
   }
 }
 
-/* Remove ghost text */
 .stage-card::before {
   display: none !important;
 }
 
 .stage-card {
   padding-top: 30px !important;
-}
-/* ========== FORCE WORKFLOW TO SHOW ========== */
-.workflow-container,
-.workflow-track,
-.workflow-node {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
-.workflow-track {
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important;
-  gap: 20px !important;
-}
-
-.workflow-node {
-  border: 2px solid #000 !important;
-  background: #fff !important;
-  padding: 20px !important;
-  margin: 0 !important;
-}
-
-/* Also check if the section is even loading */
-.stage-card[data-section="portfolio"] {
-  display: block !important;
-}
-/* SIMPLE FIX FOR PORTFOLIO SECTION VISIBILITY */
-.stage-card[data-section="portfolio"] {
-  display: block !important;
-  visibility: visible !important;
-}
-
-.stage-card[data-section="portfolio"] .workflow-track {
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important;
-  gap: 20px !important;
-}
-
-.stage-card[data-section="portfolio"] .workflow-node {
-  display: block !important;
-}
-
-@media (max-width: 920px) {
-  .stage-card[data-section="portfolio"] .workflow-track {
-    grid-template-columns: 1fr !important;
-  }
 }

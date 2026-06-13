@@ -675,26 +675,64 @@ function mountSection(section) {
   applyScanLeadEmphasis(nextCard);
   bindContactFormHandlers(nextCard);
 
-  const activateSectionEffects = () => {
+const activateSectionEffects = () => {
     if (section === 'about') {
       animateAboutStats(nextCard);
     }
 
     if (section === 'portfolio') {
-      // Force portfolio content to be visible
+      // Force portfolio content to be visible and properly positioned
       nextCard.style.display = 'block';
       nextCard.style.visibility = 'visible';
       nextCard.style.opacity = '1';
+      nextCard.style.position = 'relative';
+      nextCard.style.zIndex = '10';
+      nextCard.style.overflow = 'visible';
       
       const workflowNodes = [...stage.querySelectorAll('.workflow-node')];
       if (workflowNodes.length) {
         let pulseIndex = 0;
         workflowNodes[0].classList.add('is-live');
+        if (workflowPulseInterval) clearInterval(workflowPulseInterval);
         workflowPulseInterval = window.setInterval(() => {
           workflowNodes[pulseIndex].classList.remove('is-live');
           pulseIndex = (pulseIndex + 1) % workflowNodes.length;
           workflowNodes[pulseIndex].classList.add('is-live');
         }, 460);
+      }
+      
+      // Force all portfolio children to be visible and fix layout
+      setTimeout(() => {
+        const portfolioCard = nextCard;
+        if (portfolioCard) {
+          // Fix workflow track grid
+          const workflowTrack = portfolioCard.querySelector('.workflow-track');
+          if (workflowTrack) {
+            workflowTrack.style.display = 'grid';
+            workflowTrack.style.gridTemplateColumns = 'repeat(3, 1fr)';
+            workflowTrack.style.gap = '20px';
+            workflowTrack.style.width = '100%';
+          }
+          
+          // Ensure all workflow nodes are visible
+          const workflowNodesAll = portfolioCard.querySelectorAll('.workflow-node');
+          workflowNodesAll.forEach(node => {
+            node.style.display = 'block';
+            node.style.width = '100%';
+            node.style.overflow = 'visible';
+          });
+          
+          // Force a reflow to ensure proper rendering
+          portfolioCard.offsetHeight;
+        }
+        
+        // Scroll to top of workspace to ensure content is visible
+        if (stage) {
+          stage.scrollTop = 0;
+        }
+      }, 50);
+    }
+  };
       }
       
       // Force all portfolio children to be visible

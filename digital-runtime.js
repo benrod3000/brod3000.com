@@ -241,15 +241,56 @@ function applyScanLeadEmphasis(root) {
 }
 
 function bindContactFormHandlers(root) {
-  const forms = root.querySelectorAll('.contact-form[data-prevent-submit="true"]');
+  const forms = root.querySelectorAll('.contact-form');
   forms.forEach((form) => {
-    if (form.dataset.submitBound === 'true') {
-      return;
-    }
-
+    if (form.dataset.submitBound === 'true') return;
     form.dataset.submitBound = 'true';
-    form.addEventListener('submit', (event) => {
+
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
+      
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+      let statusDiv = form.querySelector('#form-status');
+      
+      if (!statusDiv) {
+        statusDiv = document.createElement('div');
+        statusDiv.id = 'form-status';
+        statusDiv.style.marginTop = '12px';
+        statusDiv.style.fontSize = '14px';
+        form.appendChild(statusDiv);
+      }
+      
+      submitBtn.textContent = 'SENDING...';
+      submitBtn.disabled = true;
+      statusDiv.innerHTML = '';
+      
+      const formData = new FormData(form);
+      
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+        
+        if (response.ok) {
+          statusDiv.innerHTML = '<span style="color: #00e060;">✓ Message sent successfully! I\'ll get back to you soon.</span>';
+          form.reset();
+        } else {
+          const data = await response.json();
+          let errorMsg = 'Sorry, something went wrong. Please try again.';
+          if (data.errors) {
+            errorMsg = data.errors.map(e => e.message).join(', ');
+          }
+          statusDiv.innerHTML = `<span style="color: #e8180a;">✗ ${errorMsg}</span>`;
+        }
+      } catch (error) {
+        statusDiv.innerHTML = '<span style="color: #e8180a;">✗ Network error. Please check your connection and try again.</span>';
+      } finally {
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+      }
     });
   });
 }
@@ -624,19 +665,20 @@ function sectionTemplate(section) {
           <p><strong>Location:</strong> Southern California</p>
           <p>Share what feels misaligned. I'll map a clear next step.</p>
         </div>
-        <form class="contact-form" data-prevent-submit="true">
+        <form class="contact-form" action="https://formspree.io/f/mdavybdy" method="POST">
           <div class="brutalist-container">
-            <input placeholder="YOUR NAME" class="brutalist-input" type="text" required>
+            <input placeholder="YOUR NAME" class="brutalist-input" type="text" name="name" required>
             <label class="brutalist-label">Name</label>
           </div>
           <div class="brutalist-container">
-            <input placeholder="YOU@COMPANY.COM" class="brutalist-input" type="email" required>
+            <input placeholder="YOU@COMPANY.COM" class="brutalist-input" type="email" name="email" required>
             <label class="brutalist-label">Email</label>
           </div>
           <div class="brutalist-container">
-            <textarea placeholder="SHARE WHAT FEELS MISALIGNED" class="brutalist-input" rows="4" required></textarea>
+            <textarea placeholder="SHARE WHAT FEELS MISALIGNED" class="brutalist-input" name="message" rows="4" required></textarea>
             <label class="brutalist-label">Message</label>
           </div>
+          <input type="text" name="_gotcha" style="display:none !important;">
           <button type="submit">Start a conversation</button>
         </form>
       </div>

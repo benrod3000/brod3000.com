@@ -425,20 +425,30 @@ function sectionTemplate(section) {
             </div>
           </div>
           <div class="resume-column">
-            <h4 class="resume-heading">Education + Certifications</h4>
-            <div class="timeline-list">
-              <article class="timeline-item">
-                <span class="timeline-date">2016</span>
-                <h5>Marketing Analytics Program</h5>
-                <p>Advanced reporting, attribution modeling, and conversion analysis used to improve budget allocation and campaign pacing decisions.</p>
-              </article>
-              <article class="timeline-item">
-                <span class="timeline-date">2014</span>
-                <h5>Digital Strategy Certification</h5>
-                <p>Specialized in audience development, editorial systems, and channel positioning to improve message market fit across digital touchpoints.</p>
-              </article>
-            </div>
-          </div>
+  <h4 class="resume-heading">Certifications</h4>
+  <div class="timeline-list">
+    <article class="timeline-item">
+      <span class="timeline-date">2019</span>
+      <h5>Facebook Blueprint Certification</h5>
+      <p>Platform expertise, ad buying, measurement, and compliance for paid social campaigns.</p>
+    </article>
+    <article class="timeline-item">
+      <span class="timeline-date">2017</span>
+      <h5>Twitter Flight School</h5>
+      <p>Certification in Twitter ads, audience targeting, and campaign optimization strategies.</p>
+    </article>
+    <article class="timeline-item">
+      <span class="timeline-date">2016</span>
+      <h5>YouTube Certified</h5>
+      <p>Video advertising, audience growth, and content strategy for the YouTube platform.</p>
+    </article>
+    <article class="timeline-item">
+      <span class="timeline-date">Current</span>
+      <h5>AWS Cloud Practitioner (In Progress)</h5>
+      <p>Specializing in ECS (Elastic Container Service) and SNS (Simple Notification Service) for scalable marketing infrastructure.</p>
+    </article>
+  </div>
+</div>
         </div>
 
         <div class="service-grid">

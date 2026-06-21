@@ -119,11 +119,11 @@ p {
 .digital-container {
   position: relative;
   z-index: 10;
-  width: min(1140px, 100%);
-  height: min(92dvh, 920px);
+  width: min(1300px, 100%);
+  height: min(94dvh, 1000px);
   display: grid;
-  grid-template-columns: auto 340px minmax(0, 1fr);
-  column-gap: 18px;
+  grid-template-columns: auto 400px minmax(0, 1fr);
+  column-gap: 24px;
   border: 1px solid rgba(132, 112, 94, 0.08);
   border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.94);
@@ -310,7 +310,7 @@ p {
     linear-gradient(160deg, rgba(255, 255, 255, 0.98) 0%, rgba(252, 252, 252, 0.97) 60%, rgba(247, 247, 247, 0.98) 100%);
   overflow: hidden;
   display: grid;
-  grid-template-rows: 250px minmax(0, 1fr);
+  grid-template-rows: 300px minmax(0, 1fr);
   min-height: 0;
   animation: sidebar-in 0.68s cubic-bezier(.4, 0, .2, 1) both;
   position: sticky;
@@ -1058,7 +1058,7 @@ p {
   overflow-y: auto;
   overflow-x: visible;
   scroll-behavior: smooth;
-  padding: 40px 0 88px 0;
+  padding: 60px 0 100px 0;
   min-height: 0;
   display: grid;
   align-content: start;
@@ -1122,12 +1122,12 @@ p {
   max-width: none;
   margin: 0;
   border: 1px solid rgba(132, 112, 94, 0.12);
-  border-radius: 16px;
+  border-radius: 20px;
   background:
     radial-gradient(circle at 18% 8%, rgba(74, 141, 245, 0.03) 0%, transparent 36%),
     radial-gradient(circle at 86% 88%, rgba(39, 195, 159, 0.025) 0%, transparent 38%),
     linear-gradient(155deg, rgba(255, 255, 255, 0.98) 0%, rgba(251, 252, 253, 0.96) 56%, rgba(247, 248, 250, 0.96) 100%);
-  padding: 208px 40px 150px 40px;
+  padding: 250px 50px 180px 50px;
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.8),
     inset 0 0 0 2px rgba(132, 112, 94, 0.06),
@@ -1226,7 +1226,7 @@ p {
 }
 
 .card-title-wrap {
-  margin-bottom: 28px;
+  margin-bottom: 40px;
 }
 
 .card-kicker {
@@ -1272,8 +1272,8 @@ p {
 .resume-layout {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 24px;
+  margin-bottom: 24px;
 }
 
 .resume-column {
@@ -1344,9 +1344,9 @@ p {
 
 .about-grid {
   display: grid;
-  gap: 24px;
+  gap: 32px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-bottom: 12px;
+  margin-bottom: 24px;
 }
 
 .about-block {
@@ -1408,7 +1408,7 @@ p {
 .service-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 30px;
 }
 
 .service-card {
@@ -1667,8 +1667,8 @@ p {
 .method-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: 14px;
+  gap: 24px;
+  margin-top: 24px;
 }
 
 .method-card {
@@ -2266,7 +2266,7 @@ body.design-digital .card-profile {
 }
 
 body.design-digital .card-profile .prof-photo {
-  height: 210px;
+  height: 260px;
   background-image: url('images/background.png') !important;
   background-size: cover !important;
   background-position: center !important;
@@ -2873,7 +2873,7 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
     --ghost-size: clamp(44px, 14vw, 98px);
     --ghost-right: 14px;
     --ghost-top: 2px;
-    padding: 40px 20px 60px 20px;
+    padding: 60px 24px 80px 24px;
     border-radius: 0;
     box-shadow: none;
   }

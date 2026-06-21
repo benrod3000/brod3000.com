@@ -3784,16 +3784,3 @@ img, video, iframe {
 }.contact-form {
   gap: 0 !important;
 }
-/* ======================
-   BADGE PULSE GLOW ANIMATION
-====================== */
-@keyframes badge-pulse {
-  0%, 100% {
-    box-shadow: 3px 3px 0 #0a0a0a, 0 0 15px rgba(0, 224, 96, 0.3);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: 3px 3px 0 #0a0a0a, 0 0 40px rgba(0, 224, 96, 0.7), 0 0 80px rgba(0, 224, 96, 0.3);
-    transform: scale(1.02);
-  }
-}

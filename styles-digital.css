@@ -2406,13 +2406,48 @@ body.design-digital .card-profile .prof-status-badge {
   z-index: 3;
   background: #00e060;
   border: 3px solid #0a0a0a;
-  box-shadow: 3px 3px 0 #0a0a0a;
+  box-shadow: 3px 3px 0 #0a0a0a, 0 0 20px rgba(0, 224, 96, 0.4);
   font-size: 0.55rem;
   font-weight: 800;
   letter-spacing: 0.18em;
-  padding: 3px 8px;
+  padding: 3px 8px 3px 22px;
   text-transform: uppercase;
   color: #0a0a0a;
+  animation: badge-pulse 2s ease-in-out infinite;
+  position: relative;
+}
+
+.prof-status-badge::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0a0a0a;
+  animation: badge-dot-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% {
+    box-shadow: 3px 3px 0 #0a0a0a, 0 0 15px rgba(0, 224, 96, 0.3);
+  }
+  50% {
+    box-shadow: 3px 3px 0 #0a0a0a, 0 0 40px rgba(0, 224, 96, 0.7), 0 0 80px rgba(0, 224, 96, 0.3);
+  }
+}
+
+@keyframes badge-dot-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translateY(-50%) scale(0.6);
+  }
 }
 
 body.design-digital .card-profile .prof-body {

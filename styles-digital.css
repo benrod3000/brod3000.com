@@ -367,13 +367,14 @@ p {
   z-index: 3;
   background: #00e060;
   border: 3px solid #0a0a0a;
-  box-shadow: 3px 3px 0 #0a0a0a;
+  box-shadow: 3px 3px 0 #0a0a0a, 0 0 20px rgba(0, 224, 96, 0.4);
   font-size: 0.55rem;
   font-weight: 800;
   letter-spacing: 0.18em;
   padding: 3px 8px;
   text-transform: uppercase;
   color: #0a0a0a;
+  animation: badge-pulse 2s ease-in-out infinite;
 }
 
 .profile-cover::after {
@@ -3747,4 +3748,17 @@ img, video, iframe {
   letter-spacing: 0.05em !important;
 }.contact-form {
   gap: 0 !important;
+}
+/* ======================
+   BADGE PULSE GLOW ANIMATION
+====================== */
+@keyframes badge-pulse {
+  0%, 100% {
+    box-shadow: 3px 3px 0 #0a0a0a, 0 0 15px rgba(0, 224, 96, 0.3);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 3px 3px 0 #0a0a0a, 0 0 40px rgba(0, 224, 96, 0.7), 0 0 80px rgba(0, 224, 96, 0.3);
+    transform: scale(1.02);
+  }
 }

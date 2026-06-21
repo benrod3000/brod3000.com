@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
     <loc>https://brod3000.com/</loc>
-    <lastmod>2026-05-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-06-21</lastmod>
   </url>
+
+  <url>
+    <loc>https://brod3000.com/resume.html</loc>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+
+  <url>
+    <loc>https://brod3000.com/projects.html</loc>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+
+  <url>
+    <loc>https://brod3000.com/contact.html</loc>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+
 </urlset>

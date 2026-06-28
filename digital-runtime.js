@@ -5,7 +5,7 @@ const stage = document.getElementById('card-content-wrapper');
 if (!stage) {
   console.error('Main content wrapper (#card-content-wrapper) not found.');
 } else {
-  console.log('Main content wrapper found. Proceeding with dynamic content.');
+  stage.classList.add('has-js-content');
 }
 
 const rotator = document.getElementById('sidebar-rotator');

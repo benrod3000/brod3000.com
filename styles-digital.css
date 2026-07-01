@@ -344,7 +344,7 @@ p {
 
 .profile-cover {
   height: auto;
-  background-image: url('images/background.png');
+  background-image: url('images/background.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -2271,7 +2271,7 @@ body.design-digital .card-profile {
 
 body.design-digital .card-profile .prof-photo {
   height: 260px;
-  background-image: url('images/background.png') !important;
+  background-image: url('images/background.webp') !important;
   background-size: cover !important;
   background-position: center !important;
   border-bottom: 5px solid #0a0a0a !important;
@@ -3720,9 +3720,9 @@ img, video, iframe {
   margin-bottom: 8px !important;
   padding-top: 4px !important;
 }
-/* Make background.png visible behind badge */
+/* Make background.webp visible behind badge */
 .profile-cover {
-  background-image: url('images/background.png') !important;
+  background-image: url('images/background.webp') !important;
   background-size: cover !important;
   background-position: center !important;
 }

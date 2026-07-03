@@ -2254,6 +2254,11 @@ body.design-digital .stage-card {
   box-shadow: none !important;
 }
 
+body.design-digital .profile-card::before,
+body.design-digital .card-profile::before {
+  display: none !important;
+}
+
 /* ======================
    PROFILE CARD REFERENCE
 ====================== */

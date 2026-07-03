@@ -504,8 +504,6 @@ p {
 
 .profile-facts {
   margin-top: 14px;
-  border-top: 1px solid rgba(39, 116, 215, 0.38);
-  border-bottom: 1px solid rgba(39, 195, 159, 0.36);
   padding: 10px 0;
   display: grid;
   gap: 8px;
@@ -606,7 +604,6 @@ p {
   align-items: center;
   gap: 8px;
   padding-top: 6px;
-  border-top: 1px solid var(--line-soft);
 }
 
 .profile-socials a {

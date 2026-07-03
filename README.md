@@ -1,48 +1,40 @@
-```markdown
-# Service Site
+# brod3000.com
 
-Standalone resume and case study site for Ben Rodriguez, focused on growth systems, audience ownership, and digital marketing execution.
+Source code for my personal website and digital resume.
+
+I built this site from scratch using plain HTML, CSS, and JavaScript. No frameworks, page builders, or build tools. Just a fast, lightweight website that showcases my work, experience, and approach to digital marketing.
 
 ## Live Site
 
-- Live site: https://brod3000.com/
+https://brod3000.com
 
-## Sitemap
+## Tech Stack
 
-The sitemap is available at:
-- https://brod3000.com/sitemap.xml
-
-### Maintaining the Sitemap
-
-The sitemap is a manually maintained XML file in the root directory. When adding new pages:
-
-1. Add a new `<url>` entry for each new page
-2. Update the `<lastmod>` date for changed pages to today's date
-
-Current sitemap includes the homepage. Expand as new content is added.
+- HTML5
+- CSS3
+- JavaScript
+- GitHub Pages
 
 ## Project Structure
 
-- `index.html` - Primary digital resume site (root entrypoint)
-- `styles-digital.css` - Digital UI styling, responsive behavior, and animation system
-- `index-classic.html` - Archived classic homepage layout
-- `digital.html` - Compatibility redirect to root URL
-- `styles.css` - Legacy classic page styling
-- `script.js` - Legacy classic page interactions and version toggle behavior
-- `images/` - Profile and visual assets
-- `sitemap.xml` - XML sitemap for search engine indexing
+```
+/
+├── index.html
+├── styles-digital.css
+├── digital-runtime.js
+├── gtag-init.js
+├── images/
+├── 404.html
+├── sitemap.xml
+├── robots.txt
+└── CNAME
+```
 
-## Local Development
+## Running Locally
 
-This is a static site. No build step is required.
+Since this is a static website, there's nothing to install.
 
-### Option 1: Open directly
-
-Open `index.html` in a browser.
-
-### Option 2: Run a local server (recommended)
-
-From the project folder:
+Open `index.html` in your browser, or start a simple local server:
 
 ```bash
 python3 -m http.server 8080
@@ -50,49 +42,55 @@ python3 -m http.server 8080
 
 Then visit:
 
-- http://localhost:8080
+```
+http://localhost:8080
+```
 
 ## Deployment
 
-This site deploys through GitHub Pages from the `main` branch.
-
-### GitHub Pages settings
-
-1. Open repository settings for Pages.
-2. Set Source to **Deploy from a branch**.
-3. Select branch `main` and folder `/ (root)`.
-4. Save.
-
-After pushing updates, GitHub Pages usually publishes in 1 to 3 minutes.
-
-## Update Workflow
+The site is hosted with GitHub Pages and automatically deploys from the `main` branch whenever I push changes.
 
 ```bash
 git add .
-git commit -m "Your change summary"
+git commit -m "Describe your changes"
 git push origin main
 ```
 
-## Notes
+## Search Engines
 
-- Keep copy and metadata in `index.html` aligned.
-- Keep animations performant by preferring `transform` and `opacity` transitions.
+The site includes:
 
-## Cache Busting
+- `robots.txt`
+- `sitemap.xml`
+- Open Graph metadata
+- Twitter/X cards
+- Canonical URLs
 
-Query string cache busting is currently enabled for local assets using:
+## Images
 
-- `styles-digital.css?v=20260621`
+Most images live in the `/images` folder.
 
-This helps reduce stale GitHub Pages browser cache issues during active development.
+Whenever possible I try to keep assets lightweight so the site loads quickly.
 
-### When to remove it:
+## Goals
 
-1. After the UI is stable and no longer changing frequently.
-2. After confirming users consistently see fresh updates without hard refresh.
+A few things I keep in mind while working on this site:
 
-### How to remove it:
+- Keep it fast.
+- Keep it simple.
+- Write clean, maintainable code.
+- Avoid unnecessary dependencies.
+- Make the experience work well on both desktop and mobile.
 
-1. Remove query string versions from local asset URLs in `index.html` once cache behavior is stable.
-2. Commit and push one cleanup commit.
-```
+## Future Improvements
+
+Some things I'd still like to add:
+
+- Additional case studies
+- More project write-ups
+- Better image optimization
+- Continued accessibility improvements
+
+---
+
+Built and maintained by Ben Rodriguez.

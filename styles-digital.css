@@ -2331,7 +2331,9 @@ body.design-digital .card-profile .prof-avatar {
   flex-shrink: 0;
 }
 
-/* Rail buttons mirror CTA behavior */
+/* Rail buttons — matches the site's established brutalist button language
+   (see .contact-form button): white fill, black border, hard offset shadow,
+   no skew, lift-on-hover / press-on-click. */
 body.design-digital .rail-tab {
   display: flex !important;
   align-items: center;
@@ -2340,19 +2342,19 @@ body.design-digital .rail-tab {
   width: fit-content;
   min-width: 0;
   flex: 0 0 auto;
-  padding: 12px 18px !important;
+  padding: 11px 18px !important;
   text-decoration: none;
-  font-family: "Bebas Neue", Impact, "Arial Black", sans-serif;
+  font-family: var(--brut-font-display);
   font-size: 18px;
   font-weight: 700;
   line-height: 1.2;
   white-space: nowrap;
-  color: #ffffff !important;
-  background: #6225e6 !important;
-  transition: 0.5s;
-  box-shadow: 6px 6px 0 #000000 !important;
-  transform: skewX(-15deg);
-  border: none !important;
+  color: var(--brut-ink) !important;
+  background: #ffffff !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  box-shadow: 4px 4px 0 var(--brut-ink) !important;
+  transform: none;
+  border: 3px solid var(--brut-ink) !important;
   border-radius: 0 !important;
   cursor: pointer;
   clip-path: none !important;
@@ -2361,8 +2363,8 @@ body.design-digital .rail-tab {
 body.design-digital .rail-tab .rail-icon,
 body.design-digital .rail-tab .span,
 body.design-digital .rail-tab .second {
-  transform: skewX(15deg);
-  color: #ffffff !important;
+  transform: none;
+  color: var(--brut-ink) !important;
 }
 
 body.design-digital .rail-tab .rail-icon {
@@ -2383,14 +2385,22 @@ body.design-digital .rail-tab .second {
 }
 
 body.design-digital .rail-tab:hover,
-body.design-digital .rail-tab:focus-visible,
+body.design-digital .rail-tab:focus-visible {
+  transform: translate(-2px, -2px);
+  background: var(--brut-highlight) !important;
+  color: var(--brut-ink) !important;
+  box-shadow: 6px 6px 0 var(--brut-ink) !important;
+}
+
 body.design-digital .rail-tab.active {
-  transition: 0.5s;
-  background: #f5e642 !important;
-  color: #0a0a0a !important;
-  padding-left: 18px !important;
-  padding-right: 19px !important;
-  box-shadow: 10px 10px 0 #fbc638 !important;
+  background: var(--brut-highlight) !important;
+  color: var(--brut-ink) !important;
+  box-shadow: 4px 4px 0 var(--brut-ink) !important;
+}
+
+body.design-digital .rail-tab:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 1px 1px 0 var(--brut-ink) !important;
 }
 
 body.design-digital .rail-tab:hover .rail-icon,
@@ -2399,7 +2409,7 @@ body.design-digital .rail-tab:focus-visible .rail-icon,
 body.design-digital .rail-tab:focus-visible .span,
 body.design-digital .rail-tab.active .rail-icon,
 body.design-digital .rail-tab.active .span {
-  color: #0a0a0a !important;
+  color: var(--brut-ink) !important;
 }
 
 body.design-digital .card-profile .prof-status-badge {
@@ -2500,22 +2510,23 @@ body.design-digital .card-profile .pstat .psl {
   margin-top: 2px;
 }
 
-/* Uiverse-inspired directional CTA button */
+/* Directional CTA button — same white/black/hard-shadow language as the
+   rail nav and .contact-form button, so it reads as one design system. */
 body.design-digital .card-profile .profile-cta {
   display: flex;
   align-items: center;
   justify-content: center;
   width: fit-content;
   margin: 14px 18px 10px;
-  padding: 11px 33px;
+  padding: 12px 28px;
   text-decoration: none;
-  font-size: 25px;
-  color: #ffffff !important;
-  background: #6225e6 !important;
-  transition: 1s;
-  box-shadow: 6px 6px 0 #000000;
-  transform: skewX(-15deg);
-  border: none !important;
+  font-size: 22px;
+  color: var(--brut-ink) !important;
+  background: #ffffff !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  box-shadow: 6px 6px 0 var(--brut-ink);
+  transform: none;
+  border: 3px solid var(--brut-ink) !important;
   min-height: 0;
   height: auto;
   cursor: pointer;
@@ -2523,20 +2534,20 @@ body.design-digital .card-profile .profile-cta {
 }
 
 body.design-digital .card-profile .profile-cta .span {
-  transform: skewX(15deg);
-  font-family: "Bebas Neue", Impact, "Arial Black", sans-serif;
-  letter-spacing: 0.12em;
-  color: #ffffff !important;
+  transform: none;
+  font-family: var(--brut-font-display);
+  letter-spacing: 0.1em;
+  color: var(--brut-ink) !important;
 }
 
 body.design-digital .card-profile .profile-cta .second {
   width: 20px;
-  margin-left: 30px;
+  margin-left: 20px;
   margin-right: 0;
   position: relative;
   top: 12%;
-  transform: skewX(15deg);
-  transition: 0.5s;
+  transform: none;
+  transition: margin-right 0.2s ease;
 }
 
 body.design-digital .card-profile .profile-cta .second svg {
@@ -2544,57 +2555,47 @@ body.design-digital .card-profile .profile-cta .second svg {
 }
 
 body.design-digital .card-profile .profile-cta .one {
-  transition: 0.4s;
+  transition: transform 0.3s ease;
   transform: translateX(-60%);
-  fill: #ffffff;
+  fill: var(--brut-ink);
 }
 
 body.design-digital .card-profile .profile-cta .two {
-  transition: 0.5s;
+  transition: transform 0.3s ease;
   transform: translateX(-30%);
-  fill: #ffffff;
+  fill: var(--brut-ink);
 }
 
 body.design-digital .card-profile .profile-cta .three {
-  fill: #ffffff;
+  fill: var(--brut-ink);
 }
 
 body.design-digital .card-profile .profile-cta:hover,
 body.design-digital .card-profile .profile-cta:focus-visible {
-  transition: 0.5s;
-  box-shadow: 10px 10px 0 #fbc638;
+  transform: translate(-2px, -2px);
+  background: var(--brut-highlight) !important;
+  box-shadow: 9px 9px 0 var(--brut-ink);
+}
+
+body.design-digital .card-profile .profile-cta:active {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 var(--brut-ink);
 }
 
 body.design-digital .card-profile .profile-cta:hover .second,
 body.design-digital .card-profile .profile-cta:focus-visible .second {
-  margin-right: 45px;
+  margin-right: 40px;
 }
 
 body.design-digital .card-profile .profile-cta:hover .one,
-body.design-digital .card-profile .profile-cta:focus-visible .one {
-  transform: translateX(0%);
-  animation: color-anim 1s infinite 0.6s;
-}
-
+body.design-digital .card-profile .profile-cta:focus-visible .one,
 body.design-digital .card-profile .profile-cta:hover .two,
 body.design-digital .card-profile .profile-cta:focus-visible .two {
   transform: translateX(0%);
-  animation: color-anim 1s infinite 0.4s;
-}
-
-body.design-digital .card-profile .profile-cta:hover .three,
-body.design-digital .card-profile .profile-cta:focus-visible .three {
-  animation: color-anim 1s infinite 0.2s;
 }
 
 body.design-digital .card-profile .profile-cta .second path {
-  fill: #ffffff !important;
-}
-
-@keyframes color-anim {
-  0% { fill: #ffffff; }
-  50% { fill: #fbc638; }
-  100% { fill: #ffffff; }
+  fill: var(--brut-ink) !important;
 }
 
 body.design-digital .card-profile .profile-socials {

@@ -96,7 +96,6 @@ Some things I'd still like to add:
 
 - Additional case studies
 - More project write-ups
-- Better image optimization
 - Continued accessibility improvements
 
 ---

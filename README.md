@@ -18,16 +18,24 @@ https://brod3000.com
 ## Project Structure
 
 ```
-/
+brod3000.com/
 ├── index.html
+├── 404.html
+├── README.md
+├── CNAME
+├── favicon.svg
 ├── styles-digital.css
 ├── digital-runtime.js
 ├── gtag-init.js
-├── images/
-├── 404.html
-├── sitemap.xml
 ├── robots.txt
-└── CNAME
+├── sitemap.xml
+├── .gitignore
+└── images/
+    ├── background.webp
+    ├── background.png
+    ├── ben-portrait.svg
+    ├── profile.jpg
+    └── ben_rodriguez_resume_2026.pdf
 ```
 
 ## Running Locally

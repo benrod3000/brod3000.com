@@ -13,7 +13,6 @@ https://brod3000.com
 - HTML5
 - CSS3
 - JavaScript
-- GitHub Pages
 
 ## Project Structure
 

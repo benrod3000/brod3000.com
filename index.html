@@ -80,19 +80,19 @@
 
   <!-- Google Analytics — consent defaults MUST be queued before the GA library
        runs, so gtag-init.js loads first and is not deferred. -->
-  <script src="gtag-init.js?v=2" data-cfasync="false"></script>
+  <script src="gtag-init.js?v=3" data-cfasync="false"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-X42B535184" data-cfasync="false"></script>
 
   <!-- Main CSS (non-blocking preload) -->
-  <link rel="preload" href="styles-digital.css?v=65" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="styles-digital.css?v=65"></noscript>
+  <link rel="preload" href="styles-digital.css?v=66" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="styles-digital.css?v=66"></noscript>
 
   <!-- GSAP (deferred — does not block render) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" defer data-cfasync="false"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw==" crossorigin="anonymous" defer data-cfasync="false"></script>
 
   <!-- Main script (deferred) -->
-  <script src="digital-runtime.js?v=9" defer data-cfasync="false"></script>
+  <script src="digital-runtime.js?v=10" defer data-cfasync="false"></script>
 
   <!-- Inline fallback styles (in case external CSS fails) -->
   <style>

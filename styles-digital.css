@@ -245,6 +245,32 @@ p {
   transform: scale(0.98);
 }
 
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 999;
+  padding: 12px 18px;
+  background: #ffffff;
+  color: #0a0a0a;
+  border: 3px solid #0a0a0a;
+  box-shadow: 4px 4px 0 #0a0a0a;
+  font-family: "Bebas Neue", Impact, "Arial Black", sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+#card-content-wrapper:focus {
+  outline: none;
+}
+
 .rail-tab:focus-visible,
 .profile-socials a:focus-visible,
 .profile-cta:focus-visible,
@@ -1082,15 +1108,30 @@ p {
   background-attachment: fixed;
 }
 
-.workspace-body::after {
-  content: "\00A9 2026 BR. ALL RIGHTS RESERVED.";
-  display: block;
+/* Real <footer> element rather than a ::after pseudo, so the privacy and
+   terms pages are actually reachable and crawlable. */
+.workspace-footer {
   justify-self: end;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 14px;
   margin: 22px 40px 10px 0;
   font-size: 10px;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   color: color-mix(in srgb, var(--text) 62%, var(--muted));
+}
+
+.workspace-footer a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.workspace-footer a:hover,
+.workspace-footer a:focus-visible {
+  color: var(--text);
 }
 
 .workspace-body.is-loading::before {
@@ -1251,7 +1292,7 @@ p {
   text-transform: uppercase;
 }
 
-.card-title-wrap h3 {
+.card-title-wrap h1 {
   margin: 16px 0 14px;
   font-size: clamp(2.8rem, 4vw, 3.8rem);
   font-family: "Playfair Display", Georgia, serif;
@@ -1726,7 +1767,7 @@ p {
   margin-bottom: 24px;
 }
 
-.stage-card[data-section="portfolio"] .card-title-wrap h3 {
+.stage-card[data-section="portfolio"] .card-title-wrap h1 {
   margin-bottom: 14px;
 }
 
@@ -3772,8 +3813,12 @@ img, video, iframe {
   color: #e8180a !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
-}.contact-form {
-  gap: 0 !important;
+}
+
+/* Field labels are absolutely positioned at top:-10px and overhang the box above,
+   so the row gap has to clear the label height plus the 4px offset shadow. */
+.contact-form {
+  gap: 30px !important;
 }
 
 /* ===== FALLBACK CONTENT (when JS fails) ===== */
@@ -3792,7 +3837,7 @@ img, video, iframe {
   letter-spacing: 4px;
   text-transform: uppercase;
 }
-.workspace-body .fallback-content h2 {
+.workspace-body .fallback-content h1 {
   font-family: "Playfair Display", Georgia, serif;
   font-size: clamp(2rem, 4vw, 2.8rem);
   font-weight: 800;
@@ -3845,7 +3890,7 @@ img, video, iframe {
   letter-spacing: 4px;
   text-transform: uppercase;
 }
-.noscript-fallback h2 {
+.noscript-fallback h1 {
   font-family: "Playfair Display", Georgia, serif;
   font-size: clamp(2rem, 4vw, 2.8rem);
   font-weight: 800;

@@ -6,6 +6,10 @@
   <title>Ben Rodriguez | Product, Growth & Systems Architect</title>
   <meta name="description" content="Ben Rodriguez // building growth systems, digital products, and owned audience infrastructure. Explore portfolio, projects, and strategy.">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <!-- Header-equivalent policies. The rest (CSP, HSTS, X-Content-Type-Options,
+       frame-ancestors) cannot be set from HTML — see SECURITY-HEADERS.md for the
+       Cloudflare Transform Rule that supplies them. -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="canonical" href="https://brod3000.com/">
   <meta property="og:title" content="Ben Rodriguez: Resume and Concepts">
   <meta property="og:description" content="Growth systems and digital strategy for creators and brands.">
@@ -74,20 +78,21 @@
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet"></noscript>
 
-  <!-- Google Analytics (deferred — does not block render) -->
+  <!-- Google Analytics — consent defaults MUST be queued before the GA library
+       runs, so gtag-init.js loads first and is not deferred. -->
+  <script src="gtag-init.js?v=2" data-cfasync="false"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-X42B535184" data-cfasync="false"></script>
-  <script src="gtag-init.js?v=1" defer data-cfasync="false"></script>
 
   <!-- Main CSS (non-blocking preload) -->
-  <link rel="preload" href="styles-digital.css?v=64" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="styles-digital.css?v=64"></noscript>
+  <link rel="preload" href="styles-digital.css?v=65" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="styles-digital.css?v=65"></noscript>
 
   <!-- GSAP (deferred — does not block render) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" defer data-cfasync="false"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw==" crossorigin="anonymous" defer data-cfasync="false"></script>
 
   <!-- Main script (deferred) -->
-  <script src="digital-runtime.js?v=8" defer data-cfasync="false"></script>
+  <script src="digital-runtime.js?v=9" defer data-cfasync="false"></script>
 
   <!-- Inline fallback styles (in case external CSS fails) -->
   <style>
@@ -107,7 +112,7 @@
       letter-spacing: 4px;
       text-transform: uppercase;
     }
-    .workspace-body .fallback-content h2 {
+    .workspace-body .fallback-content h1 {
       font-family: "Playfair Display", Georgia, serif;
       font-size: clamp(2rem, 4vw, 2.8rem);
       font-weight: 800;
@@ -162,7 +167,7 @@
       letter-spacing: 4px;
       text-transform: uppercase;
     }
-    .noscript-fallback h2 {
+    .noscript-fallback h1 {
       font-family: "Playfair Display", Georgia, serif;
       font-size: clamp(2rem, 4vw, 2.8rem);
       font-weight: 800;
@@ -263,6 +268,7 @@
 </script>
 </head>
 <body class="design-digital">
+  <a class="skip-link" href="#card-content-wrapper">Skip to main content</a>
   <div class="ambient-bg" aria-hidden="true"></div>
   <canvas class="ambient-canvas" id="ambient-canvas" aria-hidden="true"></canvas>
   <div class="ambient-grain" aria-hidden="true"></div>
@@ -393,10 +399,10 @@
         <!-- Classic site link removed -->
       </header>
 
-      <section class="workspace-body" id="card-content-wrapper" aria-live="polite">
+      <section class="workspace-body" id="card-content-wrapper" aria-live="polite" tabindex="-1">
         <div class="fallback-content">
           <span class="card-kicker">About</span>
-          <h2>I build systems for growth.</h2>
+          <h1>I build systems for growth.</h1>
           <p><strong>Systems first growth architecture</strong> demands a move away from "growth hacks" toward durable, high leverage digital structures.</p>
           <p><strong>Complexity requires clarity</strong> when managing multi channel campaigns; we solve for the bottleneck before we solve for the volume.</p>
           <p><strong>Engineered for scale</strong> is how I approach every campaign, ensuring that the infrastructure can support the ambition.</p>
@@ -407,6 +413,12 @@
           </div>
           <p style="margin-top:24px;font-size:0.85rem;color:#6b635a;"></p>
         </div>
+
+        <footer class="workspace-footer">
+          <span>&copy; 2026 BR. All rights reserved.</span>
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+        </footer>
       </section>
     </main>
   </div>
@@ -415,7 +427,7 @@
     <div class="workspace-body" style="padding:0;">
       <div class="noscript-fallback">
         <span class="card-kicker">About</span>
-        <h2>I build systems for growth.</h2>
+        <h1>I build systems for growth.</h1>
         <p><strong>Systems first growth architecture</strong> demands a move away from "growth hacks" toward durable, high leverage digital structures.</p>
         <p><strong>Complexity requires clarity</strong> when managing multi channel campaigns; we solve for the bottleneck before we solve for the volume.</p>
         <p><strong>Engineered for scale</strong> is how I approach every campaign, ensuring that the infrastructure can support the ambition.</p>
@@ -427,6 +439,11 @@
         <p style="margin-top:24px;font-size:0.85rem;color:#6b635a;">
           <em>JavaScript is disabled. Enable JavaScript for the full interactive experience.</em>
         </p>
+        <footer class="workspace-footer">
+          <span>&copy; 2026 BR. All rights reserved.</span>
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+        </footer>
       </div>
     </div>
   </noscript>

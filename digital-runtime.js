@@ -14,6 +14,12 @@ const ambientCanvas = document.getElementById('ambient-canvas');
 const profileCard = document.querySelector('.profile-card');
 const railNav = document.querySelector('.rail-nav');
 const railTabs = [...document.querySelectorAll('.rail-tab')];
+/* The footer lives inside the scrolling stage, which gets wiped on each section
+   change, so keep a handle and re-append it as the last child after every mount. */
+const workspaceFooter = document.querySelector('.workspace-footer');
+const placeFooter = () => {
+  if (workspaceFooter && stage) stage.appendChild(workspaceFooter);
+};
 const radialTrigger = document.querySelector('.radial-trigger');
 const interactiveTargets = () => document.querySelectorAll('.rail-tab, .workspace-back, .profile-cta, .profile-socials a, .contact-form button');
 const phrases = ['Growth Systems Architect', 'Audience Ownership Strategist', 'Paid + Organic Scale Operator'];
@@ -641,7 +647,7 @@ function renderAbout() {
   // Title wrap
   const titleWrap = document.createElement('div');
   titleWrap.className = 'card-title-wrap';
-  titleWrap.innerHTML = `<span class="card-kicker">${data.kicker}</span><h3>${data.heading}</h3>`;
+  titleWrap.innerHTML = `<span class="card-kicker">${data.kicker}</span><h1>${data.heading}</h1>`;
   (data.paragraphs || []).forEach(text => {
     const p = document.createElement('p');
     p.textContent = text;
@@ -696,7 +702,7 @@ function renderServices() {
   // Title wrap
   const titleWrap = document.createElement('div');
   titleWrap.className = 'card-title-wrap';
-  titleWrap.innerHTML = `<span class="card-kicker">${data.kicker}</span><h3>${data.heading}</h3>`;
+  titleWrap.innerHTML = `<span class="card-kicker">${data.kicker}</span><h1>${data.heading}</h1>`;
   const ledeP = document.createElement('p');
   ledeP.textContent = data.lede;
   titleWrap.appendChild(ledeP);
@@ -771,7 +777,7 @@ function renderPortfolio() {
   // Title wrap
   const titleWrap = document.createElement('div');
   titleWrap.className = 'card-title-wrap';
-  titleWrap.innerHTML = `<span class="card-kicker">${data.kicker}</span><h3>${data.heading}</h3>`;
+  titleWrap.innerHTML = `<span class="card-kicker">${data.kicker}</span><h1>${data.heading}</h1>`;
   const ledeP = document.createElement('p');
   ledeP.textContent = data.lede;
   titleWrap.appendChild(ledeP);
@@ -840,7 +846,7 @@ function renderContact() {
   // Title wrap
   const titleWrap = document.createElement('div');
   titleWrap.className = 'card-title-wrap';
-  titleWrap.innerHTML = `<span class="card-kicker">${data.kicker}</span><h3>${data.heading}</h3>`;
+  titleWrap.innerHTML = `<span class="card-kicker">${data.kicker}</span><h1>${data.heading}</h1>`;
   const ledeP = document.createElement('p');
   ledeP.textContent = data.lede;
   titleWrap.appendChild(ledeP);
@@ -879,9 +885,11 @@ function renderContact() {
   fields.forEach(f => {
     const container = document.createElement('div');
     container.className = 'brutalist-container';
+    const fieldId = `contact-${f.name}`;
     if (f.type === 'textarea') {
       const ta = document.createElement('textarea');
       ta.className = 'brutalist-input';
+      ta.id = fieldId;
       ta.placeholder = f.placeholder;
       ta.name = f.name;
       ta.rows = 4;
@@ -890,23 +898,30 @@ function renderContact() {
     } else {
       const input = document.createElement('input');
       input.className = 'brutalist-input';
+      input.id = fieldId;
       input.placeholder = f.placeholder;
       input.type = f.type;
       input.name = f.name;
       input.required = true;
+      if (f.type === 'email') input.autocomplete = 'email';
+      if (f.name === 'name') input.autocomplete = 'name';
       container.appendChild(input);
     }
     const label = document.createElement('label');
     label.className = 'brutalist-label';
+    label.htmlFor = fieldId;
     label.textContent = f.label;
     container.appendChild(label);
     form.appendChild(container);
   });
 
-  // Honeypot
+  // Honeypot — hidden from assistive tech and keyboard order, not just sighted users
   const gotcha = document.createElement('input');
   gotcha.type = 'text';
   gotcha.name = '_gotcha';
+  gotcha.tabIndex = -1;
+  gotcha.setAttribute('aria-hidden', 'true');
+  gotcha.autocomplete = 'off';
   gotcha.style.display = 'none';
   form.appendChild(gotcha);
 
@@ -997,6 +1012,7 @@ function mountSection(section) {
   if (!currentCard) {
     stage.replaceChildren();
     stage.appendChild(nextCard);
+    placeFooter();
     requestAnimationFrame(() => {
       nextCard.classList.add('section-enter-active');
       activateSectionEffects();
@@ -1010,6 +1026,7 @@ function mountSection(section) {
   setTimeout(() => {
     currentCard.remove();
     stage.appendChild(nextCard);
+    placeFooter();
     requestAnimationFrame(() => {
       nextCard.classList.add('section-enter-active');
       activateSectionEffects();
@@ -1019,26 +1036,12 @@ function mountSection(section) {
 }
 
 railTabs.forEach((btn) => {
-  btn.setAttribute('aria-pressed', String(btn.classList.contains('active')));
-  if (btn.classList.contains('active')) {
-    btn.setAttribute('aria-current', 'page');
-  } else {
-    btn.removeAttribute('aria-current');
-  }
-
   btn.addEventListener('click', () => {
     if (btn.dataset.section === currentSection) {
       return;
     }
 
-    railTabs.forEach((b) => {
-      b.classList.remove('active');
-      b.setAttribute('aria-pressed', 'false');
-      b.removeAttribute('aria-current');
-    });
-    btn.classList.add('active');
-    btn.setAttribute('aria-pressed', 'true');
-    btn.setAttribute('aria-current', 'page');
+    // navigateTo() syncs the active state for clicks, hash routing and popstate alike.
     navigateTo(btn.dataset.section);
     // Always scroll to top of workspace on section change
     if (stage) {
@@ -1080,19 +1083,56 @@ if (radialTrigger && railNav) {
 
 const VALID_SECTIONS = new Set(['about', 'services', 'portfolio', 'contact']);
 
+/* URL slugs are what visitors see and share, so they match the nav labels.
+   The internal section keys stay as-is because the content JSON and several
+   CSS selectors key off them. Legacy slugs keep old shared links working. */
+const SLUG_TO_SECTION = {
+  about: 'about',
+  resume: 'services',
+  concepts: 'portfolio',
+  contact: 'contact',
+  // legacy
+  services: 'services',
+  portfolio: 'portfolio',
+};
+
+const SECTION_TO_SLUG = {
+  about: 'about',
+  services: 'resume',
+  portfolio: 'concepts',
+  contact: 'contact',
+};
+
 function sectionFromHash() {
-  const raw = window.location.hash.replace(/^#/, '');
-  return VALID_SECTIONS.has(raw) ? raw : 'about';
+  const raw = window.location.hash.replace(/^#/, '').toLowerCase();
+  return SLUG_TO_SECTION[raw] || 'about';
+}
+
+/** Keep the rail tabs in sync with whatever section is actually mounted.
+    Must run for hash routing and popstate too, not just clicks. */
+function syncRailTabs(section) {
+  railTabs.forEach((b) => {
+    const isActive = b.dataset.section === section;
+    b.classList.toggle('active', isActive);
+    b.setAttribute('aria-pressed', String(isActive));
+    if (isActive) {
+      b.setAttribute('aria-current', 'page');
+    } else {
+      b.removeAttribute('aria-current');
+    }
+  });
 }
 
 function navigateTo(section, { pushState = true } = {}) {
   if (!VALID_SECTIONS.has(section)) return;
+  const slug = SECTION_TO_SLUG[section] || section;
   if (pushState && sectionFromHash() !== section) {
-    history.pushState({ section }, '', '#' + section);
+    history.pushState({ section }, '', '#' + slug);
   }
   mountSection(section);
+  syncRailTabs(section);
   if (typeof gtag === 'function') {
-    gtag('event', 'page_view', { page_path: '/#' + section });
+    gtag('event', 'page_view', { page_path: '/#' + slug });
   }
 }
 

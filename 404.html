@@ -266,14 +266,17 @@
         <aside class="profile-card card-profile" aria-label="Profile">
             <!-- Cover with background image -->
             <div class="profile-cover prof-photo">
-                <img
-                src="images/background.png"
-                alt="brod3000 avatar"
-                loading="lazy"
-                class="blur-up loaded"
-                width="120"
-                height="120"
-                />
+                <picture>
+                    <source srcset="images/background.webp" type="image/webp">
+                    <img
+                    src="images/background.png"
+                    alt="brod3000 avatar"
+                    loading="lazy"
+                    class="blur-up loaded"
+                    width="120"
+                    height="120"
+                    />
+                </picture>
                 <!-- Status badge: 404 variant -->
                 <span class="prof-status-badge">⚠ 404</span>
                 <!-- Decorative number -->
@@ -366,7 +369,7 @@
                             </svg>
                             <span>Return Home</span>
                         </a>
-                        <a href="mailto:brod@brod3000.com" class="btn-home" style="background:#ffffff;color:#0a0a0a;">
+                        <a href="mailto:ben@brod3000.com" class="btn-home" style="background:#ffffff;color:#0a0a0a;"
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                                 <polyline points="22,6 12,13 2,6" />
@@ -407,14 +410,17 @@
             const cursor = document.querySelector('.ui-cursor');
             if (!cursor) return;
             let isHovering = false;
-            let x = -100,
-                y = -100;
+            let cx = 0, cy = 0, cursorRaf = 0;
 
             function updateCursor(e) {
-                x = e.clientX;
-                y = e.clientY;
-                cursor.style.left = x + 'px';
-                cursor.style.top = y + 'px';
+                cx = e.clientX;
+                cy = e.clientY;
+                if (!cursorRaf) {
+                    cursorRaf = requestAnimationFrame(() => {
+                        cursor.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+                        cursorRaf = 0;
+                    });
+                }
             }
 
             function onHover(e) {
@@ -426,7 +432,7 @@
                 }
             }
 
-            document.addEventListener('mousemove', updateCursor);
+            document.addEventListener('mousemove', updateCursor, { passive: true });
             document.addEventListener('mouseover', onHover);
             document.addEventListener('mouseout', function(e) {
                 if (!e.relatedTarget || !e.relatedTarget.closest) {
@@ -477,9 +483,9 @@
 
         // Keyboard shortcut: press "h" to go home
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'h' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+            if (e.key === 'h' && !e.ctrlKey && !e.metaKey && !e.altKey && !e.shiftKey) {
                 const active = document.activeElement;
-                if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) return;
+                if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable)) return;
                 window.location.href = '/';
             }
         });

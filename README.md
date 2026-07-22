@@ -18,16 +18,18 @@ https://brod3000.com
 
 ```
 brod3000.com/
-├── index.html
-├── 404.html
+├── index.html          # Main SPA with 4 sections (About, Resume, Concepts, Contact)
+├── 404.html            # Custom 404 page
+├── privacy.html        # Privacy notice
+├── terms.html          # Terms of use
 ├── README.md
 ├── CNAME
-├── favicon.svg
-├── styles-digital.css
-├── digital-runtime.js
-├── gtag-init.js
+├── site.webmanifest    # PWA manifest
+├── styles-digital.css  # Main stylesheet
+├── digital-runtime.js  # SPA runtime, canvas, animations, form handling
+├── gtag-init.js        # Google Analytics init
 ├── robots.txt
-├── sitemap.xml
+├── sitemap.xml         # Update when pages change
 ├── .gitignore
 └── images/
     ├── background.webp

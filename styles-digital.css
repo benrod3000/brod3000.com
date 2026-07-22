@@ -1,3 +1,12 @@
+/* ===== CSS LAYERS =====
+   Declares explicit cascade order to reduce !important dependency.
+   Existing rules are unlayered (highest priority after inline styles).
+   NEW rules should be added to @layer components or @layer sections
+   to avoid fighting with existing selectors. Migrate existing rules
+   into layers when touching them — delete !important at the same time.
+   ===== */
+@layer reset, tokens, base, components, sections, overrides;
+
 :root {
   --bg: hsl(30 20% 95%);
   --bg-2: hsl(30 18% 93%);
@@ -1936,6 +1945,9 @@ p {
   color: var(--text);
 }
 
+.form-status--ok { color: #00994d; }
+.form-status--error { color: #c41608; }
+
 .contact-form {
   display: grid;
   gap: 16px;
@@ -2059,16 +2071,17 @@ p {
 
 .ui-cursor {
   position: fixed;
-  left: -100px;
-  top: -100px;
+  top: 0;
+  left: 0;
   width: 14px;
   height: 14px;
+  margin: -7px 0 0 -7px;
   border-radius: 999px;
   border: 1px solid rgba(70, 114, 93, 0.58);
   background: rgba(86, 129, 106, 0.18);
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
+  will-change: transform;
   transition: width .2s ease, height .2s ease, border-color .2s ease, background-color .2s ease, box-shadow .2s ease;
 }
 

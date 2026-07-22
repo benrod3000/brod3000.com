@@ -1,0 +1,29 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Type-check (JSDoc + checkJs)
+        run: npx -y typescript --noEmit -p jsconfig.json
+
+      - name: HTML validate
+        run: npx -y html-validate "*.html"
+
+      - name: Broken link check
+        run: |
+          npx -y http-server . -p 8080 --silent &
+          sleep 3
+          npx -y linkinator http://localhost:8080 --recurse --silent
+
+      - name: Lighthouse budget
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: http://localhost:8080
+          budgetPath: ./lighthouse-budget.json

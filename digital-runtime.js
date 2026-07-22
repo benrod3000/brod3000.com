@@ -25,6 +25,23 @@ const compactProfileQuery = window.matchMedia('(max-width: 920px)');
 const compactProfileThreshold = 36;
 const dockScrollThreshold = 18;
 
+/* =========================================================================
+   ERROR SURFACE — logs to console and reports to GA
+   ========================================================================= */
+
+function reportError(scope, error) {
+  console.error('[' + scope + ']', error);
+  if (typeof gtag === 'function') {
+    gtag('event', 'exception', {
+      description: scope + ': ' + (error?.message ?? String(error)),
+      fatal: false,
+    });
+  }
+}
+
+window.addEventListener('error', (e) => reportError('window', e.error ?? e.message));
+window.addEventListener('unhandledrejection', (e) => reportError('promise', e.reason));
+
 function initAmbientCanvas() {
   if (!ambientCanvas) {
     return;
@@ -212,6 +229,16 @@ function initAmbientCanvas() {
   });
 
   prefersReducedMotion.addEventListener('change', refreshAnimationMode);
+
+  // Stop canvas when tab is hidden — saves battery, resumes on return
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && rafId) {
+      window.cancelAnimationFrame(rafId);
+      rafId = 0;
+    } else if (!document.hidden && !prefersReducedMotion.matches && !rafId) {
+      refreshAnimationMode();
+    }
+  });
 }
 
 initAmbientCanvas();
@@ -258,6 +285,10 @@ function bindContactFormHandlers(root) {
       event.preventDefault();
       
       const submitBtn = form.querySelector('button[type="submit"]');
+      if (!submitBtn) {
+        console.error('[form] No submit button found');
+        return;
+      }
       const originalBtnText = submitBtn.textContent;
       let statusDiv = form.querySelector('#form-status');
       
@@ -271,31 +302,51 @@ function bindContactFormHandlers(root) {
       
       submitBtn.textContent = 'SENDING...';
       submitBtn.disabled = true;
-      statusDiv.innerHTML = '';
+      statusDiv.replaceChildren();
       
       const formData = new FormData(form);
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
       
       try {
         const response = await fetch(form.action, {
           method: 'POST',
           body: formData,
-          headers: { 'Accept': 'application/json' }
+          headers: { 'Accept': 'application/json' },
+          signal: controller.signal
         });
         
         if (response.ok) {
-          statusDiv.innerHTML = '<span style="color: #00e060;">✓ Message sent successfully! I\'ll get back to you soon.</span>';
+          const okSpan = document.createElement('span');
+          okSpan.className = 'form-status--ok';
+          okSpan.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
+          statusDiv.appendChild(okSpan);
           form.reset();
         } else {
-          const data = await response.json();
-          let errorMsg = 'Sorry, something went wrong. Please try again.';
-          if (data.errors) {
-            errorMsg = data.errors.map(e => e.message).join(', ');
+          let errorMsg = 'Something went wrong. Please email me directly at ben@brod3000.com.';
+          try {
+            const data = await response.json();
+            if (Array.isArray(data.errors) && data.errors.length) {
+              errorMsg = data.errors.map((e) => e.message).filter(Boolean).join(', ');
+            }
+          } catch {
+            // Non-JSON error body — keep generic message
           }
-          statusDiv.innerHTML = `<span style="color: #e8180a;">✗ ${errorMsg}</span>`;
+          const errSpan = document.createElement('span');
+          errSpan.className = 'form-status--error';
+          errSpan.textContent = '✗ ' + errorMsg;
+          statusDiv.appendChild(errSpan);
         }
       } catch (error) {
-        statusDiv.innerHTML = '<span style="color: #e8180a;">✗ Network error. Please check your connection and try again.</span>';
+        const msg = error.name === 'AbortError'
+          ? '✗ Request timed out. Please try again or email ben@brod3000.com.'
+          : '✗ Network error. Please check your connection and try again.';
+        const errSpan = document.createElement('span');
+        errSpan.className = 'form-status--error';
+        errSpan.textContent = msg;
+        statusDiv.appendChild(errSpan);
       } finally {
+        clearTimeout(timeout);
         submitBtn.textContent = originalBtnText;
         submitBtn.disabled = false;
       }
@@ -363,14 +414,25 @@ if (cardShell) {
 
 if (window.matchMedia('(hover: hover)').matches && !isMobile && cardShell) {
   const maxTilt = 1.8;
+  let shellRect = cardShell.getBoundingClientRect();
+  const refreshRect = () => { shellRect = cardShell.getBoundingClientRect(); };
+  window.addEventListener('resize', refreshRect, { passive: true });
+  window.addEventListener('scroll', refreshRect, { passive: true });
+  let tiltRaf = 0;
+  let tiltPx = 0, tiltPy = 0;
   cardShell.addEventListener('mousemove', (event) => {
-    const rect = cardShell.getBoundingClientRect();
-    const px = (event.clientX - rect.left) / rect.width - 0.5;
-    const py = (event.clientY - rect.top) / rect.height - 0.5;
-    cardShell.style.transform = `perspective(1200px) rotateX(${(-py * maxTilt).toFixed(2)}deg) rotateY(${(px * maxTilt).toFixed(2)}deg)`;
+    tiltPx = (event.clientX - shellRect.left) / shellRect.width - 0.5;
+    tiltPy = (event.clientY - shellRect.top) / shellRect.height - 0.5;
+    if (!tiltRaf) {
+      tiltRaf = requestAnimationFrame(() => {
+        cardShell.style.transform = `perspective(1200px) rotateX(${(-tiltPy * maxTilt).toFixed(2)}deg) rotateY(${(tiltPx * maxTilt).toFixed(2)}deg)`;
+        tiltRaf = 0;
+      });
+    }
   });
 
   cardShell.addEventListener('mouseleave', () => {
+    if (tiltRaf) { cancelAnimationFrame(tiltRaf); tiltRaf = 0; }
     cardShell.style.transform = '';
   });
 }
@@ -389,10 +451,17 @@ document.querySelectorAll('img.blur-up').forEach((img) => {
 });
 
 if (cursor && window.matchMedia('(hover: hover)').matches) {
+  let cx = 0, cy = 0, cursorRaf = 0;
   window.addEventListener('mousemove', (event) => {
-    cursor.style.left = `${event.clientX}px`;
-    cursor.style.top = `${event.clientY}px`;
-  });
+    cx = event.clientX;
+    cy = event.clientY;
+    if (!cursorRaf) {
+      cursorRaf = requestAnimationFrame(() => {
+        cursor.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
+        cursorRaf = 0;
+      });
+    }
+  }, { passive: true });
 
   bindCursorTargets = () => {
     interactiveTargets().forEach((el) => {
@@ -404,310 +473,469 @@ if (cursor && window.matchMedia('(hover: hover)').matches) {
   bindCursorTargets();
 }
 
-// Rotator with null guard
-setInterval(() => {
-  if (!rotator) return;
-  phraseIndex = (phraseIndex + 1) % phrases.length;
-  rotator.textContent = phrases[phraseIndex];
-}, 2600);
-
-function sectionTemplate(section) {
-  if (section === 'about') {
-    return `
-      <article class="stage-card section-enter" data-section="about" data-ghost="ABOUT">
-        <div class="card-title-wrap">
-          <span class="card-kicker">About</span>
-          <h3>I build systems for growth.</h3>
-          <p><strong>Systems first growth architecture</strong> demands a move away from "growth hacks" toward durable, high leverage digital structures.</p>
-          <p><strong>Complexity requires clarity</strong> when managing multi channel campaigns; we solve for the bottleneck before we solve for the volume.</p>
-          <p><strong>Engineered for scale</strong> is how I approach every campaign, ensuring that the infrastructure can support the ambition.</p>
-        </div>
-
-        <div class="about-grid">
-          <div class="about-block">
-            <h4>Alignment</h4>
-            <p><strong>Methodology over history</strong> is the cornerstone of my practice; I provide the operating manual, not just the labor.</p>
-          </div>
-          <div class="about-block">
-            <h4>Principle</h4>
-            <p><strong>Eleven years' tenure</strong> at the intersection of culture and commerce has refined my ability to scale brands without losing their soul.</p>
-          </div>
-        </div>
-
-        <div class="stats-row">
-          <div class="stat-pill"><strong data-count-target="11" data-count-suffix="+">0+</strong><span>Years in Talent Management</span></div>
-          <div class="stat-pill"><strong data-count-target="20" data-count-suffix="+">0+</strong><span>Campaigns Launched</span></div>
-          <div class="stat-pill"><strong data-count-target="3" data-count-suffix="x">0x</strong><span>Average Return on Ad Spend</span></div>
-        </div>
-
-        <div class="about-bridge" aria-hidden="true"></div>
-      </article>
-    `;
-  }
-
-  if (section === 'services') {
-    return `
-      <article class="stage-card section-enter" data-section="services" data-ghost="RESUME">
-        <div class="card-title-wrap">
-          <span class="card-kicker">Capabilities</span>
-          <h3>Results built on repeatable systems</h3>
-          <p><strong>Unified operating logic</strong> aligns strategy, paid media, web, and lifecycle so execution stays fast, measurable, and resilient.</p>
-        </div>
-
-        <div class="resume-layout">
-          <div class="resume-column">
-            <h4 class="resume-heading">Experience</h4>
-            <div class="timeline-list">
-              <article class="timeline-item active">
-                <span class="timeline-date">2016 to 2021</span>
-                <h5>Digital Marketing Director</h5>
-                <p>Owned the digital roadmap across paid media, web, email, and reporting operations. Led cross functional launches, standardized campaign QA, and aligned channel KPIs to business goals. Result: faster launch cycles, cleaner attribution, and sustained performance with average return on ad spend around 3x on core campaigns.</p>
-              </article>
-              <article class="timeline-item">
-                <span class="timeline-date">2011 to 2016</span>
-                <h5>Digital Marketing Manager</h5>
-                <p>Managed day to day campaign execution, content calendars, landing page workflows, and stakeholder reporting. Built repeatable testing and weekly optimization rhythms that improved decision speed and reduced channel drift across active campaigns.</p>
-              </article>
-              <article class="timeline-item">
-                <span class="timeline-date">2010 to 2011</span>
-                <h5>Assistant Tour Manager / Merch Manager</h5>
-                <p>Managed tour logistics and merch operations across venues, including inventory forecasting, point of sale reconciliation, and nightly reporting. Built execution discipline under pressure that later translated directly into digital operations leadership.</p>
-              </article>
-            </div>
-          </div>
-          <div class="resume-column">
-            <h4 class="resume-heading">Certifications</h4>
-            <div class="timeline-list">
-              <article class="timeline-item">
-                <span class="timeline-date">2019</span>
-                <h5>Facebook Blueprint Certification</h5>
-                <p>Platform expertise, ad buying, measurement, and compliance for paid social campaigns.</p>
-              </article>
-              <article class="timeline-item">
-                <span class="timeline-date">2017</span>
-                <h5>Twitter Flight School</h5>
-                <p>Certification in Twitter ads, audience targeting, and campaign optimization strategies.</p>
-              </article>
-              <article class="timeline-item">
-                <span class="timeline-date">2016</span>
-                <h5>YouTube Certified</h5>
-                <p>Video advertising, audience growth, and content strategy for the YouTube platform.</p>
-              </article>
-              <article class="timeline-item">
-                <span class="timeline-date">Current</span>
-                <h5>AWS Cloud Practitioner (In Progress)</h5>
-                <p>Specializing in ECS (Elastic Container Service) and SNS (Simple Notification Service) for scalable marketing infrastructure.</p>
-              </article>
-            </div>
-          </div>
-        </div>
-
-        <div class="service-grid">
-          <div class="service-card animate">
-            <div class="service-title-col">
-              <h4><svg class="service-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 20h16"/><path d="M7 16v-4"/><path d="M12 16v-8"/><path d="M17 16v-11"/></svg><span>Digital Ecosystem Strategy</span></h4>
-              <span class="service-subtitle">System Architecture</span>
-              <span class="tag">Roadmap</span>
-            </div>
-            <div class="service-desc-col">
-              <p><strong>High fidelity data loops</strong> move your decision making away from "gut feeling" and toward a rigorous, evidence based marketing cycle.</p>
-            </div>
-          </div>
-          <div class="service-card animate">
-            <div class="service-title-col">
-              <h4><svg class="service-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 4 3 9l9 5 9-5-9-5Z"/><path d="m3 13 9 5 9-5"/></svg><span>Data Driven Decision Systems</span></h4>
-              <span class="service-subtitle">Insight Architecture</span>
-              <span class="tag">Ops</span>
-            </div>
-            <div class="service-desc-col">
-              <p><strong>Retention driven lifecycle design</strong> focuses on the compounding value of existing users, turning fleeting interactions into durable brand loyalty.</p>
-            </div>
-          </div>
-          <div class="service-card animate">
-            <div class="service-title-col">
-              <h4><svg class="service-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 11v2"/><path d="M6 9v6"/><path d="M9 8c6 0 9-3 12-4v16c-3-1-6-4-12-4Z"/></svg><span>Lifecycle Marketing Architecture</span></h4>
-              <span class="service-subtitle">Retention Infrastructure</span>
-              <span class="tag">Acquisition</span>
-            </div>
-            <div class="service-desc-col">
-              <p><strong>Conversion consistency systems</strong> are built to survive market volatility by focusing on core human behavior rather than platform trends.</p>
-            </div>
-          </div>
-          <div class="service-card animate">
-            <div class="service-title-col">
-              <h4><svg class="service-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.2-4.2"/></svg><span>Conversion Experience Design</span></h4>
-              <span class="service-subtitle">Conversion Infrastructure</span>
-              <span class="tag">Demand</span>
-            </div>
-            <div class="service-desc-col">
-              <p>Improve conversion consistency over time through web structure, landing page refinement, and UX choices that reduce friction and build trust.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="proof-grid" aria-label="Capability proof points">
-          <article class="proof-card">
-            <span class="proof-kicker">Strategy + Analytics</span>
-            <h5>Faster decisions, cleaner priorities</h5>
-            <p>Built weekly reporting loops that turned channel noise into clear, revenue-aligned actions across teams.</p>
-          </article>
-          <article class="proof-card">
-            <span class="proof-kicker">Paid Distribution</span>
-            <h5>Performance with repeatable systems</h5>
-            <p>Implemented disciplined testing and pacing frameworks that supported sustained campaign performance around 3x ROAS on core efforts.</p>
-          </article>
-          <article class="proof-card">
-            <span class="proof-kicker">Lifecycle + Retention</span>
-            <h5>Retention that compounds over time</h5>
-            <p>Rebuilt nurture and re-engagement flows to improve list quality, stabilize retention, and lift long-term customer value.</p>
-          </article>
-        </div>
-      </article>
-    `;
-  }
-
-  if (section === 'portfolio') {
-    return `
-      <article class="stage-card section-enter" data-section="portfolio" data-ghost="PORTFOLIO">
-        <div class="card-title-wrap">
-          <span class="card-kicker">Concepts</span>
-          <h3>Theory library for durable digital operation</h3>
-          <p>Core principles that guide planning, channel execution, and performance control across the full system.</p>
-        </div>
-
-        <div class="method-grid">
-          <article class="method-card animate">
-            <span class="method-index">01</span>
-            <h4>Systems Over Tactics</h4>
-            <p><strong>Architectural stability logic</strong> Infrastructure led growth prioritizes repeatable frameworks over transient platform hacks. Strategic resilience is achieved by building systems that outlast individual campaign cycles.</p>
-          </article>
-          <article class="method-card animate">
-            <span class="method-index">02</span>
-            <h4>The Durable Narrative</h4>
-            <p><strong>Contextual brand filtering</strong> Narrative serves as the primary filter for all incoming data and outgoing creative. A coherent brand identity reduces market friction and accelerates consumer trust building.</p>
-          </article>
-          <article class="method-card animate">
-            <span class="method-index">03</span>
-            <h4>Compound Retention</h4>
-            <p><strong>Compounding lifecycle physics</strong> Revenue growth is a function of minimizing churn through rigorous user experience design. Sustainable scaling is driven by the lifetime value of established audiences rather than constant acquisition.</p>
-          </article>
-        </div>
-
-        <section class="workflow-container animate" aria-label="Operating workflow schematic">
-          <div class="workflow-header">
-            <h4>Operating Workflow</h4>
-            <p>From raw signal to hardened system.</p>
-          </div>
-
-          <ol class="workflow-track">
-            <li class="workflow-node animate">
-              <span class="workflow-meta">STEP 01</span>
-              <h5>Signal Intake</h5>
-              <p>Aggregating raw data, market sentiment, and brand objectives into a single source of truth.</p>
-            </li>
-            <li class="workflow-node animate">
-              <span class="workflow-meta">STEP 02</span>
-              <h5>Diagnostic Mapping</h5>
-              <p>Identifying systemic bottlenecks and friction points within the existing digital structure.</p>
-            </li>
-            <li class="workflow-node animate">
-              <span class="workflow-meta">STEP 03</span>
-              <h5>System Architecture</h5>
-              <p>Designing the durable framework and logic flows required to solve the identified friction.</p>
-            </li>
-            <li class="workflow-node animate">
-              <span class="workflow-meta">STEP 04</span>
-              <h5>Multi Channel Execution</h5>
-              <p>Deploying the architecture across relevant platforms with unified brand logic.</p>
-            </li>
-            <li class="workflow-node animate">
-              <span class="workflow-meta">STEP 05</span>
-              <h5>Feedback Integration</h5>
-              <p>Capturing real time performance data to refine the system responsiveness.</p>
-            </li>
-            <li class="workflow-node animate">
-              <span class="workflow-meta">STEP 06</span>
-              <h5>Iterative Optimization</h5>
-              <p>Hardening the system for long term retention and compounding growth.</p>
-            </li>
-          </ol>
-        </section>
-
-        <div class="blog-panel">
-          <div class="blog-panel-head">
-            <h4>Applied Signals</h4>
-            <p>Clear outcome snapshots: context, action, impact.</p>
-          </div>
-          <div class="blog-grid">
-            <article class="blog-card animate">
-              <span class="blog-meta">Systems Deployment</span>
-              <h5>Audience ownership framework rollout</h5>
-              <p><strong>Context:</strong> Planning was fragmented across teams and channels.<br><strong>Action:</strong> Implemented one planning cadence linking content, paid media, and web priorities.<br><strong>Impact:</strong> Faster decisions, clearer campaign choices, steadier execution quality.</p>
-            </article>
-            <article class="blog-card animate">
-              <span class="blog-meta">Paid Media Operations</span>
-              <h5>Creative testing system for paid social</h5>
-              <p><strong>Context:</strong> Testing was inconsistent and scaling decisions were slow.<br><strong>Action:</strong> Built a repeatable creative test cadence with cleaner hypotheses and reporting loops.<br><strong>Impact:</strong> More learnings per cycle, faster iteration, stronger budget confidence.</p>
-            </article>
-            <article class="blog-card animate">
-              <span class="blog-meta">Retention Systems</span>
-              <h5>Email automation reset for dormant audiences</h5>
-              <p><strong>Context:</strong> Lifecycle messaging lacked segmentation and reactivation control.<br><strong>Action:</strong> Rebuilt automation flows for nurture, re engagement, and list health management.<br><strong>Impact:</strong> Better audience quality, steadier retention performance, stronger long term value.</p>
-            </article>
-          </div>
-        </div>
-      </article>
-    `;
-  }
-
-  return `
-    <article class="stage-card section-enter" data-section="contact" data-ghost="CONTACT">
-      <div class="card-title-wrap">
-        <span class="card-kicker">Ready to fix the system</span>
-        <h3>If your growth depends on constant output, the structure underneath it needs to change</h3>
-        <p>Most growth problems are not content problems. They are system problems. When strategy, messaging, and delivery run separately, everything turns reactive, effort rises, clarity drops, outcomes drift. I design systems that bring those layers into alignment, so growth is shaped by structure that holds under pressure and improves over time. The goal is not more activity. It is better signal.</p>
-      </div>
-
-      <div class="contact-grid">
-        <div class="contact-block">
-          <h4>Direct</h4>
-          <p><strong>Email:</strong> <a href="mailto:ben@brod3000.com">ben@brod3000.com</a></p>
-          <p><strong>Location:</strong> Southern California</p>
-          <p>Share what feels misaligned. I'll map a clear next step.</p>
-        </div>
-        <form class="contact-form" action="https://formspree.io/f/mdavybdy" method="POST">
-          <div class="brutalist-container">
-            <input placeholder="YOUR NAME" class="brutalist-input" type="text" name="name" required>
-            <label class="brutalist-label">Name</label>
-          </div>
-          <div class="brutalist-container">
-            <input placeholder="YOU@COMPANY.COM" class="brutalist-input" type="email" name="email" required>
-            <label class="brutalist-label">Email</label>
-          </div>
-          <div class="brutalist-container">
-            <textarea placeholder="SHARE WHAT FEELS MISALIGNED" class="brutalist-input" name="message" rows="4" required></textarea>
-            <label class="brutalist-label">Message</label>
-          </div>
-          <input type="text" name="_gotcha" style="display:none !important;">
-          <button type="submit">Start a conversation</button>
-        </form>
-      </div>
-    </article>
-  `;
+// Rotator — only runs when rotator element exists and tab is visible
+let rotatorTimer = null;
+if (rotator && phrases.length > 1) {
+  const advancePhrase = () => {
+    phraseIndex = (phraseIndex + 1) % phrases.length;
+    rotator.textContent = phrases[phraseIndex];
+  };
+  rotatorTimer = setInterval(advancePhrase, 2600);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && rotatorTimer) {
+      clearInterval(rotatorTimer);
+      rotatorTimer = null;
+    } else if (!document.hidden && !rotatorTimer) {
+      rotatorTimer = setInterval(advancePhrase, 2600);
+    }
+  });
 }
 
-const sectionTemplateCache = new Map();
+/* =========================================================================
+   CONTENT RENDERING — reads from inline JSON (#site-content), builds DOM
+   with textContent (injection-safe). All sub-components use <template>
+   fragments defined in index.html.
+   ========================================================================= */
 
-function getSectionCard(section) {
-  let template = sectionTemplateCache.get(section);
-  if (!template) {
-    template = document.createElement('template');
-    template.innerHTML = sectionTemplate(section).trim();
-    sectionTemplateCache.set(section, template);
+/** Parse the inline JSON content data. Falls back to empty object. */
+function loadSiteContent() {
+  try {
+    const el = document.getElementById('site-content');
+    return el ? JSON.parse(el.textContent) : {};
+  } catch (e) {
+    console.error('[content] Failed to parse site-content JSON:', e);
+    return {};
+  }
+}
+
+const siteContent = loadSiteContent();
+
+// ---- Template helpers: clone a template fragment and fill with textContent ----
+
+function cloneTpl(id) {
+  const tpl = document.getElementById(id);
+  if (!tpl) return null;
+  const node = tpl.content.firstElementChild;
+  return node ? node.cloneNode(true) : null;
+}
+
+function cloneTplAndFill(id, fillMap) {
+  const node = cloneTpl(id);
+  if (!node) return null;
+  for (const [sel, value] of Object.entries(fillMap)) {
+    const el = node.querySelector(sel);
+    if (el) el.textContent = value;
+  }
+  return node;
+}
+
+function createStatPill({ value, suffix, label }) {
+  const node = cloneTpl('tpl-stat-pill');
+  if (!node) return null;
+  const strong = node.querySelector('strong');
+  const span = node.querySelector('span');
+  if (strong) {
+    strong.dataset.countTarget = String(value);
+    strong.dataset.countSuffix = suffix || '';
+    strong.textContent = '0' + (suffix || '');
+  }
+  if (span) span.textContent = label;
+  return node;
+}
+
+function createTimelineItem({ date, title, body, active }) {
+  const node = cloneTplAndFill('tpl-timeline-item', {
+    '.timeline-date': date,
+    'h5': title,
+    'p': body
+  });
+  if (node && active) node.classList.add('active');
+  return node;
+}
+
+function createServiceCard(data) {
+  const node = cloneTpl('tpl-service-card');
+  if (!node) return null;
+  const svg = node.querySelector('svg');
+  const titleSpan = node.querySelector('h4 > span');
+  const subtitleEl = node.querySelector('.service-subtitle');
+  const tagEl = node.querySelector('.tag');
+  const pEl = node.querySelector('.service-desc-col p');
+  if (titleSpan) titleSpan.textContent = data.title;
+  if (subtitleEl) subtitleEl.textContent = data.subtitle;
+  if (tagEl) tagEl.textContent = data.tag;
+  if (pEl) pEl.textContent = data.body;
+  // Add SVG path elements from the icon string (space-separated d values)
+  if (svg && data.icon) {
+    const dValues = data.icon.split(/\s+(?=[mcM])/);
+    dValues.forEach(d => {
+      if (d.trim()) {
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', d.trim());
+        svg.appendChild(path);
+      }
+    });
+  }
+  return node;
+}
+
+function createProofCard({ kicker, heading, body }) {
+  return cloneTplAndFill('tpl-proof-card', {
+    '.proof-kicker': kicker,
+    'h5': heading,
+    'p': body
+  });
+}
+
+function createMethodCard({ index, heading, body }) {
+  return cloneTplAndFill('tpl-method-card', {
+    '.method-index': index,
+    'h4': heading,
+    'p': body
+  });
+}
+
+function createWorkflowNode({ step, heading, body }) {
+  return cloneTplAndFill('tpl-workflow-node', {
+    '.workflow-meta': step,
+    'h5': heading,
+    'p': body
+  });
+}
+
+function createBlogCard({ meta, heading, segments }) {
+  const node = cloneTpl('tpl-blog-card');
+  if (!node) return null;
+  const metaEl = node.querySelector('.blog-meta');
+  const h5 = node.querySelector('h5');
+  const p = node.querySelector('p');
+  if (metaEl) metaEl.textContent = meta;
+  if (h5) h5.textContent = heading;
+  // Build the paragraph with <strong>label</strong>text<br> segments
+  if (p && segments) {
+    p.replaceChildren();
+    segments.forEach((seg, i) => {
+      const strong = document.createElement('strong');
+      strong.textContent = seg.label;
+      p.appendChild(strong);
+      p.appendChild(document.createTextNode(seg.text));
+      if (i < segments.length - 1) {
+        p.appendChild(document.createElement('br'));
+      }
+    });
+  }
+  return node;
+}
+
+// ---- Section builders ----
+
+function renderAbout() {
+  const data = siteContent.about;
+  if (!data) return null;
+
+  const article = document.createElement('article');
+  article.className = 'stage-card section-enter';
+  article.dataset.section = 'about';
+  article.dataset.ghost = 'ABOUT';
+
+  // Title wrap
+  const titleWrap = document.createElement('div');
+  titleWrap.className = 'card-title-wrap';
+  titleWrap.innerHTML = `<span class="card-kicker">${data.kicker}</span><h3>${data.heading}</h3>`;
+  (data.paragraphs || []).forEach(text => {
+    const p = document.createElement('p');
+    p.textContent = text;
+    titleWrap.appendChild(p);
+  });
+  article.appendChild(titleWrap);
+
+  // About grid
+  if (data.blocks && data.blocks.length) {
+    const grid = document.createElement('div');
+    grid.className = 'about-grid';
+    data.blocks.forEach(({ heading, text }) => {
+      const block = document.createElement('div');
+      block.className = 'about-block';
+      block.innerHTML = `<h4>${heading}</h4>`;
+      const p = document.createElement('p');
+      p.textContent = text;
+      block.appendChild(p);
+      grid.appendChild(block);
+    });
+    article.appendChild(grid);
   }
 
-  const first = template.content.firstElementChild;
-  return first ? first.cloneNode(true) : null;
+  // Stats row
+  if (data.stats && data.stats.length) {
+    const row = document.createElement('div');
+    row.className = 'stats-row';
+    data.stats.forEach(s => {
+      const pill = createStatPill(s);
+      if (pill) row.appendChild(pill);
+    });
+    article.appendChild(row);
+  }
+
+  const bridge = document.createElement('div');
+  bridge.className = 'about-bridge';
+  bridge.setAttribute('aria-hidden', 'true');
+  article.appendChild(bridge);
+
+  return article;
+}
+
+function renderServices() {
+  const data = siteContent.services;
+  if (!data) return null;
+
+  const article = document.createElement('article');
+  article.className = 'stage-card section-enter';
+  article.dataset.section = 'services';
+  article.dataset.ghost = 'RESUME';
+
+  // Title wrap
+  const titleWrap = document.createElement('div');
+  titleWrap.className = 'card-title-wrap';
+  titleWrap.innerHTML = `<span class="card-kicker">${data.kicker}</span><h3>${data.heading}</h3>`;
+  const ledeP = document.createElement('p');
+  ledeP.textContent = data.lede;
+  titleWrap.appendChild(ledeP);
+  article.appendChild(titleWrap);
+
+  // Resume layout
+  const resumeLayout = document.createElement('div');
+  resumeLayout.className = 'resume-layout';
+
+  // Experience column
+  const expCol = document.createElement('div');
+  expCol.className = 'resume-column';
+  expCol.innerHTML = '<h4 class="resume-heading">Experience</h4>';
+  const expList = document.createElement('div');
+  expList.className = 'timeline-list';
+  (data.experience || []).forEach(item => {
+    const node = createTimelineItem(item);
+    if (node) expList.appendChild(node);
+  });
+  expCol.appendChild(expList);
+
+  // Certifications column
+  const certCol = document.createElement('div');
+  certCol.className = 'resume-column';
+  certCol.innerHTML = '<h4 class="resume-heading">Certifications</h4>';
+  const certList = document.createElement('div');
+  certList.className = 'timeline-list';
+  (data.certifications || []).forEach(item => {
+    const node = createTimelineItem(item);
+    if (node) certList.appendChild(node);
+  });
+  certCol.appendChild(certList);
+
+  resumeLayout.appendChild(expCol);
+  resumeLayout.appendChild(certCol);
+  article.appendChild(resumeLayout);
+
+  // Service grid
+  const serviceGrid = document.createElement('div');
+  serviceGrid.className = 'service-grid';
+  (data.serviceCards || []).forEach(item => {
+    const card = createServiceCard(item);
+    if (card) {
+      card.classList.add('animate');
+      serviceGrid.appendChild(card);
+    }
+  });
+  article.appendChild(serviceGrid);
+
+  // Proof grid
+  const proofGrid = document.createElement('div');
+  proofGrid.className = 'proof-grid';
+  proofGrid.setAttribute('aria-label', 'Capability proof points');
+  (data.proofCards || []).forEach(item => {
+    const card = createProofCard(item);
+    if (card) proofGrid.appendChild(card);
+  });
+  article.appendChild(proofGrid);
+
+  return article;
+}
+
+function renderPortfolio() {
+  const data = siteContent.portfolio;
+  if (!data) return null;
+
+  const article = document.createElement('article');
+  article.className = 'stage-card section-enter';
+  article.dataset.section = 'portfolio';
+  article.dataset.ghost = 'PORTFOLIO';
+
+  // Title wrap
+  const titleWrap = document.createElement('div');
+  titleWrap.className = 'card-title-wrap';
+  titleWrap.innerHTML = `<span class="card-kicker">${data.kicker}</span><h3>${data.heading}</h3>`;
+  const ledeP = document.createElement('p');
+  ledeP.textContent = data.lede;
+  titleWrap.appendChild(ledeP);
+  article.appendChild(titleWrap);
+
+  // Method grid
+  const methodGrid = document.createElement('div');
+  methodGrid.className = 'method-grid';
+  (data.methods || []).forEach(item => {
+    const card = createMethodCard(item);
+    if (card) methodGrid.appendChild(card);
+  });
+  article.appendChild(methodGrid);
+
+  // Workflow container
+  if (data.workflow) {
+    const section = document.createElement('section');
+    section.className = 'workflow-container animate';
+    section.setAttribute('aria-label', 'Operating workflow schematic');
+    const header = document.createElement('div');
+    header.className = 'workflow-header';
+    header.innerHTML = `<h4>${data.workflow.heading}</h4><p>${data.workflow.subheading}</p>`;
+    section.appendChild(header);
+
+    const track = document.createElement('ol');
+    track.className = 'workflow-track';
+    (data.workflow.steps || []).forEach(item => {
+      const node = createWorkflowNode(item);
+      if (node) track.appendChild(node);
+    });
+    section.appendChild(track);
+    article.appendChild(section);
+  }
+
+  // Blog panel
+  if (data.blogCards && data.blogCards.length) {
+    const panel = document.createElement('div');
+    panel.className = 'blog-panel';
+    const panelHead = document.createElement('div');
+    panelHead.className = 'blog-panel-head';
+    panelHead.innerHTML = '<h4>Applied Signals</h4><p>Clear outcome snapshots: context, action, impact.</p>';
+    panel.appendChild(panelHead);
+
+    const grid = document.createElement('div');
+    grid.className = 'blog-grid';
+    data.blogCards.forEach(item => {
+      const card = createBlogCard(item);
+      if (card) grid.appendChild(card);
+    });
+    panel.appendChild(grid);
+    article.appendChild(panel);
+  }
+
+  return article;
+}
+
+function renderContact() {
+  const data = siteContent.contact;
+  if (!data) return null;
+
+  const article = document.createElement('article');
+  article.className = 'stage-card section-enter';
+  article.dataset.section = 'contact';
+  article.dataset.ghost = 'CONTACT';
+
+  // Title wrap
+  const titleWrap = document.createElement('div');
+  titleWrap.className = 'card-title-wrap';
+  titleWrap.innerHTML = `<span class="card-kicker">${data.kicker}</span><h3>${data.heading}</h3>`;
+  const ledeP = document.createElement('p');
+  ledeP.textContent = data.lede;
+  titleWrap.appendChild(ledeP);
+  article.appendChild(titleWrap);
+
+  // Contact grid
+  const grid = document.createElement('div');
+  grid.className = 'contact-grid';
+
+  // Contact block
+  const cb = data.contactBlock;
+  if (cb) {
+    const block = document.createElement('div');
+    block.className = 'contact-block';
+    block.innerHTML = `<h4>${cb.heading}</h4>`
+      + `<p><strong>Email:</strong> <a href="mailto:${cb.email}">${cb.email}</a></p>`
+      + `<p><strong>Location:</strong> ${cb.location}</p>`;
+    const ctaP = document.createElement('p');
+    ctaP.textContent = cb.cta;
+    block.appendChild(ctaP);
+    grid.appendChild(block);
+  }
+
+  // Form
+  const form = document.createElement('form');
+  form.className = 'contact-form';
+  form.action = 'https://formspree.io/f/mdavybdy';
+  form.method = 'POST';
+
+  const fields = [
+    { placeholder: 'YOUR NAME', type: 'text', name: 'name', label: 'Name' },
+    { placeholder: 'YOU@COMPANY.COM', type: 'email', name: 'email', label: 'Email' },
+    { placeholder: 'SHARE WHAT FEELS MISALIGNED', type: 'textarea', name: 'message', label: 'Message' }
+  ];
+
+  fields.forEach(f => {
+    const container = document.createElement('div');
+    container.className = 'brutalist-container';
+    if (f.type === 'textarea') {
+      const ta = document.createElement('textarea');
+      ta.className = 'brutalist-input';
+      ta.placeholder = f.placeholder;
+      ta.name = f.name;
+      ta.rows = 4;
+      ta.required = true;
+      container.appendChild(ta);
+    } else {
+      const input = document.createElement('input');
+      input.className = 'brutalist-input';
+      input.placeholder = f.placeholder;
+      input.type = f.type;
+      input.name = f.name;
+      input.required = true;
+      container.appendChild(input);
+    }
+    const label = document.createElement('label');
+    label.className = 'brutalist-label';
+    label.textContent = f.label;
+    container.appendChild(label);
+    form.appendChild(container);
+  });
+
+  // Honeypot
+  const gotcha = document.createElement('input');
+  gotcha.type = 'text';
+  gotcha.name = '_gotcha';
+  gotcha.style.display = 'none';
+  form.appendChild(gotcha);
+
+  const btn = document.createElement('button');
+  btn.type = 'submit';
+  btn.textContent = data.formSubmitText || 'Start a conversation';
+  form.appendChild(btn);
+
+  grid.appendChild(form);
+  article.appendChild(grid);
+
+  return article;
+}
+
+/** @type {Object<string, function(): HTMLElement|null>} */
+const SECTION_RENDERERS = {
+  about: renderAbout,
+  services: renderServices,
+  portfolio: renderPortfolio,
+  contact: renderContact,
+};
+
+function getSectionCard(section) {
+  const render = SECTION_RENDERERS[section];
+  if (!render) {
+    console.error(`[runtime] Unknown section: "${section}"`);
+    return null;
+  }
+  return render();
 }
 
 function mountSection(section) {
@@ -745,27 +973,10 @@ function mountSection(section) {
     }
 
     if (section === 'portfolio') {
-      // Force portfolio content to be visible
-      nextCard.style.display = 'block';
-      nextCard.style.visibility = 'visible';
-      nextCard.style.opacity = '1';
-      
-      // Fix workflow track grid
-      setTimeout(() => {
-        const workflowTrack = nextCard.querySelector('.workflow-track');
-        if (workflowTrack) {
-          workflowTrack.style.display = 'grid';
-          workflowTrack.style.gridTemplateColumns = 'repeat(3, 1fr)';
-          workflowTrack.style.gap = '20px';
-        }
-      }, 10);
-      
       // Start the step pulsing animation
       const workflowNodes = [...nextCard.querySelectorAll('.workflow-node')];
       if (workflowNodes.length) {
-        // Remove any existing live classes
         workflowNodes.forEach(node => node.classList.remove('is-live'));
-        
         let pulseIndex = 0;
         workflowNodes[0].classList.add('is-live');
         workflowPulseInterval = setInterval(() => {
@@ -775,6 +986,12 @@ function mountSection(section) {
         }, 800);
       }
     }
+
+    // Trigger GSAP scroll animations and refresh for any section
+    setTimeout(() => {
+      animatePortfolioCards();
+      ScrollTrigger.refresh();
+    }, 100);
   };
 
   if (!currentCard) {
@@ -822,7 +1039,7 @@ railTabs.forEach((btn) => {
     btn.classList.add('active');
     btn.setAttribute('aria-pressed', 'true');
     btn.setAttribute('aria-current', 'page');
-    mountSection(btn.dataset.section);
+    navigateTo(btn.dataset.section);
     // Always scroll to top of workspace on section change
     if (stage) {
       stage.scrollTop = 0;
@@ -857,9 +1074,35 @@ if (radialTrigger && railNav) {
   });
 }
 
-// Mount the initial section with error handling
+/* =========================================================================
+   HASH ROUTING — makes sections linkable and back-button-correct
+   ========================================================================= */
+
+const VALID_SECTIONS = new Set(['about', 'services', 'portfolio', 'contact']);
+
+function sectionFromHash() {
+  const raw = window.location.hash.replace(/^#/, '');
+  return VALID_SECTIONS.has(raw) ? raw : 'about';
+}
+
+function navigateTo(section, { pushState = true } = {}) {
+  if (!VALID_SECTIONS.has(section)) return;
+  if (pushState && sectionFromHash() !== section) {
+    history.pushState({ section }, '', '#' + section);
+  }
+  mountSection(section);
+  if (typeof gtag === 'function') {
+    gtag('event', 'page_view', { page_path: '/#' + section });
+  }
+}
+
+window.addEventListener('popstate', () => {
+  navigateTo(sectionFromHash(), { pushState: false });
+});
+
+// Mount the initial section from hash with error handling
 try {
-  mountSection('about');
+  navigateTo(sectionFromHash(), { pushState: false });
 } catch (err) {
   console.error('Failed to mount initial section:', err);
 }
@@ -919,23 +1162,8 @@ const animatePortfolioCards = () => {
   );
 };
 
-// Use MutationObserver to catch when new elements are added
-const stageMutationObserver = new MutationObserver(() => {
-  // Debounce the animation trigger
-  clearTimeout(window.animateDebounce);
-  window.animateDebounce = setTimeout(() => {
-    animatePortfolioCards();
-    ScrollTrigger.refresh();
-  }, 50);
-});
-
-stageMutationObserver.observe(stage, {
-  childList: true,
-  subtree: true
-});
-
-// Initial animation for first section
-setTimeout(() => {
-  animatePortfolioCards();
-  ScrollTrigger.refresh();
-}, 300);
+/* =========================================================================
+   MutationObserver removed. Animations are triggered directly from
+   mountSection() via activateSectionEffects(). This eliminates an
+   800ms-interval ScrollTrigger.refresh() loop on the portfolio section.
+   ========================================================================= */

@@ -47,6 +47,19 @@
 
   <!-- Inline fallback styles (in case external CSS fails) -->
   <style>
+    /* --- Prevent grid layout shift before external CSS loads.
+         The grid centering on body.design-digital must match exactly
+         what the external stylesheet provides, otherwise the browser
+         will paint twice and accumulate CLS. --- */
+    body.design-digital {
+      margin: 0;
+      display: grid;
+      place-items: center;
+      min-height: 100dvh;
+      padding: 16px;
+      overflow: hidden;
+    }
+
     /* --- Font metric fallback — matches Georgia to Playfair Display so the
            font-display:swap doesn't cause layout shift. Metrics from OS/2 +
            hhea tables of both fonts, normalized to 1000 UPM.

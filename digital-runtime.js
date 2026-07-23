@@ -1,3 +1,11 @@
+/**
+ * @fileoverview SPA runtime — section routing, canvas, animations, forms.
+ */
+
+// Declare global gtag for TypeScript — gtag-init.js provides the implementation.
+/** @type {function(...*): void} */
+var gtag;
+
 const cardShell = document.querySelector('.digital-container');
 const stage = document.getElementById('card-content-wrapper');
 
@@ -10,7 +18,7 @@ if (!stage) {
 
 const rotator = document.getElementById('sidebar-rotator');
 const cursor = document.getElementById('ui-cursor');
-const ambientCanvas = document.getElementById('ambient-canvas');
+const ambientCanvas = /** @type {HTMLCanvasElement} */ (document.getElementById('ambient-canvas'));
 const profileCard = document.querySelector('.profile-card');
 const railNav = document.querySelector('.rail-nav');
 const railTabs = [...document.querySelectorAll('.rail-tab')];
@@ -33,8 +41,8 @@ const interactiveTargets = () => document.querySelectorAll('.rail-tab, .workspac
 const phrases = ['Growth Systems Architect', 'Audience Ownership Strategist', 'Paid + Organic Scale Operator'];
 let bindCursorTargets = () => {};
 let phraseIndex = 0;
-let currentSection = null;
-let workflowPulseInterval = null;
+let currentSection = /** @type {string|null} */ (null);
+let workflowPulseInterval = /** @type {number|null} */ (null);
 const compactProfileQuery = window.matchMedia('(max-width: 920px)');
 const compactProfileThreshold = 36;
 const dockScrollThreshold = 18;
@@ -43,6 +51,10 @@ const dockScrollThreshold = 18;
    ERROR SURFACE — logs to console and reports to GA
    ========================================================================= */
 
+/**
+ * @param {string} scope
+ * @param {Error|string} error
+ */
 function reportError(scope, error) {
   console.error('[' + scope + ']', error);
   if (typeof gtag === 'function') {
@@ -98,10 +110,12 @@ function initAmbientCanvas() {
   let height = 0;
   let dpr = 1;
   let circleCount = 0;
-  let circleProps;
+  let circleProps = /** @type {Float32Array} */ (null);
   let baseHue = accentHue;
 
+  /** @param {number} n */
   const rand = (n) => Math.random() * n;
+  /** @param {number} t @param {number} ttl */
   const fadeInOut = (t, ttl) => {
     const half = 0.5 * ttl;
     return Math.abs(((t + half) % ttl) - half) / half;

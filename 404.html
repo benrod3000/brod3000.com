@@ -191,6 +191,12 @@
             cursor: default;
         }
 
+        /* Restore Home link — the only functional nav item on 404 */
+        .rail-nav .rail-tab[href="/"] {
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
         /* 404-specific cursor */
         .ui-cursor {
             border-color: #e8180a !important;

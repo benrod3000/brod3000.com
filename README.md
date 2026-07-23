@@ -36,7 +36,7 @@ brod3000.com/
     ├── background.png
     ├── ben-portrait.svg
     ├── profile.jpg
-    └── ben_rodriguez_resume_2026.pdf
+    └── ben_rodriguez_resume.pdf
 ```
 
 ## Running Locally

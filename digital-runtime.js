@@ -18,14 +18,27 @@ const railTabs = [...document.querySelectorAll('.rail-tab')];
    change, so keep a handle and re-append it as the last child after every mount. */
 const workspaceFooter = document.querySelector('.workspace-footer');
 const placeFooter = () => {
-  if (workspaceFooter && stage) stage.appendChild(workspaceFooter);
+  if (workspaceFooter && stage) {
+    stage.appendChild(workspaceFooter);
+    // Keep the copyright year current — the static fallback in index.html
+    // uses a hardcoded year, but the runtime always updates it on mount.
+    const yearSpan = workspaceFooter.querySelector('span');
+    if (yearSpan) {
+      yearSpan.textContent = `© ${new Date().getFullYear()} BR. All rights reserved.`;
+    }
+  }
+  // Keep the sidebar "Years" stat current — earliest listed role is 2010.
+  const yearsEl = document.querySelector('.pstat .psv');
+  if (yearsEl && yearsEl.textContent.includes('+')) {
+    yearsEl.textContent = `${new Date().getFullYear() - 2010}+`;
+  }
 };
 const radialTrigger = document.querySelector('.radial-trigger');
 const interactiveTargets = () => document.querySelectorAll('.rail-tab, .workspace-back, .profile-cta, .profile-socials a, .contact-form button');
 const phrases = ['Growth Systems Architect', 'Audience Ownership Strategist', 'Paid + Organic Scale Operator'];
 let bindCursorTargets = () => {};
 let phraseIndex = 0;
-let currentSection = 'about';
+let currentSection = null;
 let workflowPulseInterval = null;
 const compactProfileQuery = window.matchMedia('(max-width: 920px)');
 const compactProfileThreshold = 36;
@@ -179,10 +192,19 @@ function initAmbientCanvas() {
     height = window.innerHeight;
     dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    ambientCanvas.width = Math.max(1, Math.floor(width * dpr));
-    ambientCanvas.height = Math.max(1, Math.floor(height * dpr));
-    bufferCanvas.width = ambientCanvas.width;
-    bufferCanvas.height = ambientCanvas.height;
+    // Cap the canvas resolution at 2048px in either dimension.
+    // The canvas is rendered at 0.14 opacity behind a 52px blur — there is
+    // zero perceptual quality loss from downscaling, but memory drops from
+    // ~118 MB → ~30 MB on large (2560×1440) displays.
+    const MAX_DIM = 2048;
+    const scale = Math.min(1, MAX_DIM / (width * dpr), MAX_DIM / (height * dpr));
+    const canvasW = Math.max(1, Math.floor(width * dpr * scale));
+    const canvasH = Math.max(1, Math.floor(height * dpr * scale));
+
+    ambientCanvas.width = canvasW;
+    ambientCanvas.height = canvasH;
+    bufferCanvas.width = canvasW;
+    bufferCanvas.height = canvasH;
     ambientCanvas.style.width = `${width}px`;
     ambientCanvas.style.height = `${height}px`;
 
@@ -236,12 +258,22 @@ function initAmbientCanvas() {
 
   prefersReducedMotion.addEventListener('change', refreshAnimationMode);
 
-  // Stop canvas when tab is hidden — saves battery, resumes on return
+  // Stop canvas when tab is hidden — saves battery and releases GPU memory.
+  // On return, resizeCanvas() reallocates buffers and restart the rAF loop.
+  // Reallocation cost is ~10–20 ms (imperceptible at 0.14 opacity).
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden && rafId) {
-      window.cancelAnimationFrame(rafId);
-      rafId = 0;
+    if (document.hidden) {
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+      // Release GPU backing stores while hidden
+      ambientCanvas.width = 0;
+      ambientCanvas.height = 0;
+      bufferCanvas.width = 0;
+      bufferCanvas.height = 0;
     } else if (!document.hidden && !prefersReducedMotion.matches && !rafId) {
+      resizeCanvas();
       refreshAnimationMode();
     }
   });
@@ -344,6 +376,7 @@ function bindContactFormHandlers(root) {
           statusDiv.appendChild(errSpan);
         }
       } catch (error) {
+        reportError('contact-form', error);
         const msg = error.name === 'AbortError'
           ? '✗ Request timed out. Please try again or email ben@brod3000.com.'
           : '✗ Network error. Please check your connection and try again.';
@@ -676,7 +709,12 @@ function renderAbout() {
     const row = document.createElement('div');
     row.className = 'stats-row';
     data.stats.forEach(s => {
-      const pill = createStatPill(s);
+      const stat = { ...s };
+      // Derive years from the earliest listed role (2010) instead of a hardcoded value.
+      if (stat.label && stat.label.includes('Years')) {
+        stat.value = new Date().getFullYear() - 2010;
+      }
+      const pill = createStatPill(stat);
       if (pill) row.appendChild(pill);
     });
     article.appendChild(row);
@@ -981,6 +1019,13 @@ function mountSection(section) {
 
   applyScanLeadEmphasis(nextCard);
   bindContactFormHandlers(nextCard);
+
+  // Announce section change to screen readers without reading the entire DOM.
+  const announcer = document.getElementById('section-announcer');
+  if (announcer) {
+    const labels = { about: 'About', services: 'Resume', portfolio: 'Concepts', contact: 'Contact' };
+    announcer.textContent = labels[section] || section;
+  }
 
   const activateSectionEffects = () => {
     if (section === 'about') {

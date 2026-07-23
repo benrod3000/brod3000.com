@@ -61,7 +61,7 @@ body.design-digital {
   place-items: center;
   padding: 16px;
   overflow: hidden;
-  height: 100dvh;
+  min-height: 100dvh;
   font-size: 18px;
 }
 

@@ -1177,9 +1177,16 @@ function mountSection(section) {
 
     // navigateTo() syncs the active state for clicks, hash routing and popstate alike.
     navigateTo(/** @type {string} */ (btn.dataset.section));
-    // Always scroll to top of workspace on section change
+    // Always scroll to top of workspace on section change. The stage has
+    // `scroll-behavior: smooth` for normal in-page scrolling, which would
+    // otherwise turn this reset into a slow animated scroll (and leave the
+    // new section looking blank/scrolled-down for a beat) — force an
+    // instant jump instead, then restore smooth behavior for the user.
     if (stage) {
+      const previousScrollBehavior = stage.style.scrollBehavior;
+      stage.style.scrollBehavior = 'auto';
       stage.scrollTop = 0;
+      stage.style.scrollBehavior = previousScrollBehavior;
     }
     window.scrollTo({ top: 0, behavior: 'auto' });
     // Close radial menu on nav

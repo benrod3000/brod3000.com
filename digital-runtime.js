@@ -2,12 +2,8 @@
  * @fileoverview SPA runtime — section routing, canvas, animations, forms.
  */
 
-// Declare global gtag for TypeScript — gtag-init.js provides the implementation.
-/** @type {function(...*): void} */
-var gtag;
-
-const cardShell = document.querySelector('.digital-container');
-const stage = document.getElementById('card-content-wrapper');
+const cardShell = /** @type {HTMLElement|null} */ (document.querySelector('.digital-container'));
+const stage = /** @type {HTMLElement|null} */ (document.getElementById('card-content-wrapper'));
 
 // If the wrapper is missing, log an error and stop.
 if (!stage) {
@@ -58,8 +54,9 @@ const dockScrollThreshold = 18;
 function reportError(scope, error) {
   console.error('[' + scope + ']', error);
   if (typeof gtag === 'function') {
+    const msg = error instanceof Error ? error.message : String(error);
     gtag('event', 'exception', {
-      description: scope + ': ' + (error?.message ?? String(error)),
+      description: scope + ': ' + msg,
       fatal: false,
     });
   }
@@ -77,6 +74,10 @@ function initAmbientCanvas() {
   if (!viewCtx) {
     return;
   }
+  // TypeScript cannot narrow through nested function declarations, so save
+  // non-null references for use inside drawCircle / resizeCanvas / paintFrame.
+  /** @type {CanvasRenderingContext2D} */
+  const ctx = viewCtx;
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const lowPowerViewport = window.matchMedia('(max-width: 768px)');
@@ -104,13 +105,16 @@ function initAmbientCanvas() {
   if (!bufferCtx) {
     return;
   }
+  /** @type {CanvasRenderingContext2D} */
+  const bCtx = bufferCtx;
 
   let rafId = 0;
   let width = 0;
   let height = 0;
   let dpr = 1;
   let circleCount = 0;
-  let circleProps = /** @type {Float32Array} */ (null);
+  /** @type {Float32Array} */
+  let circleProps = new Float32Array(0);
   let baseHue = accentHue;
 
   /** @param {number} n */
@@ -121,11 +125,17 @@ function initAmbientCanvas() {
     return Math.abs(((t + half) % ttl) - half) / half;
   };
 
+  /**
+   * @param {number} x
+   * @param {number} y
+   * @param {number} z
+   */
   const pseudoNoise3D = (x, y, z) => {
     const value = Math.sin(x * 12.9898 + y * 78.233 + z * 37.719) * 43758.5453;
     return (value - Math.floor(value)) * 2 - 1;
   };
 
+  /** @param {number} offset */
   function initCircle(offset) {
     const x = rand(width);
     const y = rand(height);
@@ -158,14 +168,27 @@ function initAmbientCanvas() {
     }
   }
 
+  /**
+   * @param {number} x
+   * @param {number} y
+   * @param {number} life
+   * @param {number} ttl
+   * @param {number} radius
+   * @param {number} hue
+   */
   function drawCircle(x, y, life, ttl, radius, hue) {
     const alpha = fadeInOut(life, ttl) * canvasAlphaBase;
-    bufferCtx.fillStyle = `hsla(${hue}, ${canvasSat}, ${canvasLight}, ${alpha})`;
-    bufferCtx.beginPath();
-    bufferCtx.arc(x, y, radius, 0, TAU);
-    bufferCtx.fill();
+    bCtx.fillStyle = `hsla(${hue}, ${canvasSat}, ${canvasLight}, ${alpha})`;
+    bCtx.beginPath();
+    bCtx.arc(x, y, radius, 0, TAU);
+    bCtx.fill();
   }
 
+  /**
+   * @param {number} x
+   * @param {number} y
+   * @param {number} radius
+   */
   function isOutOfBounds(x, y, radius) {
     return x < -radius || x > width + radius || y < -radius || y > height + radius;
   }
@@ -217,26 +240,26 @@ function initAmbientCanvas() {
     ambientCanvas.style.width = `${width}px`;
     ambientCanvas.style.height = `${height}px`;
 
-    viewCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    bufferCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    bCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
     initCircles();
   }
 
   function paintFrame() {
-    bufferCtx.clearRect(0, 0, width, height);
-    viewCtx.clearRect(0, 0, width, height);
+    bCtx.clearRect(0, 0, width, height);
+    ctx.clearRect(0, 0, width, height);
 
     updateCircles();
 
-    viewCtx.save();
-    viewCtx.filter = lowPowerViewport.matches ? 'blur(38px)' : 'blur(52px)';
-    viewCtx.drawImage(bufferCanvas, 0, 0, width, height);
-    viewCtx.restore();
+    ctx.save();
+    ctx.filter = lowPowerViewport.matches ? 'blur(38px)' : 'blur(52px)';
+    ctx.drawImage(bufferCanvas, 0, 0, width, height);
+    ctx.restore();
 
-    viewCtx.save();
-    viewCtx.globalAlpha = 0.32;
-    viewCtx.drawImage(bufferCanvas, 0, 0, width, height);
-    viewCtx.restore();
+    ctx.save();
+    ctx.globalAlpha = 0.32;
+    ctx.drawImage(bufferCanvas, 0, 0, width, height);
+    ctx.restore();
   }
 
   function frame() {
@@ -304,9 +327,12 @@ function syncMobileProfileCompaction() {
   }
 }
 
+/**
+ * @param {HTMLElement} root
+ */
 function applyScanLeadEmphasis(root) {
   const targets = root.querySelectorAll('.card-title-wrap p, .about-block p, .timeline-item p, .service-card p, .project-card p, .method-card p');
-  targets.forEach((paragraph) => {
+  /** @type {NodeListOf<HTMLElement>} */ (targets).forEach((paragraph) => {
     if (paragraph.dataset.scanLead === 'true') return;
     const text = paragraph.textContent.replace(/\s+/g, ' ').trim();
     if (!text) return;
@@ -322,22 +348,25 @@ function applyScanLeadEmphasis(root) {
   });
 }
 
+/**
+ * @param {HTMLElement} root
+ */
 function bindContactFormHandlers(root) {
   const forms = root.querySelectorAll('.contact-form');
-  forms.forEach((form) => {
+  /** @type {NodeListOf<HTMLFormElement>} */ (forms).forEach((form) => {
     if (form.dataset.submitBound === 'true') return;
     form.dataset.submitBound = 'true';
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       
-      const submitBtn = form.querySelector('button[type="submit"]');
+      const submitBtn = /** @type {HTMLButtonElement|null} */ (form.querySelector('button[type="submit"]'));
       if (!submitBtn) {
         console.error('[form] No submit button found');
         return;
       }
       const originalBtnText = submitBtn.textContent;
-      let statusDiv = form.querySelector('#form-status');
+      let statusDiv = /** @type {HTMLElement|null} */ (form.querySelector('#form-status'));
       
       if (!statusDiv) {
         statusDiv = document.createElement('div');
@@ -374,7 +403,7 @@ function bindContactFormHandlers(root) {
           try {
             const data = await response.json();
             if (Array.isArray(data.errors) && data.errors.length) {
-              errorMsg = data.errors.map((e) => e.message).filter(Boolean).join(', ');
+              errorMsg = /** @type {Array<{message: string}>} */ (data.errors).map(e => e.message).filter(Boolean).join(', ');
             }
           } catch {
             // Non-JSON error body — keep generic message
@@ -385,8 +414,9 @@ function bindContactFormHandlers(root) {
           statusDiv.appendChild(errSpan);
         }
       } catch (error) {
-        reportError('contact-form', error);
-        const msg = error.name === 'AbortError'
+        const err = error instanceof Error ? error : new Error(String(error));
+        reportError('contact-form', err);
+        const msg = err.name === 'AbortError'
           ? '✗ Request timed out. Please try again or email ben@brod3000.com.'
           : '✗ Network error. Please check your connection and try again.';
         const errSpan = document.createElement('span');
@@ -402,6 +432,9 @@ function bindContactFormHandlers(root) {
   });
 }
 
+/**
+ * @param {HTMLElement} root
+ */
 function animateAboutStats(root) {
   const statNodes = root.querySelectorAll('.stats-row .stat-pill strong[data-count-target]');
   if (!statNodes.length) {
@@ -410,7 +443,7 @@ function animateAboutStats(root) {
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  statNodes.forEach((node, idx) => {
+  /** @type {NodeListOf<HTMLElement>} */ (statNodes).forEach((node, idx) => {
     const target = Number(node.dataset.countTarget || '0');
     const suffix = node.dataset.countSuffix || '';
 
@@ -422,6 +455,7 @@ function animateAboutStats(root) {
     const start = performance.now();
     const step = prefersReducedMotion ? Math.max(1, Math.ceil(target / 6)) : 1;
 
+    /** @param {number} now */
     const tick = (now) => {
       const progress = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
@@ -468,7 +502,7 @@ if (window.matchMedia('(hover: hover)').matches && !isMobile && cardShell) {
   window.addEventListener('scroll', refreshRect, { passive: true });
   let tiltRaf = 0;
   let tiltPx = 0, tiltPy = 0;
-  cardShell.addEventListener('mousemove', (event) => {
+  cardShell.addEventListener('mousemove', (/** @type {MouseEvent} */ event) => {
     tiltPx = (event.clientX - shellRect.left) / shellRect.width - 0.5;
     tiltPy = (event.clientY - shellRect.top) / shellRect.height - 0.5;
     if (!tiltRaf) {
@@ -485,7 +519,7 @@ if (window.matchMedia('(hover: hover)').matches && !isMobile && cardShell) {
   });
 }
 
-document.querySelectorAll('img.blur-up').forEach((img) => {
+/** @type {NodeListOf<HTMLImageElement>} */ (document.querySelectorAll('img.blur-up')).forEach((img) => {
   const cover = img.closest('.profile-cover');
   const markLoaded = () => {
     img.classList.add('loaded');
@@ -500,7 +534,7 @@ document.querySelectorAll('img.blur-up').forEach((img) => {
 
 if (cursor && window.matchMedia('(hover: hover)').matches) {
   let cx = 0, cy = 0, cursorRaf = 0;
-  window.addEventListener('mousemove', (event) => {
+  window.addEventListener('mousemove', (/** @type {MouseEvent} */ event) => {
     cx = event.clientX;
     cy = event.clientY;
     if (!cursorRaf) {
@@ -522,6 +556,7 @@ if (cursor && window.matchMedia('(hover: hover)').matches) {
 }
 
 // Rotator — only runs when rotator element exists and tab is visible
+/** @type {ReturnType<typeof setInterval>|null} */
 let rotatorTimer = null;
 if (rotator && phrases.length > 1) {
   const advancePhrase = () => {
@@ -560,13 +595,20 @@ const siteContent = loadSiteContent();
 
 // ---- Template helpers: clone a template fragment and fill with textContent ----
 
+/**
+ * @param {string} id
+ */
 function cloneTpl(id) {
-  const tpl = document.getElementById(id);
+  const tpl = /** @type {HTMLTemplateElement|null} */ (document.getElementById(id));
   if (!tpl) return null;
   const node = tpl.content.firstElementChild;
-  return node ? node.cloneNode(true) : null;
+  return node ? /** @type {Element} */ (node.cloneNode(true)) : null;
 }
 
+/**
+ * @param {string} id
+ * @param {Object<string, string>} fillMap
+ */
 function cloneTplAndFill(id, fillMap) {
   const node = cloneTpl(id);
   if (!node) return null;
@@ -577,6 +619,9 @@ function cloneTplAndFill(id, fillMap) {
   return node;
 }
 
+/**
+ * @param {{ value: number, suffix: string, label: string }} param0
+ */
 function createStatPill({ value, suffix, label }) {
   const node = cloneTpl('tpl-stat-pill');
   if (!node) return null;
@@ -591,6 +636,9 @@ function createStatPill({ value, suffix, label }) {
   return node;
 }
 
+/**
+ * @param {{ date: string, title: string, body: string, active?: boolean }} param0
+ */
 function createTimelineItem({ date, title, body, active }) {
   const node = cloneTplAndFill('tpl-timeline-item', {
     '.timeline-date': date,
@@ -601,6 +649,9 @@ function createTimelineItem({ date, title, body, active }) {
   return node;
 }
 
+/**
+ * @param {{ icon: string, title: string, subtitle: string, tag: string, body: string }} data
+ */
 function createServiceCard(data) {
   const node = cloneTpl('tpl-service-card');
   if (!node) return null;
@@ -627,6 +678,9 @@ function createServiceCard(data) {
   return node;
 }
 
+/**
+ * @param {{ kicker: string, heading: string, body: string }} param0
+ */
 function createProofCard({ kicker, heading, body }) {
   return cloneTplAndFill('tpl-proof-card', {
     '.proof-kicker': kicker,
@@ -635,6 +689,9 @@ function createProofCard({ kicker, heading, body }) {
   });
 }
 
+/**
+ * @param {{ index: string, heading: string, body: string }} param0
+ */
 function createMethodCard({ index, heading, body }) {
   return cloneTplAndFill('tpl-method-card', {
     '.method-index': index,
@@ -643,6 +700,9 @@ function createMethodCard({ index, heading, body }) {
   });
 }
 
+/**
+ * @param {{ step: string, heading: string, body: string }} param0
+ */
 function createWorkflowNode({ step, heading, body }) {
   return cloneTplAndFill('tpl-workflow-node', {
     '.workflow-meta': step,
@@ -651,6 +711,9 @@ function createWorkflowNode({ step, heading, body }) {
   });
 }
 
+/**
+ * @param {{ meta: string, heading: string, segments: Array<{label: string, text: string}> }} param0
+ */
 function createBlogCard({ meta, heading, segments }) {
   const node = cloneTpl('tpl-blog-card');
   if (!node) return null;
@@ -662,7 +725,7 @@ function createBlogCard({ meta, heading, segments }) {
   // Build the paragraph with <strong>label</strong>text<br> segments
   if (p && segments) {
     p.replaceChildren();
-    segments.forEach((seg, i) => {
+    segments.forEach((/** @type {{label: string, text: string}} */ seg, i) => {
       const strong = document.createElement('strong');
       strong.textContent = seg.label;
       p.appendChild(strong);
@@ -690,7 +753,7 @@ function renderAbout() {
   const titleWrap = document.createElement('div');
   titleWrap.className = 'card-title-wrap';
   titleWrap.innerHTML = `<span class="card-kicker">${data.kicker}</span><h1>${data.heading}</h1>`;
-  (data.paragraphs || []).forEach(text => {
+  (data.paragraphs || []).forEach((/** @type {string} */ text) => {
     const p = document.createElement('p');
     p.textContent = text;
     titleWrap.appendChild(p);
@@ -701,7 +764,7 @@ function renderAbout() {
   if (data.blocks && data.blocks.length) {
     const grid = document.createElement('div');
     grid.className = 'about-grid';
-    data.blocks.forEach(({ heading, text }) => {
+    /** @type {Array<{heading: string, text: string}>} */ (data.blocks).forEach(({ heading, text }) => {
       const block = document.createElement('div');
       block.className = 'about-block';
       block.innerHTML = `<h4>${heading}</h4>`;
@@ -717,7 +780,7 @@ function renderAbout() {
   if (data.stats && data.stats.length) {
     const row = document.createElement('div');
     row.className = 'stats-row';
-    data.stats.forEach(s => {
+    data.stats.forEach((/** @type {{ value: number, suffix: string, label: string }} */ s) => {
       const stat = { ...s };
       // Derive years from the earliest listed role (2010) instead of a hardcoded value.
       if (stat.label && stat.label.includes('Years')) {
@@ -765,6 +828,7 @@ function renderServices() {
   expCol.innerHTML = '<h4 class="resume-heading">Experience</h4>';
   const expList = document.createElement('div');
   expList.className = 'timeline-list';
+  // @ts-ignore — data comes from parsed JSON, shapes are known at runtime
   (data.experience || []).forEach(item => {
     const node = createTimelineItem(item);
     if (node) expList.appendChild(node);
@@ -777,6 +841,7 @@ function renderServices() {
   certCol.innerHTML = '<h4 class="resume-heading">Certifications</h4>';
   const certList = document.createElement('div');
   certList.className = 'timeline-list';
+  // @ts-ignore
   (data.certifications || []).forEach(item => {
     const node = createTimelineItem(item);
     if (node) certList.appendChild(node);
@@ -790,6 +855,7 @@ function renderServices() {
   // Service grid
   const serviceGrid = document.createElement('div');
   serviceGrid.className = 'service-grid';
+  // @ts-ignore
   (data.serviceCards || []).forEach(item => {
     const card = createServiceCard(item);
     if (card) {
@@ -803,6 +869,7 @@ function renderServices() {
   const proofGrid = document.createElement('div');
   proofGrid.className = 'proof-grid';
   proofGrid.setAttribute('aria-label', 'Capability proof points');
+  // @ts-ignore
   (data.proofCards || []).forEach(item => {
     const card = createProofCard(item);
     if (card) proofGrid.appendChild(card);
@@ -833,6 +900,7 @@ function renderPortfolio() {
   // Method grid
   const methodGrid = document.createElement('div');
   methodGrid.className = 'method-grid';
+  // @ts-ignore
   (data.methods || []).forEach(item => {
     const card = createMethodCard(item);
     if (card) methodGrid.appendChild(card);
@@ -851,7 +919,9 @@ function renderPortfolio() {
 
     const track = document.createElement('ol');
     track.className = 'workflow-track';
-    (data.workflow.steps || []).forEach(item => {
+    // @ts-ignore
+  // @ts-ignore
+  (data.workflow.steps || []).forEach(item => {
       const node = createWorkflowNode(item);
       if (node) track.appendChild(node);
     });
@@ -870,6 +940,7 @@ function renderPortfolio() {
 
     const grid = document.createElement('div');
     grid.className = 'blog-grid';
+    // @ts-ignore
     data.blogCards.forEach(item => {
       const card = createBlogCard(item);
       if (card) grid.appendChild(card);
@@ -983,7 +1054,7 @@ function renderContact() {
   return article;
 }
 
-/** @type {Object<string, function(): HTMLElement|null>} */
+/** @type {{[key: string]: Function}} */
 const SECTION_RENDERERS = {
   about: renderAbout,
   services: renderServices,
@@ -991,6 +1062,9 @@ const SECTION_RENDERERS = {
   contact: renderContact,
 };
 
+/**
+ * @param {string} section
+ */
 function getSectionCard(section) {
   const render = SECTION_RENDERERS[section];
   if (!render) {
@@ -1000,7 +1074,11 @@ function getSectionCard(section) {
   return render();
 }
 
+/**
+ * @param {string} section
+ */
 function mountSection(section) {
+  if (!stage) return;
   // Clear any pending workflow pulse when leaving any section
   if (workflowPulseInterval) {
     window.clearInterval(workflowPulseInterval);
@@ -1009,7 +1087,7 @@ function mountSection(section) {
 
   if (section === currentSection && stage.childElementCount > 0) {
     if (section === 'about') {
-      const activeCard = stage.querySelector('.stage-card[data-section="about"]');
+      const activeCard = /** @type {HTMLElement|null} */ (stage.querySelector('.stage-card[data-section="about"]'));
       if (activeCard) {
         animateAboutStats(activeCard);
       }
@@ -1018,7 +1096,7 @@ function mountSection(section) {
   }
 
   currentSection = section;
-  const currentCard = stage.querySelector('.stage-card');
+  const currentCard = /** @type {HTMLElement|null} */ (stage.querySelector('.stage-card'));
   const nextCard = getSectionCard(section);
 
   if (!nextCard) {
@@ -1032,6 +1110,7 @@ function mountSection(section) {
   // Announce section change to screen readers without reading the entire DOM.
   const announcer = document.getElementById('section-announcer');
   if (announcer) {
+    /** @type {{[key: string]: string}} */
     const labels = { about: 'About', services: 'Resume', portfolio: 'Concepts', contact: 'Contact' };
     announcer.textContent = labels[section] || section;
   }
@@ -1059,6 +1138,7 @@ function mountSection(section) {
     // Trigger GSAP scroll animations and refresh for any section
     setTimeout(() => {
       animatePortfolioCards();
+      // @ts-ignore — ScrollTrigger loaded via CDN
       ScrollTrigger.refresh();
     }, 100);
   };
@@ -1089,14 +1169,14 @@ function mountSection(section) {
   }, 300);
 }
 
-railTabs.forEach((btn) => {
+/** @type {HTMLElement[]} */ (/** @type {unknown} */ (railTabs)).forEach((btn) => {
   btn.addEventListener('click', () => {
     if (btn.dataset.section === currentSection) {
       return;
     }
 
     // navigateTo() syncs the active state for clicks, hash routing and popstate alike.
-    navigateTo(btn.dataset.section);
+    navigateTo(/** @type {string} */ (btn.dataset.section));
     // Always scroll to top of workspace on section change
     if (stage) {
       stage.scrollTop = 0;
@@ -1122,8 +1202,8 @@ if (radialTrigger && railNav) {
     radialTrigger.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
   });
 
-  document.addEventListener('click', (e) => {
-    if (railNav.classList.contains('is-open') && !railNav.contains(e.target)) {
+  document.addEventListener('click', (/** @type {MouseEvent} */ e) => {
+    if (railNav.classList.contains('is-open') && !railNav.contains(/** @type {Node} */ (e.target))) {
       railNav.classList.remove('is-open');
       radialTrigger.setAttribute('aria-expanded', 'false');
       radialTrigger.setAttribute('aria-label', 'Open navigation');
@@ -1140,6 +1220,7 @@ const VALID_SECTIONS = new Set(['about', 'services', 'portfolio', 'contact']);
 /* URL slugs are what visitors see and share, so they match the nav labels.
    The internal section keys stay as-is because the content JSON and several
    CSS selectors key off them. Legacy slugs keep old shared links working. */
+/** @type {{[key: string]: string}} */
 const SLUG_TO_SECTION = {
   about: 'about',
   resume: 'services',
@@ -1150,6 +1231,7 @@ const SLUG_TO_SECTION = {
   portfolio: 'portfolio',
 };
 
+/** @type {{[key: string]: string}} */
 const SECTION_TO_SLUG = {
   about: 'about',
   services: 'resume',
@@ -1164,8 +1246,11 @@ function sectionFromHash() {
 
 /** Keep the rail tabs in sync with whatever section is actually mounted.
     Must run for hash routing and popstate too, not just clicks. */
+/**
+ * @param {string} section
+ */
 function syncRailTabs(section) {
-  railTabs.forEach((b) => {
+  /** @type {HTMLElement[]} */ (/** @type {unknown} */ (railTabs)).forEach((b) => {
     const isActive = b.dataset.section === section;
     b.classList.toggle('active', isActive);
     b.setAttribute('aria-pressed', String(isActive));
@@ -1177,6 +1262,10 @@ function syncRailTabs(section) {
   });
 }
 
+/**
+ * @param {string} section
+ * @param {{ pushState?: boolean }} [opts]
+ */
 function navigateTo(section, { pushState = true } = {}) {
   if (!VALID_SECTIONS.has(section)) return;
   const slug = SECTION_TO_SLUG[section] || section;
@@ -1216,7 +1305,8 @@ if (profileCard && stage) {
 /* =========================
    GSAP SCROLL ANIMATIONS FOR PORTFOLIO
 ========================= */
-gsap.registerPlugin(ScrollTrigger);
+  // @ts-ignore — GSAP & ScrollTrigger are loaded via external CDN <script> tags
+  gsap.registerPlugin(ScrollTrigger);
 
 // Watch for new .animate elements and animate them
 const animatePortfolioCards = () => {
@@ -1225,7 +1315,7 @@ const animatePortfolioCards = () => {
   // For portfolio section, just show everything without animation
   if (isPortfolio) {
     const portfolioElements = document.querySelectorAll('.workspace-body .method-card, .workspace-body .workflow-container, .workspace-body .workflow-node, .workspace-body .blog-card');
-    portfolioElements.forEach(el => {
+    /** @type {NodeListOf<HTMLElement>} */ (portfolioElements).forEach((el) => {
       el.style.opacity = '1';
       el.style.transform = 'none';
     });
@@ -1237,8 +1327,10 @@ const animatePortfolioCards = () => {
   if (!animateElements.length) return;
 
   // Remove any existing animations
+  // @ts-ignore
   gsap.killTweensOf(animateElements);
 
+  // @ts-ignore
   gsap.fromTo(animateElements,
     { opacity: 0, y: 30 },
     {

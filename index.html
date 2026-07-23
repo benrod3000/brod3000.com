@@ -47,6 +47,20 @@
 
   <!-- Inline fallback styles (in case external CSS fails) -->
   <style>
+    /* --- Font metric fallback — matches Georgia to Playfair Display so the
+           font-display:swap doesn't cause layout shift. Metrics from OS/2 +
+           hhea tables of both fonts, normalized to 1000 UPM.
+           Playfair: ascent 1086, descent -335, lineGap 0
+           Georgia:  ascent 1884, descent -448, lineGap 174 (at 2048 UPM) --- */
+    @font-face {
+      font-family: "Playfair Fallback";
+      src: local("Georgia");
+      ascent-override: 108.6%;
+      descent-override: 33.5%;
+      line-gap-override: 0%;
+      size-adjust: 100%;
+    }
+
     /* --- Fallback content (shown when JS fails) --- */
     .workspace-body .fallback-content {
       padding: 32px 40px 60px 40px;
@@ -64,7 +78,7 @@
       text-transform: uppercase;
     }
     .workspace-body .fallback-content h1 {
-      font-family: "Playfair Display", Georgia, serif;
+      font-family: "Playfair Display", "Playfair Fallback", Georgia, serif;
       font-size: clamp(2.8rem, 4vw, 3.8rem);
       font-weight: 800;
       letter-spacing: -0.015em;
@@ -119,7 +133,7 @@
       text-transform: uppercase;
     }
     .noscript-fallback h1 {
-      font-family: "Playfair Display", Georgia, serif;
+      font-family: "Playfair Display", "Playfair Fallback", Georgia, serif;
       font-size: clamp(2rem, 4vw, 2.8rem);
       font-weight: 800;
       letter-spacing: -0.015em;

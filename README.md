@@ -4,6 +4,11 @@ Source code for my personal website and digital resume.
 
 I built this site from scratch using plain HTML, CSS, and JavaScript. No frameworks, page builders, or build tools. Just a fast, lightweight website that showcases my work, experience, and approach to digital marketing.
 
+## Performance Notes
+
+- **Cloudflare Bot Fight Mode** injects a challenge-platform script (`cdn-cgi/challenge-platform/scripts/jsd/main.js`) that accounts for ~2.7s of main-thread scripting time in Lighthouse audits. This is not site code — it's a Cloudflare dashboard setting. If TBT spikes in future audits, check whether Bot Fight Mode is enabled before investigating the site's own JS.
+- **Font swap CLS is handled** via a `@font-face` fallback (`Playfair Fallback`) with `ascent-override`/`descent-override` matching Playfair Display's metrics to Georgia's. The `@font-face` block lives in the inline `<style>` in `index.html`.
+
 ## Live Site
 
 https://brod3000.com

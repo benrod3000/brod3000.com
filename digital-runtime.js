@@ -749,17 +749,10 @@ function renderAbout() {
   article.dataset.section = 'about';
   article.dataset.ghost = 'ABOUT';
 
-  // Title wrap — reuse the static <h1> from the fallback content if it exists
-  // and matches, so the LCP element isn't deleted and rebuilt by JS.
+  // Title wrap
   const titleWrap = document.createElement('div');
   titleWrap.className = 'card-title-wrap';
-  const staticH1 = stage && stage.querySelector('.fallback-content h1');
-  const reuseStaticH1 = staticH1 && staticH1.textContent.replace(/\s+/g, ' ').trim() === data.heading;
   titleWrap.innerHTML = `<span class="card-kicker">${data.kicker}</span><h1>${data.heading}</h1>`;
-  if (reuseStaticH1) {
-    const newH1 = titleWrap.querySelector('h1');
-    if (newH1) newH1.replaceWith(staticH1);
-  }
   (data.paragraphs || []).forEach((/** @type {string} */ text) => {
     const p = document.createElement('p');
     p.textContent = text;

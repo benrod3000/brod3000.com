@@ -1,5 +1,8 @@
+// @ts-ignore — window.dataLayer is a Google Analytics global convention
 window.dataLayer = window.dataLayer || [];
-function gtag() { dataLayer.push(arguments); }
+/** @type {(...args: any[]) => void} */
+function gtag() { // @ts-ignore
+  window.dataLayer.push(arguments); }
 
 /* Google Consent Mode v2.
    Storage is denied by default in regions that require prior consent (EEA, UK,

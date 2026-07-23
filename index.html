@@ -27,54 +27,9 @@
   <link rel="manifest" href="/site.webmanifest">
   <link rel="shortcut icon" href="/favicon.ico">
 
-  <!-- ===== FOUC PREVENTION ===== -->
-  <style>
-    html {
-      visibility: hidden;
-      opacity: 0;
-    }
-    html.css-loaded {
-      visibility: visible;
-      opacity: 1;
-      transition: opacity 0.3s ease;
-    }
-    html.no-js {
-      visibility: visible;
-      opacity: 1;
-    }
-  </style>
-  <noscript>
-    <style>
-      html { visibility: visible; opacity: 1; }
-    </style>
-  </noscript>
-  <script>
-    (function() {
-      // If CSS is already loaded (e.g., cached), reveal immediately
-      if (document.querySelector('link[rel="stylesheet"]')) {
-        document.documentElement.classList.add('css-loaded');
-        return;
-      }
-      var cssLink = document.querySelector('link[rel="preload"][as="style"]');
-      if (cssLink) {
-        cssLink.addEventListener('load', function() {
-          document.documentElement.classList.add('css-loaded');
-        });
-        // Fallback: if load event doesn't fire (network issues), reveal after 800ms
-        setTimeout(function() {
-          document.documentElement.classList.add('css-loaded');
-        }, 800);
-      } else {
-        // If no preload link found, reveal immediately
-        document.documentElement.classList.add('css-loaded');
-      }
-    })();
-  </script>
-
-  <!-- Main CSS (non-blocking preload) — must come BEFORE Google Fonts preload
-       so the FOUC gate opens on our fast CDN stylesheet, not the slower font CSS -->
-  <link rel="preload" href="styles-digital.css?v=69" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="styles-digital.css?v=69"></noscript>
+  <!-- Main CSS (non-blocking preload) -->
+  <link rel="preload" href="styles-digital.css?v=70" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="styles-digital.css?v=70"></noscript>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

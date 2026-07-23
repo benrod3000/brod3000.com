@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 — brod3000</title>
-    <link rel="stylesheet" href="styles-digital.css" />
+    <link rel="stylesheet" href="styles-digital.css">
     <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" /></noscript>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet"></noscript>
     <style>
         /* 404-specific overrides – keep everything else from theme */
         .stage-card[data-section="404"] {
@@ -220,7 +220,7 @@
     <div class="ui-cursor" aria-hidden="true"></div>
 
     <!-- ===== MAIN CONTAINER ===== -->
-    <div class="digital-container" role="main">
+    <div class="digital-container">
 
         <!-- ===== LEFT RAIL (navigation – placeholder / reduced) ===== -->
         <nav class="rail-nav" aria-label="Main navigation">
@@ -255,7 +255,7 @@
                     <span class="rail-label">Contact</span>
                 </span>
                 <!-- Radial trigger (tablet) -->
-                <button class="radial-trigger" aria-label="Toggle navigation" aria-expanded="false" style="display:none;">
+                <button type="button" class="radial-trigger" aria-label="Toggle navigation" aria-expanded="false" style="display:none;">
                     <span class="radial-trigger-bar"></span>
                     <span class="radial-trigger-bar"></span>
                     <span class="radial-trigger-bar"></span>
@@ -275,8 +275,7 @@
                     loading="lazy"
                     class="blur-up loaded"
                     width="120"
-                    height="120"
-                    />
+                    height="120">
                 </picture>
                 <!-- Status badge: 404 variant -->
                 <span class="prof-status-badge">⚠ 404</span>
@@ -291,7 +290,7 @@
                 <div class="prof-handle">@brod3000</div>
                 <h1 class="prof-name">404 — Lost?</h1>
                 <div class="prof-bio">
-                    The page you're looking for isn't here.<br />
+                    The page you're looking for isn't here.<br>
                     But the vibe is still immaculate.
                 </div>
 
@@ -348,7 +347,7 @@
 
         <!-- ===== WORKSPACE (main content) ===== -->
         <main class="workspace-card">
-            <div class="workspace-body" role="article">
+            <article class="workspace-body">
 
                 <!-- 404 STAGE CARD -->
                 <section class="stage-card" data-section="404" data-ghost="404">
@@ -370,7 +369,7 @@
                             </svg>
                             <span>Return Home</span>
                         </a>
-                        <a href="mailto:ben@brod3000.com" class="btn-home" style="background:#ffffff;color:#0a0a0a;"
+                        <a href="mailto:ben@brod3000.com" class="btn-home btn-home--white">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                                 <polyline points="22,6 12,13 2,6" />
@@ -380,7 +379,7 @@
                     </div>
 
                     <!-- Subtle easter egg: hidden message -->
-                    <p style="margin-top:48px;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);opacity:0.4;font-family:monospace;">
+                    <p class="easter-egg">
                         ⚡ 404 — but you're still here. that counts.
                     </p>
                 </section>
@@ -399,7 +398,7 @@
                     </div>
                 </noscript>
 
-            </div>
+            </article>
         </main>
 
     </div>

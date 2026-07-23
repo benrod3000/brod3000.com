@@ -17,10 +17,12 @@ jobs:
         run: npx -y html-validate "*.html"
 
       - name: Broken link check
+        # Reddit returns 403 to automated requests (bot protection).
+        # The profile links work fine in a browser — this is a known false positive.
         run: |
           npx -y http-server . -p 8080 --silent &
           sleep 3
-          npx -y linkinator http://localhost:8080 --recurse --silent
+          npx -y linkinator http://localhost:8080 --recurse --silent --skip reddit.com
 
       - name: Lighthouse budget
         uses: treosh/lighthouse-ci-action@v11

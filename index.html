@@ -71,21 +71,17 @@
     })();
   </script>
 
+  <!-- Main CSS (non-blocking preload) — must come BEFORE Google Fonts preload
+       so the FOUC gate opens on our fast CDN stylesheet, not the slower font CSS -->
+  <link rel="preload" href="styles-digital.css?v=68" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="styles-digital.css?v=68"></noscript>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <!-- Google Fonts — NON-BLOCKING -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet"></noscript>
-
-  <!-- Google Analytics — consent defaults MUST be queued before the GA library
-       runs, so gtag-init.js loads first and is not deferred. -->
-  <script src="gtag-init.js?v=3" data-cfasync="false"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X42B535184" data-cfasync="false"></script>
-
-  <!-- Main CSS (non-blocking preload) -->
-  <link rel="preload" href="styles-digital.css?v=68" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="styles-digital.css?v=68"></noscript>
 
   <!-- GSAP (deferred — does not block render) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" defer data-cfasync="false"></script>

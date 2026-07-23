@@ -27,11 +27,6 @@ const placeFooter = () => {
       yearSpan.textContent = `© ${new Date().getFullYear()} BR. All rights reserved.`;
     }
   }
-  // Keep the sidebar "Years" stat current — earliest listed role is 2010.
-  const yearsEl = document.querySelector('.pstat .psv');
-  if (yearsEl && yearsEl.textContent.includes('+')) {
-    yearsEl.textContent = `${new Date().getFullYear() - 2010}+`;
-  }
 };
 const radialTrigger = document.querySelector('.radial-trigger');
 const interactiveTargets = () => document.querySelectorAll('.rail-tab, .workspace-back, .profile-cta, .profile-socials a, .contact-form button');

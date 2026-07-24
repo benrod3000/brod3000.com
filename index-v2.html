@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ben Rodriguez — Building audience ownership infrastructure</title>
+  <meta name="description" content="Ben Rodriguez builds systems that help businesses own their audience. Growth infrastructure, audience platforms, digital products.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="canonical" href="https://brod3000.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Ben Rodriguez — Building audience ownership infrastructure">
+  <meta property="og:description" content="Growth systems architecture, audience platforms, and owned digital products for creators and brands.">
+  <meta property="og:image" content="https://brod3000.com/images/profile.jpg">
+  <meta property="og:url" content="https://brod3000.com/">
+  <meta property="og:site_name" content="Ben Rodriguez">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ben Rodriguez — Building audience ownership infrastructure">
+  <meta name="twitter:description" content="Growth systems architecture, audience platforms, and owned digital products for creators and brands.">
+  <meta name="twitter:image" content="https://brod3000.com/images/profile.jpg">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- Fonts (non-blocking) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"></noscript>
+
+  <!-- Styles (non-blocking) -->
+  <link rel="preload" href="styles-v2.css?v=1" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="styles-v2.css?v=1"></noscript>
+
+  <!-- Google Analytics -->
+  <script src="gtag-init.js" defer data-cfasync="false"></script>
+
+  <!-- Prevent CLS before CSS loads -->
+  <style>
+    body { margin: 0; background: #fdfbf9; color: #141413; font-family: Inter, "Helvetica Neue", Arial, sans-serif; }
+    .hero { min-height: 100dvh; display: flex; flex-direction: column; }
+    .nav-top { position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  </style>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://brod3000.com/#person",
+        "name": "Ben Rodriguez",
+        "givenName": "Ben",
+        "familyName": "Rodriguez",
+        "url": "https://brod3000.com",
+        "image": "https://brod3000.com/images/profile.jpg",
+        "jobTitle": "Product Builder & Growth Systems Architect",
+        "sameAs": [
+          "https://github.com/benrod3000",
+          "https://www.reddit.com/user/benrod1/",
+          "https://www.behance.net/benrodriguez"
+        ],
+        "knowsAbout": [
+          "Growth Infrastructure",
+          "Audience Ownership",
+          "Digital Product Strategy",
+          "Email Systems Architecture",
+          "Lifecycle Marketing",
+          "Paid Media"
+        ]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://brod3000.com/#org",
+        "name": "brod3000",
+        "url": "https://brod3000.com",
+        "logo": "https://brod3000.com/android-chrome-512x512.png"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://brod3000.com/#website",
+        "url": "https://brod3000.com/",
+        "publisher": { "@id": "https://brod3000.com/#person" }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Ambient canvas (background texture) -->
+  <canvas class="ambient-canvas" id="ambient-canvas" aria-hidden="true"></canvas>
+
+  <!-- Top Navigation -->
+  <nav class="nav-top" id="nav-top" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo" aria-label="Ben Rodriguez, home">BR</a>
+      <div class="nav-links">
+        <a href="#work" class="nav-link">Work</a>
+        <a href="#philosophy" class="nav-link">Philosophy</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+
+      <h1 class="hero-name">Ben Rodriguez</h1>
+
+      <p class="hero-thesis">
+        I build systems that help businesses own their audience.
+      </p>
+
+      <div class="hero-capabilities">
+        <span class="hero-capability">Growth infrastructure</span>
+        <span class="hero-capability">Audience platforms</span>
+        <span class="hero-capability">Digital products</span>
+      </div>
+
+      <a href="#work" class="hero-cta">
+        Explore Veloce
+        <svg class="hero-cta-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M8 3v10M8 13l4-4M8 13l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+    </div>
+
+    <!-- Hero portrait background -->
+    <div class="hero-portrait" aria-hidden="true">
+      <div class="hero-portrait-gradient"></div>
+    </div>
+  </section>
+
+  <!-- ===== Placeholder: Chapter sections will be built in subsequent phases ===== -->
+
+  <script type="module" src="runtime-v2.js?v=1"></script>
+</body>
+</html>

@@ -83,6 +83,21 @@ function toggleMobileNav() {
   mobileNavDrawer.setAttribute('aria-hidden', String(!isOpen));
   if (mobileNavToggle) mobileNavToggle.setAttribute('aria-expanded', String(isOpen));
   document.body.style.overflow = isOpen ? 'hidden' : '';
+
+  // Make background content inert while drawer is open
+  const main = document.getElementById('main');
+  if (main) {
+    if (isOpen) main.setAttribute('inert', '');
+    else main.removeAttribute('inert');
+  }
+
+  // Focus trap: move focus into drawer, or restore to toggle
+  if (isOpen) {
+    const firstLink = mobileNavDrawer.querySelector('a');
+    if (firstLink) firstLink.focus();
+  } else if (mobileNavToggle) {
+    mobileNavToggle.focus();
+  }
 }
 
 function closeMobileNav() {
@@ -91,6 +106,10 @@ function closeMobileNav() {
   mobileNavDrawer.setAttribute('aria-hidden', 'true');
   if (mobileNavToggle) mobileNavToggle.setAttribute('aria-expanded', 'false');
   document.body.style.overflow = '';
+
+  const main = document.getElementById('main');
+  if (main) main.removeAttribute('inert');
+  if (mobileNavToggle) mobileNavToggle.focus();
 }
 
 function initMobileNav() {
@@ -115,6 +134,18 @@ function initMobileNav() {
   mobileNavDrawer.addEventListener('click', (e) => { if (e.target === mobileNavDrawer) closeMobileNav(); });
   mobileNavDrawer.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMobileNav));
   nav.appendChild(mobileNavDrawer);
+
+  // Focus trap: Tab/Shift+Tab cycle within drawer
+  mobileNavDrawer.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const links = mobileNavDrawer.querySelectorAll('a');
+    if (!links.length) return;
+    const first = links[0];
+    const last = links[links.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMobileNav(); });
 }
 

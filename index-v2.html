@@ -37,8 +37,8 @@
   <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"></noscript>
 
   <!-- Styles: non-blocking via media=print swap. Reliable, no race conditions. -->
-  <link rel="stylesheet" href="styles-v2.css?v=3" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="styles-v2.css?v=3"></noscript>
+  <link rel="stylesheet" href="styles-v2.css?v=4" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="styles-v2.css?v=4"></noscript>
 
   <!-- Google Analytics -->
   <script src="gtag-init.js" defer data-cfasync="false"></script>
@@ -49,6 +49,15 @@
     .hero { min-height: 100dvh; display: flex; flex-direction: column; }
     .nav-top { position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
   </style>
+
+  <!-- No-JS fallback: show all reveal elements immediately -->
+  <noscript>
+    <style>
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .nav-links { display: flex !important; }
+      .mobile-nav-toggle { display: none !important; }
+    </style>
+  </noscript>
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -104,7 +113,7 @@
   <nav class="nav-top" id="nav-top" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="#hero" class="nav-logo" aria-label="Ben Rodriguez, home">
-        <img src="images/profile.jpg" alt="Ben Rodriguez" width="36" height="36">
+        <img src="images/ben-portrait.svg" alt="Ben Rodriguez" width="36" height="36">
       </a>
       <div class="nav-links">
         <a href="#work" class="nav-link">Work</a>
@@ -560,6 +569,6 @@
 
 
 
-  <script type="module" src="runtime-v2.js?v=1"></script>
+  <script type="module" src="runtime-v2.js?v=2"></script>
 </body>
 </html>

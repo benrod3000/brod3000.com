@@ -286,6 +286,16 @@ function initScrollReveal() {
   });
 
   revealElements.forEach(el => observer.observe(el));
+
+  // Safety fallback: auto-reveal all elements after 3s in case
+  // the Intersection Observer doesn't fire (slow network, JS error, etc.)
+  setTimeout(() => {
+    revealElements.forEach(el => {
+      if (!el.classList.contains('revealed')) {
+        el.classList.add('revealed');
+      }
+    });
+  }, 3000);
 }
 
 // ============================================================================

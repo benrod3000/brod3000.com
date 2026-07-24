@@ -1,7 +1,7 @@
 /**
  * brod3000.com Runtime v2
  * ES module. Navigation, scroll reveals, form handling.
- * Ambient background is now a static CSS gradient mesh — zero JS.
+ * Ambient background is now a static CSS gradient mesh. Zero JS.
  */
 
 // ============================================================================
@@ -246,7 +246,7 @@ function initFooterYear() {
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
   initScrollReveal();
-  initMobileNav();     // MUST run before initNavTracking — it clones .nav-link
+  initMobileNav();     // MUST run before initNavTracking. It clones .nav-link.
   initNavTracking();   // into the drawer, and tracking caches the link list.
   initContactForm();
   initFooterYear();

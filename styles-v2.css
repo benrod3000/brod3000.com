@@ -17,21 +17,21 @@
     --ink: #141413;
     --ink-soft: #2c2621;
     --ink-muted: #5c5650;
-    --ink-faint: #6f665d;   /* was #8c8278 — 3.6:1 on --bg, failed AA. Now 5.4:1. */
+    --ink-faint: #6f665d;   /* was #8c8278. 3.6:1 on --bg failed AA. Now 5.4:1. */
 
     --bg: #fdfbf9;
     --bg-warm: #f8f5f0;
     --bg-cool: #f5f7f9;
 
     --accent: #27c39f;
-    --accent-text: #0d7a62;       /* 5.1:1 on --bg — use for any accent-coloured TEXT */
+    --accent-text: #0d7a62;       /* 5.1:1 on --bg. Use for any accent-coloured TEXT. */
     --accent-soft: rgba(39, 195, 159, 0.12);
     --accent-hover: #1fa884;
 
     --border: rgba(20, 20, 19, 0.08);
     --border-strong: rgba(20, 20, 19, 0.14);
     --rule: rgba(20, 20, 19, 0.06);
-    /* ---- Brutalist offsets — the only three. Never hardcode px shadows. ---- */
+    /* ---- Brutalist offsets. The only three. Never hardcode px shadows. ---- */
     --offset-sm: 2px;
     --offset-md: 3px;
     --offset-lg: 5px;
@@ -98,7 +98,7 @@
 }
 
 @layer layout {
-  /* Fixed nav is 4rem tall — anchor targets must clear it or every in-page
+  /* Fixed nav is 4rem tall. Anchor targets must clear it or every in-page
      link lands with its heading tucked behind the navbar. */
   section[id] { scroll-margin-top: 5.5rem; }
   /* Lift real content above the ambient canvas (z-index 0) so text paints
@@ -111,7 +111,7 @@
   .section-rule { width: 100%; height: 2px; background: var(--ink); border: none; max-width: var(--content-max); margin: 0 auto; opacity: 0.12; }
 }
 
-/* Static CSS gradient mesh — replaces the 150-particle canvas animation.
+/* Static CSS gradient mesh. Replaces the 150-particle canvas animation.
    Zero JS, zero CPU, GPU-composited. No blend mode (avoids extra compositing).
    Subtle vignette for depth. */
 body::before {
@@ -137,7 +137,7 @@ body::before {
   .nav-logo { display: block; width: 2.25rem; height: 2.25rem; border-radius: 0; overflow: hidden; flex-shrink: 0; }
   .nav-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .nav-links { display: flex; align-items: center; gap: 2rem; }
-  .nav-link { font-family: var(--font-product); font-size: 1.05rem; font-weight: 400;   /* Bebas ships ONE weight — 700 triggers faux-bold */ letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-muted); transition: color var(--duration-fast) var(--ease-out); }
+  .nav-link { font-family: var(--font-product); font-size: 1.05rem; font-weight: 400;   /* Bebas ships ONE weight. 700 triggers faux-bold. */ letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-muted); transition: color var(--duration-fast) var(--ease-out); }
   .nav-link:hover, .nav-link:focus-visible { color: var(--ink); }
   .nav-link.active { color: var(--accent-text); }
   .mobile-nav-toggle { display: none; }
@@ -166,7 +166,7 @@ body::before {
   .chapter-subtitle { font-family: var(--font-body); font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 500; line-height: 1.5; color: var(--ink-soft); max-width: 38rem; margin-bottom: 1.5rem; }
 
   .veloce-card { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--card-gap); margin-bottom: 3rem; }
-  /* NOTE: inert <div>s — hover-lift removed. Make them links if you want it back. */
+  /* NOTE: inert divs. Hover-lift removed. Make them links if you want it back. */
   .problem-card { padding: 1.75rem; border: 2px solid var(--ink); box-shadow: var(--offset-md) var(--offset-md) 0 var(--border-strong); background: var(--bg); }
   .problem-card-title { font-family: var(--font-body); font-size: 1.05rem; font-weight: 600; color: var(--ink); margin-bottom: 0.625rem; line-height: 1.35; }
   .problem-card-body { font-family: var(--font-body); font-size: 0.95rem; color: var(--ink-muted); line-height: 1.55; }
@@ -174,7 +174,7 @@ body::before {
   .pull-quote { max-width: 36rem; margin: 0 0 3rem; padding: 1.5rem 0 1.5rem 1.25rem; border-left: 3px solid var(--accent); }
   .pull-quote p { font-family: var(--font-body); font-size: clamp(1.25rem, 2.2vw, 1.45rem); font-weight: 700; line-height: 1.4; color: var(--ink-soft); margin: 0; }
 
-  /* Centered variant — second occurrence, no border */
+  /* Centered variant. Second occurrence, no border. */
   .pull-quote--centered { border-left: none; text-align: center; padding: 1.5rem 0; max-width: 44rem; }
 
   .veloce-card { border: 2px solid var(--ink); border-top: 4px solid var(--accent); box-shadow: var(--offset-md) var(--offset-md) 0 var(--border-strong); padding: 2rem 2.5rem; margin-bottom: 2.5rem; background: var(--bg); }
@@ -204,7 +204,7 @@ body::before {
   .roadmap-next { display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .roadmap-next-item { display: inline-flex; align-items: center; padding: 0.4rem 1rem; font-size: 0.82rem; font-weight: 500; color: var(--ink-muted); border: 1px solid var(--border-strong); background: var(--bg); }
 
-  /* Architecture diagram — inline SVG, see index-v2.html */
+  /* Architecture diagram. Inline SVG, see index-v2.html. */
   .arch-diagram {
     display: block;
     max-width: 44rem;

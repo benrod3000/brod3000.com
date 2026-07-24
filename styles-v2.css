@@ -146,13 +146,9 @@ body::before {
 @layer sections {
   .hero { position: relative; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; padding: 0 var(--section-pad-x); overflow: hidden; }
   .hero-content { position: relative; z-index: 2; max-width: var(--content-max); margin: 0 auto; width: 100%; padding-top: 4rem; }
-  .hero-name { font-family: var(--font-display); font-size: var(--text-hero); font-weight: 800; letter-spacing: -0.025em; line-height: 1; color: var(--ink); margin-bottom: 1.5rem; opacity: 0; transform: translateY(24px); animation: reveal-up var(--duration-reveal) var(--ease-out) forwards; }
-  .hero-thesis { font-family: var(--font-body); font-size: clamp(1.25rem, 2.5vw, 1.5rem); font-weight: 400; line-height: 1.5; color: var(--ink-soft); max-width: 35rem; margin-bottom: 1rem; opacity: 0; transform: translateY(24px); animation: reveal-up var(--duration-reveal) var(--ease-out) 0.15s forwards; }
-  .hero-subline { font-family: var(--font-body); font-size: clamp(1rem, 1.5vw, 1.15rem); font-weight: 400; line-height: 1.6; color: var(--ink-muted); max-width: 35rem; margin-bottom: 2.5rem; opacity: 0; transform: translateY(24px); animation: reveal-up var(--duration-reveal) var(--ease-out) 0.22s forwards; }
-  .hero-capabilities { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 3rem; opacity: 0; transform: translateY(24px); animation: reveal-up var(--duration-reveal) var(--ease-out) 0.3s forwards; }
-  /* NOTE: inert <span>s. They previously hover-lifted, which read as
-     "clickable" and led nowhere. Make them <a> if you want it back. */
-  .hero-capability { display: inline-flex; align-items: center; padding: 0.5rem 1.25rem; font-family: var(--font-body); font-size: var(--text-label); font-weight: 500; color: var(--ink); background: transparent; border: 2px solid var(--ink); box-shadow: var(--brutal-offset) var(--brutal-offset) 0 var(--border-strong); border-radius: 0; letter-spacing: -0.01em; }
+  .hero-name { font-family: var(--font-display); font-size: var(--text-hero); font-weight: 800; letter-spacing: -0.025em; line-height: 1; color: var(--ink); margin-bottom: 1rem; opacity: 0; transform: translateY(24px); animation: reveal-up var(--duration-reveal) var(--ease-out) forwards; }
+  .hero-identity { font-family: var(--font-body); font-size: clamp(1.1rem, 1.8vw, 1.3rem); font-weight: 500; color: var(--accent-text); margin-bottom: 0.75rem; opacity: 0; transform: translateY(24px); animation: reveal-up var(--duration-reveal) var(--ease-out) 0.1s forwards; }
+  .hero-thesis { font-family: var(--font-body); font-size: clamp(1.25rem, 2.5vw, 1.5rem); font-weight: 400; line-height: 1.5; color: var(--ink-soft); max-width: 35rem; margin-bottom: 2.5rem; opacity: 0; transform: translateY(24px); animation: reveal-up var(--duration-reveal) var(--ease-out) 0.15s forwards; }
   .hero-cta { display: inline-flex; align-items: center; gap: 0.625rem; font-family: var(--font-product); font-size: 1.1rem; font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; color: #fff; background: var(--ink); padding: 0.875rem 2rem; border: 2px solid var(--ink); box-shadow: var(--offset-md) var(--offset-md) 0 var(--accent); border-radius: 0; transition: background var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out); opacity: 0; transform: translateY(24px); animation: reveal-up var(--duration-reveal) var(--ease-out) 0.45s forwards; }
   .hero-cta:hover, .hero-cta:focus-visible { background: var(--accent); border-color: var(--accent); box-shadow: var(--offset-lg) var(--offset-lg) 0 var(--ink); transform: translate(-2px, -2px); }
   .hero-cta:active { box-shadow: var(--offset-sm) var(--offset-sm) 0 var(--ink); transform: translate(2px, 2px); }
@@ -165,12 +161,10 @@ body::before {
   @keyframes reveal-portrait { from { opacity: 0; } to { opacity: 1; } }
 
   .chapter { padding: var(--section-gap) var(--section-pad-x); }
-  .chapter-label { font-family: var(--font-body); font-size: var(--text-label); font-weight: 500; color: var(--accent-text); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.75rem; }
   .chapter-title { font-family: var(--font-product); font-size: var(--text-chapter-title); font-weight: 400; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1.15; color: var(--ink); margin-bottom: 2.5rem; }
   .chapter-subtitle { font-family: var(--font-body); font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 500; line-height: 1.5; color: var(--ink-soft); max-width: 38rem; margin-bottom: 1.5rem; }
-  .chapter-closing { font-family: var(--font-body); font-size: clamp(1.15rem, 1.8vw, 1.35rem); font-weight: 500; line-height: 1.55; color: var(--ink-soft); max-width: 38rem; margin-top: 2.5rem; }
 
-  .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--card-gap); margin-bottom: 3rem; }
+  .veloce-card { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--card-gap); margin-bottom: 3rem; }
   /* NOTE: inert <div>s — hover-lift removed. Make them links if you want it back. */
   .problem-card { padding: 1.75rem; border: 2px solid var(--ink); box-shadow: var(--offset-md) var(--offset-md) 0 var(--border-strong); background: var(--bg); }
   .problem-card-title { font-family: var(--font-body); font-size: 1.05rem; font-weight: 600; color: var(--ink); margin-bottom: 0.625rem; line-height: 1.35; }
@@ -232,18 +226,6 @@ body::before {
   .philosophy-quote { border-left: 2px solid var(--border-strong); padding: 0.5rem 0 0.5rem 1.25rem; margin-bottom: 1.25rem; }
   .philosophy-quote p { font-family: var(--font-body); font-size: 1rem; font-weight: 600; line-height: 1.5; color: var(--ink-soft); margin: 0; }
   .philosophy-body { font-size: 1rem; color: var(--ink-muted); line-height: 1.6; max-width: 36rem; }
-
-  .work-grid { display: grid; gap: 2.5rem; }
-  .work-card { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
-  .work-card:nth-child(even) .work-card-image { order: 2; }
-  .work-card:nth-child(even) .work-card-body { order: 1; }
-  .work-card-image { background: var(--bg-warm); }
-  .work-card-image img { width: 100%; height: auto; border: 2px solid var(--ink); box-shadow: var(--offset-md) var(--offset-md) 0 var(--border-strong); display: block; }
-  .work-card-title { font-family: var(--font-display); font-size: clamp(1.4rem, 2.2vw, 1.75rem); font-weight: 600; color: var(--ink); margin-bottom: 0.75rem; }
-  .work-card-desc { font-size: 1rem; color: var(--ink-muted); line-height: 1.6; margin-bottom: 1rem; }
-  .work-card-outcomes { display: flex; flex-direction: column; gap: 0.5rem; }
-  .work-card-outcomes li { position: relative; padding-left: 1.25rem; font-size: 0.92rem; color: var(--ink-muted); line-height: 1.45; }
-  .work-card-outcomes li::before { content: "•"; position: absolute; left: 0; color: var(--accent-text); font-weight: 600; }
 
   .about-narrative { display: grid; grid-template-columns: auto 1fr; gap: 2.5rem; align-items: start; margin-bottom: 3rem; }
   .about-portrait img { width: 8rem; height: 8rem; object-fit: cover; border: 2px solid var(--ink); box-shadow: var(--offset-md) var(--offset-md) 0 var(--accent); }

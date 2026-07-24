@@ -107,18 +107,13 @@
         <p class="veloce-tagline">The audience ownership platform.</p>
         <p class="veloce-desc">Build direct relationships with your customers instead of renting your audience from someone else.</p>
         <div class="veloce-ctas">
-          <!-- TODO: swap for the live Veloce URL once public. Never ship href="#". -->
           <a href="#architecture" class="btn-primary">See the architecture →</a>
-          <a href="#veloce-details" class="btn-ghost">See how it works ↓</a>
         </div>
       </div>
-      <div class="veloce-screenshot veloce-screenshot--hero"><div class="screenshot-placeholder"><span class="screenshot-label">Dashboard screenshot</span></div></div>
-      <div class="veloce-screenshots" id="veloce-details">
-        <div class="veloce-screenshot"><div class="screenshot-placeholder"><span class="screenshot-label">Campaign editor</span></div></div>
-        <div class="veloce-screenshot"><div class="screenshot-placeholder"><span class="screenshot-label">Subscriber timeline</span></div></div>
-        <div class="veloce-screenshot"><div class="screenshot-placeholder"><span class="screenshot-label">Analytics</span></div></div>
-        <div class="veloce-screenshot"><div class="screenshot-placeholder"><span class="screenshot-label">Automation</span></div></div>
-      </div>
+      <figure class="veloce-figure reveal">
+        <img src="images/veloce-dashboard.webp" alt="Veloce dashboard showing the campaign editor, subscriber list, and analytics overview" width="1200" height="675" loading="lazy" decoding="async">
+        <figcaption class="veloce-figcaption">The Veloce dashboard: write, send, and analyze newsletters from a single interface. Every subscriber has a timeline, every campaign has real-time analytics.</figcaption>
+      </figure>
       <hr class="section-rule">
       <p class="chapter-subtitle">Product layers</p>
       <div class="veloce-layers">
@@ -142,26 +137,49 @@
       <div class="chapter-label reveal">03</div>
       <h2 class="chapter-title reveal">Architecture</h2>
       <p class="chapter-subtitle reveal">Built like a platform, not a project.</p>
-      <div class="arch-diagram">
-        <div class="arch-node arch-node--frontend">Next.js</div>
-        <div class="arch-connector arch-connector--h">→</div>
-        <div class="arch-node arch-node--api">API Layer</div>
-        <div class="arch-connector arch-connector--v1">↓</div>
-        <div class="arch-connector arch-connector--v2">↓</div>
-        <div class="arch-node arch-node--queue">Email Queue</div>
-        <div class="arch-node arch-node--analytics">Analytics Pipeline</div>
-        <div class="arch-connector arch-connector--v3">↓</div>
-        <div class="arch-connector arch-connector--v4">↓</div>
-        <div class="arch-node arch-node--provider">Provider Abstraction</div>
-        <div class="arch-node arch-node--db">Data Store</div>
-      </div>
+      <svg class="arch-diagram" viewBox="0 0 600 440" width="100%" height="auto" role="img" aria-labelledby="arch-title arch-desc">
+        <title id="arch-title">Veloce system architecture</title>
+        <desc id="arch-desc">Next.js 16 application server branches into Upstash Redis for job queuing and an analytics pipeline. The queue feeds three swappable email providers: SES, SendGrid, and Resend. Analytics data lands in Supabase Postgres.</desc>
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 Z" fill="var(--ink)" opacity="0.5"/>
+          </marker>
+        </defs>
+        <!-- Row 1: Next.js 16 -->
+        <rect x="200" y="20" width="200" height="56" rx="0" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/>
+        <text x="300" y="43" text-anchor="middle" font-family="var(--font-mono)" font-size="13" font-weight="600" fill="var(--ink)">Next.js 16</text>
+        <text x="300" y="62" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--ink-muted)">app + API</text>
+        <!-- Row 1→2 connectors -->
+        <path d="M260,76 L260,110" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.5"/>
+        <path d="M340,76 L340,110" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.5"/>
+        <!-- Row 2: Upstash Redis -->
+        <rect x="110" y="115" width="180" height="56" rx="0" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/>
+        <text x="200" y="138" text-anchor="middle" font-family="var(--font-mono)" font-size="13" font-weight="600" fill="var(--ink)">Upstash Redis</text>
+        <text x="200" y="157" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--ink-muted)">job queue</text>
+        <!-- Row 2: Analytics pipeline -->
+        <rect x="310" y="115" width="180" height="56" rx="0" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/>
+        <text x="400" y="138" text-anchor="middle" font-family="var(--font-mono)" font-size="13" font-weight="600" fill="var(--ink)">Analytics pipeline</text>
+        <text x="400" y="157" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--ink-muted)">events + metrics</text>
+        <!-- Row 2→3 connectors -->
+        <path d="M200,171 L200,210" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.5"/>
+        <path d="M400,171 L400,210" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.5"/>
+        <!-- Row 3: SES · SendGrid · Resend -->
+        <rect x="55" y="215" width="230" height="72" rx="0" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/>
+        <text x="170" y="240" text-anchor="middle" font-family="var(--font-mono)" font-size="12" font-weight="600" fill="var(--ink)">SES · SendGrid</text>
+        <text x="170" y="258" text-anchor="middle" font-family="var(--font-mono)" font-size="12" font-weight="600" fill="var(--ink)">· Resend</text>
+        <text x="170" y="276" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--ink-muted)">email providers</text>
+        <!-- Row 3: Supabase Postgres -->
+        <rect x="310" y="215" width="180" height="56" rx="0" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/>
+        <text x="400" y="238" text-anchor="middle" font-family="var(--font-mono)" font-size="13" font-weight="600" fill="var(--ink)">Supabase</text>
+        <text x="400" y="257" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--ink-muted)">Postgres</text>
+      </svg>
       <div class="arch-grid reveal-stagger">
-        <div class="arch-card reveal"><h4 class="arch-card-title">Provider abstraction</h4><p class="arch-card-body">Multiple email providers behind a single interface. Swap vendors without changing application code.</p></div>
-        <div class="arch-card reveal"><h4 class="arch-card-title">Email infrastructure</h4><p class="arch-card-body">Queue system for reliable delivery at scale. Bounce handling, retry logic, and deliverability monitoring.</p></div>
-        <div class="arch-card reveal"><h4 class="arch-card-title">Queue systems</h4><p class="arch-card-body">Job-based architecture for campaign sends. Thousands of emails dispatched without blocking the main thread.</p></div>
+        <div class="arch-card reveal"><h4 class="arch-card-title">Provider abstraction</h4><p class="arch-card-body">SES, SendGrid, and Resend behind a single interface. Swap vendors without changing application code.</p></div>
+        <div class="arch-card reveal"><h4 class="arch-card-title">Queue &amp; email infrastructure</h4><p class="arch-card-body">Upstash Redis job queue for reliable delivery at scale. Bounce handling, retry logic, and deliverability monitoring.</p></div>
         <div class="arch-card reveal"><h4 class="arch-card-title">Subscriber management</h4><p class="arch-card-body">Import, export, tagging, segmentation. Every subscriber has a timeline, not just a row in a table.</p></div>
         <div class="arch-card reveal"><h4 class="arch-card-title">Analytics engine</h4><p class="arch-card-body">Open tracking, click tracking, growth metrics. Real-time data without third-party analytics scripts.</p></div>
-        <div class="arch-card reveal"><h4 class="arch-card-title">Reliability &amp; monitoring</h4><p class="arch-card-body">Delivery monitoring, bounce classification, and health checks. Designed for 99%+ deliverability.</p></div>
+        <div class="arch-card reveal"><h4 class="arch-card-title">Auth &amp; trust</h4><p class="arch-card-body">OAuth (Google/GitHub), Cloudflare Turnstile, disposable-email filtering, 2FA/TOTP, and audit logs.</p></div>
+        <div class="arch-card reveal"><h4 class="arch-card-title">Reliability &amp; monitoring</h4><p class="arch-card-body">Sentry error tracking, delivery monitoring, bounce classification, and health checks. Designed for 99%+ deliverability.</p></div>
       </div>
       <hr class="section-rule">
       <blockquote class="pull-quote reveal"><p>This isn't a CRUD app with a Mailchimp integration. Every component was designed for reliability, not speed to market.</p></blockquote>
@@ -185,8 +203,8 @@
       <h2 class="chapter-title reveal">More Work</h2>
       <p class="chapter-subtitle reveal">Different problems. Same philosophy.</p>
       <div class="work-grid">
-        <div class="work-card reveal"><div class="work-card-image"><div class="screenshot-placeholder"><span class="screenshot-label">Community growth</span></div></div><div class="work-card-body"><h3 class="work-card-title">Community &amp; Audience Growth</h3><p class="work-card-desc">Building engaged communities around shared interests. Reddit communities, content strategy, and audience development at scale.</p><ul class="work-card-outcomes"><li>Scaled communities from zero to thousands of engaged members</li><li>Developed content strategies that drive organic growth</li><li>Built systems for community management and moderation</li></ul></div></div>
-        <div class="work-card reveal"><div class="work-card-image"><div class="screenshot-placeholder"><span class="screenshot-label">brod3000.com</span></div></div><div class="work-card-body"><h3 class="work-card-title">This Website</h3><p class="work-card-desc">Personal brand infrastructure. Owned platform, zero dependencies, built to demonstrate the audience ownership thesis.</p><ul class="work-card-outcomes"><li>Zero build step. Deploys as static files to any CDN</li><li>CSS @layer architecture with design tokens</li><li>Canvas ambient engine, no framework, no tracking scripts</li></ul></div></div>
+        <div class="work-card reveal"><figure class="work-card-image"><img src="images/work-community.webp" alt="Community growth metrics and engagement data" width="600" height="450" loading="lazy" decoding="async"></figure><div class="work-card-body"><h3 class="work-card-title">Community &amp; Audience Growth</h3><p class="work-card-desc">Building engaged communities around shared interests. Reddit communities, content strategy, and audience development at scale.</p><ul class="work-card-outcomes"><li>Scaled communities from zero to thousands of engaged members</li><li>Developed content strategies that drive organic growth</li><li>Built systems for community management and moderation</li></ul></div></div>
+        <div class="work-card reveal"><figure class="work-card-image"><img src="images/work-brod3000.webp" alt="brod3000.com homepage" width="600" height="450" loading="lazy" decoding="async"></figure><div class="work-card-body"><h3 class="work-card-title">This Website</h3><p class="work-card-desc">Personal brand infrastructure. Owned platform, zero dependencies, built to demonstrate the audience ownership thesis.</p><ul class="work-card-outcomes"><li>Zero build step. Deploys as static files to any CDN</li><li>CSS @layer architecture with design tokens</li><li>Canvas ambient engine, no framework, no tracking scripts</li></ul></div></div>
       </div>
     </div>
   </section>

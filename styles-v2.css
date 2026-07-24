@@ -169,12 +169,10 @@
   .btn-ghost { display: inline-flex; align-items: center; font-family: var(--font-body); font-size: var(--text-label); font-weight: 500; color: var(--ink-muted); padding: 0.75rem 1.5rem; border: 2px solid transparent; transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out); }
   .btn-ghost:hover, .btn-ghost:focus-visible { color: var(--ink); border-color: var(--border-strong); }
 
-  .veloce-screenshot { margin-bottom: 1.5rem; }
-  .veloce-screenshot--hero { margin-bottom: 1.5rem; }
-  .veloce-screenshots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
-  .screenshot-placeholder { aspect-ratio: 16/10; background: var(--bg-warm); border: 2px dashed var(--border-strong); display: flex; align-items: center; justify-content: center; }
-  .veloce-screenshot--hero .screenshot-placeholder { aspect-ratio: 16/7; }
-  .screenshot-label { font-family: var(--font-body); font-size: var(--text-label); font-weight: 500; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.06em; }
+  /* Veloce screenshot figure */
+  .veloce-figure { margin: 0 0 2.5rem; background: var(--bg-warm); }
+  .veloce-figure img { width: 100%; height: auto; border: 2px solid var(--ink); box-shadow: var(--offset-md) var(--offset-md) 0 var(--border-strong); display: block; }
+  .veloce-figcaption { margin-top: 0.875rem; font-family: var(--font-body); font-size: 0.9rem; color: var(--ink-muted); line-height: 1.55; font-style: italic; }
 
   .veloce-layers { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
   .veloce-layers--second { margin-bottom: 0; }
@@ -186,21 +184,15 @@
   .layer-name { font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--ink); }
   .layer-arrow { font-family: var(--font-body); font-size: 1.2rem; color: var(--border-strong); font-weight: 300; }
 
-  .arch-diagram { display: grid; grid-template-columns: 1fr 2.5rem 1fr; grid-template-rows: auto auto auto auto auto; gap: 0.75rem 1.5rem; align-items: center; justify-items: center; max-width: 44rem; margin: 0 auto 3rem; padding: 2.5rem; background: var(--bg-warm); border: 2px solid var(--border-strong); }
-  .arch-node { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; letter-spacing: -0.01em; padding: 0.75rem 1.25rem; border: 2px solid var(--ink); background: var(--bg); text-align: center; width: 100%; }
-  .arch-node--frontend { grid-column: 1; grid-row: 1; }
-  .arch-connector--h { grid-column: 2; grid-row: 1; }
-  .arch-node--api { grid-column: 3; grid-row: 1; }
-  .arch-connector--v1 { grid-column: 1; grid-row: 2; }
-  .arch-connector--v2 { grid-column: 3; grid-row: 2; }
-  .arch-node--queue { grid-column: 1; grid-row: 3; }
-  .arch-node--analytics { grid-column: 3; grid-row: 3; }
-  .arch-connector--v3 { grid-column: 1; grid-row: 4; }
-  .arch-connector--v4 { grid-column: 3; grid-row: 4; }
-  .arch-node--provider { grid-column: 1; grid-row: 5; }
-  .arch-node--db { grid-column: 3; grid-row: 5; }
-  .arch-connector--h { font-family: var(--font-body); font-size: 1.4rem; color: var(--ink-faint); font-weight: 300; }
-  .arch-connector--v1, .arch-connector--v2, .arch-connector--v3, .arch-connector--v4 { font-family: var(--font-body); font-size: 1.2rem; color: var(--ink-faint); font-weight: 300; }
+  /* Architecture diagram — inline SVG, see index-v2.html */
+  .arch-diagram {
+    display: block;
+    max-width: 44rem;
+    margin: 0 auto 3rem;
+    padding: 2rem;
+    background: var(--bg-warm);
+    border: 2px solid var(--border-strong);
+  }
 
   .arch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--card-gap); margin-bottom: 3rem; }
   .arch-card { padding: 1.5rem; border: 2px solid var(--border-strong); border-left: 3px solid var(--ink); background: var(--bg); }
@@ -220,7 +212,8 @@
   .work-card { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
   .work-card:nth-child(even) .work-card-image { order: 2; }
   .work-card:nth-child(even) .work-card-body { order: 1; }
-  .work-card-image .screenshot-placeholder { aspect-ratio: 4/3; }
+  .work-card-image { background: var(--bg-warm); }
+  .work-card-image img { width: 100%; height: auto; border: 2px solid var(--ink); box-shadow: var(--offset-md) var(--offset-md) 0 var(--border-strong); display: block; }
   .work-card-title { font-family: var(--font-display); font-size: clamp(1.3rem, 2vw, 1.5rem); font-weight: 600; color: var(--ink); margin-bottom: 0.75rem; }
   .work-card-desc { font-size: 1rem; color: var(--ink-muted); line-height: 1.6; margin-bottom: 1rem; }
   .work-card-outcomes { display: flex; flex-direction: column; gap: 0.5rem; }
@@ -301,14 +294,11 @@
   .hero-portrait-gradient { background: linear-gradient(to bottom, var(--bg) 0%, rgba(253, 251, 249, 0.9) 25%, rgba(253, 251, 249, 0.55) 55%, rgba(253, 251, 249, 0.25) 100%); }
   .problem-grid { grid-template-columns: 1fr; }
   .veloce-card { padding: 1.5rem; }
-  .veloce-screenshots { grid-template-columns: 1fr; }
   .veloce-layers { flex-direction: column; align-items: stretch; }
   .layer-arrow { display: none; }
   .veloce-ctas { flex-direction: column; align-items: stretch; }
   .btn-primary, .btn-ghost { justify-content: center; }
   .arch-grid { grid-template-columns: 1fr; }
-  .arch-diagram { padding: 1.25rem; }
-  .arch-node { font-size: 0.7rem; padding: 0.6rem 0.75rem; }
   .philosophy-card { padding: 1.5rem; }
   .philosophy-number { font-size: 3rem; margin-bottom: -1rem; }
   .work-card { grid-template-columns: 1fr; gap: 1.25rem; }

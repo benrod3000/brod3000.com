@@ -42,7 +42,7 @@ function resizeCanvas() {
   ambientCanvas.width = w * dpr;
   ambientCanvas.height = h * dpr;
   ambientCanvas.style.width = w + 'px';
-  ambientCanvas.style.height = h + 'px';
+  ambientCanvas.style.height = h + 'px';   // was 'dvh' — h is a pixel count, so this set height:900dvh and stretched the backing store ~9x vertically.
   bufferCanvas.width = w * dpr;
   bufferCanvas.height = h * dpr;
   ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -172,6 +172,9 @@ function initNav() {
 function initScrollReveal() {
   const revealElements = document.querySelectorAll('.reveal');
   if (!revealElements.length) return;
+  // Fallback ONLY where IO is unsupported. An unconditional timer revealed
+  // everything below the fold before the user scrolled there, so the
+  // choreography only played for chapter 01.
   if (!('IntersectionObserver' in window)) {
     revealElements.forEach(el => el.classList.add('revealed'));
     return;
@@ -190,6 +193,7 @@ function initScrollReveal() {
 
 function initNavTracking() {
   const sections = document.querySelectorAll('main section[id]');
+  // Queried AFTER initMobileNav so the cloned drawer links are included.
   const navLinks = document.querySelectorAll('.nav-link');
   if (!sections.length || !navLinks.length) return;
   const visible = new Map();
@@ -202,6 +206,9 @@ function initNavTracking() {
     visible.forEach((height, el) => { if (height > bestHeight) { bestHeight = height; best = el; } });
     if (!best) return;
     navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + best.id));
+    // threshold 0, NOT 0.3. With the root shrunk to ~40% of the viewport,
+    // a section taller than ~1.3 viewports can never expose 30% of ITSELF,
+    // so the old config silently never fired.
   }, { threshold: 0, rootMargin: '-20% 0px -60% 0px' });
   sections.forEach(section => observer.observe(section));
 }
@@ -311,8 +318,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initAmbientCanvas();
   initNav();
   initScrollReveal();
-  initMobileNav();
-  initNavTracking();
+  initMobileNav();     // MUST run before initNavTracking — it clones .nav-link
+  initNavTracking();   // into the drawer, and tracking caches the link list.
   initContactForm();
   initFooterYear();
 });

@@ -261,8 +261,136 @@ function initNav() {
   if (!navTop) return;
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  // Initial check
   onScroll();
+}
+
+// ============================================================================
+// SCROLL REVEAL ANIMATIONS
+// ============================================================================
+
+/** Set up Intersection Observer for .reveal elements. */
+function initScrollReveal() {
+  const revealElements = document.querySelectorAll('.reveal');
+  if (!revealElements.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -40px 0px',
+  });
+
+  revealElements.forEach(el => observer.observe(el));
+}
+
+// ============================================================================
+// NAV ACTIVE SECTION TRACKING
+// ============================================================================
+
+/** Highlight the nav link corresponding to the currently visible section. */
+function initNavTracking() {
+  const sections = document.querySelectorAll('section[id], footer');
+  const navLinks = document.querySelectorAll('.nav-link');
+  if (!sections.length || !navLinks.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    let activeId = null;
+
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        activeId = entry.target.id;
+      }
+    });
+
+    if (activeId) {
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        link.classList.toggle('active', href === '#' + activeId);
+      });
+    }
+  }, {
+    threshold: 0.3,
+    rootMargin: '-20% 0px -40% 0px',
+  });
+
+  sections.forEach(section => observer.observe(section));
+}
+
+// ============================================================================
+// MOBILE NAV DRAWER
+// ============================================================================
+
+/** @type {HTMLButtonElement|null} */
+let mobileNavToggle = null;
+/** @type {HTMLElement|null} */
+let mobileNavDrawer = null;
+
+/** Toggle mobile nav open/closed. */
+function toggleMobileNav() {
+  if (!mobileNavDrawer) return;
+  const isOpen = mobileNavDrawer.classList.toggle('is-open');
+  if (mobileNavToggle) {
+    mobileNavToggle.setAttribute('aria-expanded', String(isOpen));
+  }
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+
+/** Close mobile nav when a link is clicked. */
+function closeMobileNav() {
+  if (!mobileNavDrawer || !mobileNavDrawer.classList.contains('is-open')) return;
+  mobileNavDrawer.classList.remove('is-open');
+  if (mobileNavToggle) mobileNavToggle.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+
+/** Create and inject mobile nav toggle + drawer into the DOM. */
+function initMobileNav() {
+  // Only on small screens — but inject regardless, CSS hides it
+  const nav = document.getElementById('nav-top');
+  if (!nav) return;
+
+  const navInner = nav.querySelector('.nav-inner');
+  if (!navInner) return;
+
+  // Hamburger button
+  mobileNavToggle = document.createElement('button');
+  mobileNavToggle.className = 'mobile-nav-toggle';
+  mobileNavToggle.setAttribute('aria-label', 'Toggle navigation menu');
+  mobileNavToggle.setAttribute('aria-expanded', 'false');
+  mobileNavToggle.innerHTML = '<span></span><span></span><span></span>';
+  mobileNavToggle.addEventListener('click', toggleMobileNav);
+  navInner.appendChild(mobileNavToggle);
+
+  // Drawer (clone nav links into it)
+  const navLinks = nav.querySelector('.nav-links');
+  if (!navLinks) return;
+
+  mobileNavDrawer = document.createElement('div');
+  mobileNavDrawer.className = 'mobile-nav-drawer';
+  mobileNavDrawer.setAttribute('aria-hidden', 'true');
+  mobileNavDrawer.innerHTML = navLinks.innerHTML;
+
+  // Click-outside to close
+  mobileNavDrawer.addEventListener('click', (e) => {
+    if (e.target === mobileNavDrawer) closeMobileNav();
+  });
+
+  // Close on link click
+  mobileNavDrawer.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMobileNav);
+  });
+
+  nav.appendChild(mobileNavDrawer);
+
+  // Escape key to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMobileNav();
+  });
 }
 
 // ============================================================================
@@ -356,6 +484,9 @@ function initFooterYear() {
 document.addEventListener('DOMContentLoaded', () => {
   initAmbientCanvas();
   initNav();
+  initScrollReveal();
+  initNavTracking();
+  initMobileNav();
   initContactForm();
   initFooterYear();
 });

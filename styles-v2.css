@@ -147,7 +147,8 @@ body::before {
   .hero { position: relative; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; padding: 0 var(--section-pad-x); overflow: hidden; }
   .hero-content { position: relative; z-index: 2; max-width: var(--content-max); margin: 0 auto; width: 100%; padding-top: 4rem; }
   .hero-name { font-family: var(--font-display); font-size: var(--text-hero); font-weight: 800; letter-spacing: -0.025em; line-height: 1; color: var(--ink); margin-bottom: 1.5rem; opacity: 0; transform: translateY(24px); animation: reveal-up var(--duration-reveal) var(--ease-out) forwards; }
-  .hero-thesis { font-family: var(--font-body); font-size: clamp(1.25rem, 2.5vw, 1.5rem); font-weight: 400; line-height: 1.5; color: var(--ink-soft); max-width: 35rem; margin-bottom: 2.5rem; opacity: 0; transform: translateY(24px); animation: reveal-up var(--duration-reveal) var(--ease-out) 0.15s forwards; }
+  .hero-thesis { font-family: var(--font-body); font-size: clamp(1.25rem, 2.5vw, 1.5rem); font-weight: 400; line-height: 1.5; color: var(--ink-soft); max-width: 35rem; margin-bottom: 1rem; opacity: 0; transform: translateY(24px); animation: reveal-up var(--duration-reveal) var(--ease-out) 0.15s forwards; }
+  .hero-subline { font-family: var(--font-body); font-size: clamp(1rem, 1.5vw, 1.15rem); font-weight: 400; line-height: 1.6; color: var(--ink-muted); max-width: 35rem; margin-bottom: 2.5rem; opacity: 0; transform: translateY(24px); animation: reveal-up var(--duration-reveal) var(--ease-out) 0.22s forwards; }
   .hero-capabilities { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 3rem; opacity: 0; transform: translateY(24px); animation: reveal-up var(--duration-reveal) var(--ease-out) 0.3s forwards; }
   /* NOTE: inert <span>s. They previously hover-lifted, which read as
      "clickable" and led nowhere. Make them <a> if you want it back. */

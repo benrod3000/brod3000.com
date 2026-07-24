@@ -133,7 +133,7 @@ body::before {
   .nav-top { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 var(--section-pad-x); transition: background var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out); }
   .nav-top.is-scrolled { background: rgba(253, 251, 249, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 2px solid var(--ink); }
   .nav-inner { max-width: var(--content-max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 4rem; }
-  .nav-logo { display: block; width: 2.25rem; height: 2.25rem; border-radius: 0; overflow: hidden; border: 2px solid var(--ink); flex-shrink: 0; }
+  .nav-logo { display: block; width: 2.25rem; height: 2.25rem; border-radius: 0; overflow: hidden; flex-shrink: 0; }
   .nav-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .nav-links { display: flex; align-items: center; gap: 2rem; }
   .nav-link { font-family: var(--font-product); font-size: 1.05rem; font-weight: 400;   /* Bebas ships ONE weight — 700 triggers faux-bold */ letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-muted); transition: color var(--duration-fast) var(--ease-out); }
@@ -287,6 +287,20 @@ body::before {
 
   .section-footer { padding: 3rem var(--section-pad-x); background: var(--bg-warm); border-top: 2px solid var(--ink); }
   .footer-text { font-size: var(--text-small); color: var(--ink-muted); text-align: center; }
+  .footer-sep { color: var(--border-strong); margin: 0 0.25rem; }
+  .footer-link { color: var(--ink-muted); border-bottom: 1px solid transparent; transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out); }
+  .footer-link:hover, .footer-link:focus-visible { color: var(--ink); border-color: var(--accent); }
+
+  /* Legal modal */
+  .legal-modal { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; padding: 1.5rem; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; }
+  .legal-modal.is-open { opacity: 1; pointer-events: auto; }
+  .legal-modal-backdrop { position: absolute; inset: 0; background: rgba(20, 20, 19, 0.5); }
+  .legal-modal-panel { position: relative; z-index: 1; max-width: 40rem; width: 100%; max-height: 80dvh; overflow-y: auto; background: var(--bg); border: 2px solid var(--ink); box-shadow: var(--offset-lg) var(--offset-lg) 0 var(--accent); padding: 2.5rem 2rem 2rem; }
+  .legal-modal-close { position: absolute; top: 0.75rem; right: 0.875rem; font-size: 1.5rem; line-height: 1; color: var(--ink-muted); padding: 0.25rem 0.5rem; transition: color var(--duration-fast) var(--ease-out); }
+  .legal-modal-close:hover, .legal-modal-close:focus-visible { color: var(--ink); }
+  .legal-modal-content h2 { font-family: var(--font-product); font-size: 1.75rem; font-weight: 400; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.5rem; }
+  .legal-modal-content p { font-size: 0.95rem; color: var(--ink-soft); line-height: 1.7; margin-bottom: 1rem; }
+  .legal-modal-content a { color: var(--accent-text); text-decoration: underline; }
 }
 
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }

@@ -197,6 +197,47 @@ function initContactForm() {
   contactForm.addEventListener('submit', handleFormSubmit);
 }
 
+function initLegalModal() {
+  const modal = document.getElementById('legal-modal');
+  const content = document.getElementById('legal-modal-content');
+  const closeBtn = modal?.querySelector('.legal-modal-close');
+  const backdrop = modal?.querySelector('.legal-modal-backdrop');
+  if (!modal || !content) return;
+
+  function open(slug) {
+    const source = document.getElementById('legal-content-' + slug);
+    if (!source) return;
+    content.innerHTML = source.innerHTML;
+    const oldTitle = document.getElementById('legal-modal-title');
+    if (oldTitle) oldTitle.removeAttribute('id');
+    const h2 = content.querySelector('h2');
+    if (h2) h2.id = 'legal-modal-title';
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function close() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn?.addEventListener('click', close);
+  backdrop?.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+  });
+
+  document.querySelectorAll('[data-modal]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      open(link.dataset.modal);
+    });
+  });
+}
+
 function initFooterYear() {
   const yearEl = document.getElementById('footer-year');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
@@ -209,4 +250,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavTracking();   // into the drawer, and tracking caches the link list.
   initContactForm();
   initFooterYear();
+  initLegalModal();
 });

@@ -252,7 +252,44 @@
     </div>
   </section>
   </main>
-  <footer class="section-footer"><div class="section-inner"><p class="footer-text">© <span id="footer-year">2026</span> Ben Rodriguez</p></div></footer>
+
+  <!-- Legal modal -->
+  <div class="legal-modal" id="legal-modal" aria-hidden="true" role="dialog" aria-labelledby="legal-modal-title">
+    <div class="legal-modal-backdrop"></div>
+    <div class="legal-modal-panel">
+      <button class="legal-modal-close" aria-label="Close">×</button>
+      <div class="legal-modal-content" id="legal-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Hidden legal content -->
+  <div id="legal-content-privacy" class="sr-only" aria-hidden="true">
+    <h2>Privacy Policy</h2>
+    <p>This site does not collect, store, or process personal data beyond what is necessary to deliver the page to your browser. No cookies are set for tracking purposes. No analytics scripts collect personally identifiable information.</p>
+    <p>The contact form is powered by Formspree. When you submit the form, your name, email address, and message are transmitted to Formspree's servers for delivery. Formspree's privacy policy applies to that data. No copy of your message is stored on this server.</p>
+    <p>Web server logs (IP address, requested URL, timestamp) are collected by Cloudflare and GitHub Pages for operational purposes. These logs are not used for tracking or profiling.</p>
+    <p>If you have questions, contact <a href="mailto:ben@brod3000.com">ben@brod3000.com</a>.</p>
+  </div>
+
+  <div id="legal-content-terms" class="sr-only" aria-hidden="true">
+    <h2>Terms of Use</h2>
+    <p>This website and its content are provided for informational purposes. All content — including text, images, and design — is the property of Ben Rodriguez unless otherwise noted.</p>
+    <p>You may not reproduce, distribute, or use any content from this site for commercial purposes without permission.</p>
+    <p>The contact form is provided as a convenience. By submitting it, you agree to be contacted at the email address you provide. I will not use your information for any purpose other than responding to your inquiry.</p>
+    <p>This site is built and maintained by Ben Rodriguez. No warranties are made regarding availability or accuracy.</p>
+  </div>
+
+  <footer class="section-footer">
+    <div class="section-inner">
+      <p class="footer-text">
+        © <span id="footer-year">2026</span> Ben Rodriguez
+        <span class="footer-sep">·</span>
+        <a href="#privacy" class="footer-link" data-modal="privacy">Privacy</a>
+        <span class="footer-sep">·</span>
+        <a href="#terms" class="footer-link" data-modal="terms">Terms</a>
+      </p>
+    </div>
+  </footer>
   <script type="module" src="runtime-v2.js?v=2"></script>
 </body>
 </html>

@@ -110,10 +110,22 @@
   .section-rule { width: 100%; height: 2px; background: var(--ink); border: none; max-width: var(--content-max); margin: 0 auto; opacity: 0.12; }
 }
 
-/* `screen` blend over a near-white page returns near-white — the canvas was
-   rendering ~nothing while burning 150 particles + a 52px blur every frame.
-   `multiply` actually shows. Tune opacity 0.10–0.24 to taste. */
-.ambient-canvas { position: fixed; inset: 0; z-index: 0; width: 100vw; height: 100dvh; pointer-events: none; opacity: 0.16; mix-blend-mode: multiply; }
+/* Static CSS gradient mesh — replaces the 150-particle canvas animation.
+   Zero JS, zero CPU, GPU-composited. No blend mode (avoids extra compositing).
+   Subtle vignette for depth. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.14;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(39, 195, 159, 0.08), transparent 40%),
+    radial-gradient(circle at 76% 82%, rgba(39, 195, 159, 0.06), transparent 38%),
+    radial-gradient(circle at 52% 48%, rgba(20, 20, 19, 0.03), transparent 50%),
+    radial-gradient(circle at center, transparent 55%, rgba(0, 0, 0, 0.025) 100%);
+}
 
 @layer components {
   .skip-link { position: fixed; top: 0; left: 0; z-index: 200; transform: translateY(-120%); padding: 0.75rem 1.25rem; background: var(--ink); color: #fff; font-family: var(--font-body); font-size: var(--text-label); font-weight: 600; transition: transform var(--duration-fast) var(--ease-out); }

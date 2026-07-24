@@ -241,12 +241,20 @@
   }
 
   .nav-logo {
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--ink);
-    letter-spacing: -0.02em;
-    padding: 0.25rem 0;
+    display: block;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0;
+    overflow: hidden;
+    border: 2px solid var(--ink);
+    flex-shrink: 0;
+  }
+
+  .nav-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .nav-links {
@@ -256,11 +264,13 @@
   }
 
   .nav-link {
-    font-size: var(--text-label);
-    font-weight: 500;
+    font-family: var(--font-product);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     color: var(--ink-muted);
     transition: color var(--duration-fast) var(--ease-out);
-    letter-spacing: -0.01em;
   }
 
   .nav-link:hover,
@@ -424,7 +434,7 @@
     position: absolute;
     inset: 0;
     z-index: 1;
-    background-image: url('images/profile.jpg');
+    background-image: url('images/background.webp');
     background-size: cover;
     background-position: center 30%;
     background-repeat: no-repeat;
@@ -480,10 +490,11 @@
   }
 
   .chapter-title {
-    font-family: var(--font-display);
+    font-family: var(--font-product);
     font-size: var(--text-chapter-title);
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
     line-height: 1.15;
     color: var(--ink);
     margin-bottom: 1.5rem;
@@ -1333,12 +1344,8 @@
   }
 
   .mobile-nav-drawer .nav-link {
-    font-size: 1.5rem;
-    font-weight: 600;
-  }
-
-  .nav-link {
-    font-size: var(--text-small);
+    font-size: 1.75rem;
+    font-weight: 700;
   }
 
   .hero-content {

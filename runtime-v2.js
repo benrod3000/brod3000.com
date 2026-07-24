@@ -266,10 +266,96 @@ function initNav() {
 }
 
 // ============================================================================
+// CONTACT FORM
+// ============================================================================
+
+/** @type {HTMLFormElement|null} */
+let contactForm = null;
+
+/**
+ * Show form status message.
+ * @param {'ok'|'error'} type
+ * @param {string} message
+ */
+function showFormStatus(type, message) {
+  const status = document.getElementById('form-status');
+  if (!status) return;
+  status.textContent = message;
+  status.className = 'form-status form-status--' + type;
+}
+
+/**
+ * Handle form submission.
+ * @param {SubmitEvent} e
+ */
+async function handleFormSubmit(e) {
+  e.preventDefault();
+  const form = /** @type {HTMLFormElement} */ (e.target);
+  const submitBtn = form.querySelector('.form-submit');
+  const formData = new FormData(form);
+
+  // Loading state
+  if (submitBtn) submitBtn.classList.add('is-loading');
+  showFormStatus('ok', '');
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      signal: controller.signal,
+      headers: { 'Accept': 'application/json' },
+    });
+
+    clearTimeout(timeout);
+
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      const msg = body.errors?.map(/** @param {{message:string}} e */e => e.message).join(', ') || 'Something went wrong.';
+      throw new Error(msg);
+    }
+
+    showFormStatus('ok', 'Message sent. I\'ll get back to you soon.');
+    form.reset();
+  } catch (err) {
+    clearTimeout(timeout);
+    const message = err instanceof Error
+      ? (err.name === 'AbortError' ? 'Request timed out. Please try again or email me directly.' : err.message)
+      : 'Something went wrong. Please email me directly at ben@brod3000.com.';
+    showFormStatus('error', message);
+  } finally {
+    if (submitBtn) submitBtn.classList.remove('is-loading');
+  }
+}
+
+/** Bind contact form handler. */
+function initContactForm() {
+  contactForm = /** @type {HTMLFormElement|null} */ (document.getElementById('contact-form'));
+  if (!contactForm) return;
+  contactForm.addEventListener('submit', handleFormSubmit);
+}
+
+// ============================================================================
+// FOOTER
+// ============================================================================
+
+/** Set the footer copyright year. */
+function initFooterYear() {
+  const yearEl = document.getElementById('footer-year');
+  if (yearEl) {
+    yearEl.textContent = String(new Date().getFullYear());
+  }
+}
+
+// ============================================================================
 // BOOT
 // ============================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
   initAmbientCanvas();
   initNav();
+  initContactForm();
+  initFooterYear();
 });

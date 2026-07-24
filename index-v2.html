@@ -283,6 +283,279 @@
     </div>
   </section>
 
+  <!-- ===== CHAPTER 3: ARCHITECTURE ===== -->
+  <section class="section chapter" id="architecture">
+    <div class="section-inner">
+
+      <div class="chapter-label">03</div>
+      <h2 class="chapter-title">Architecture</h2>
+      <p class="chapter-subtitle">Built like a platform, not a project.</p>
+
+      <!-- Architecture diagram -->
+      <div class="arch-diagram">
+        <div class="arch-node arch-node--frontend">Next.js</div>
+        <div class="arch-connector arch-connector--h">→</div>
+        <div class="arch-node arch-node--api">API Layer</div>
+        <div class="arch-connector arch-connector--v1">↓</div>
+        <div class="arch-connector arch-connector--v2">↓</div>
+        <div class="arch-node arch-node--queue">Email Queue</div>
+        <div class="arch-node arch-node--analytics">Analytics Pipeline</div>
+        <div class="arch-connector arch-connector--v3">↓</div>
+        <div class="arch-connector arch-connector--v4">↓</div>
+        <div class="arch-node arch-node--provider">Provider Abstraction</div>
+        <div class="arch-node arch-node--db">Data Store</div>
+      </div>
+
+      <!-- Architecture detail cards -->
+      <div class="arch-grid">
+        <div class="arch-card">
+          <h4 class="arch-card-title">Provider abstraction</h4>
+          <p class="arch-card-body">Multiple email providers behind a single interface. Swap vendors without changing application code.</p>
+        </div>
+        <div class="arch-card">
+          <h4 class="arch-card-title">Email infrastructure</h4>
+          <p class="arch-card-body">Queue system for reliable delivery at scale. Bounce handling, retry logic, and deliverability monitoring.</p>
+        </div>
+        <div class="arch-card">
+          <h4 class="arch-card-title">Queue systems</h4>
+          <p class="arch-card-body">Job-based architecture for campaign sends. Thousands of emails dispatched without blocking the main thread.</p>
+        </div>
+        <div class="arch-card">
+          <h4 class="arch-card-title">Subscriber management</h4>
+          <p class="arch-card-body">Import, export, tagging, segmentation. Every subscriber has a timeline, not just a row in a table.</p>
+        </div>
+        <div class="arch-card">
+          <h4 class="arch-card-title">Analytics engine</h4>
+          <p class="arch-card-body">Open tracking, click tracking, growth metrics. Real-time data without third-party analytics scripts.</p>
+        </div>
+        <div class="arch-card">
+          <h4 class="arch-card-title">Reliability &amp; monitoring</h4>
+          <p class="arch-card-body">Delivery monitoring, bounce classification, and health checks. Designed for 99%+ deliverability.</p>
+        </div>
+      </div>
+
+      <hr class="section-rule">
+
+      <blockquote class="pull-quote">
+        <p>This isn't a CRUD app with a Mailchimp integration. Every component was designed for reliability, not speed to market.</p>
+      </blockquote>
+
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER 4: PRODUCT PHILOSOPHY ===== -->
+  <section class="section chapter" id="philosophy">
+    <div class="section-inner">
+
+      <div class="chapter-label">04</div>
+      <h2 class="chapter-title">Product Philosophy</h2>
+      <p class="chapter-subtitle">How I think about building products.</p>
+
+      <div class="philosophy-grid">
+        <div class="philosophy-card">
+          <div class="philosophy-number">01</div>
+          <h3 class="philosophy-title">Systems Over Tactics</h3>
+          <blockquote class="philosophy-quote">
+            <p>"I don't optimize campaigns. I build the infrastructure that makes campaigns work."</p>
+          </blockquote>
+          <p class="philosophy-body">Campaigns are temporary. Infrastructure compounds. Every system I build is designed to get stronger the longer it runs — not weaker.</p>
+        </div>
+
+        <div class="philosophy-card">
+          <div class="philosophy-number">02</div>
+          <h3 class="philosophy-title">Audience Ownership</h3>
+          <blockquote class="philosophy-quote">
+            <p>"Your audience is your most valuable business asset. Treat it that way."</p>
+          </blockquote>
+          <p class="philosophy-body">Platforms treat audiences like inventory. I build tools that treat them like relationships. The difference shows up in every product decision.</p>
+        </div>
+
+        <div class="philosophy-card">
+          <div class="philosophy-number">03</div>
+          <h3 class="philosophy-title">Compound Retention</h3>
+          <blockquote class="philosophy-quote">
+            <p>"Acquisition creates attention. Retention creates value."</p>
+          </blockquote>
+          <p class="philosophy-body">LTV compounds when acquisition and retention share the same architecture. Most tools optimize for one or the other. I build for both.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER 5: MORE WORK ===== -->
+  <section class="section chapter" id="more-work">
+    <div class="section-inner">
+
+      <div class="chapter-label">05</div>
+      <h2 class="chapter-title">More Work</h2>
+      <p class="chapter-subtitle">Different problems. Same philosophy.</p>
+
+      <div class="work-grid">
+        <div class="work-card">
+          <div class="work-card-image">
+            <div class="screenshot-placeholder">
+              <span class="screenshot-label">Community growth</span>
+            </div>
+          </div>
+          <div class="work-card-body">
+            <h3 class="work-card-title">Community &amp; Audience Growth</h3>
+            <p class="work-card-desc">Building engaged communities around shared interests. Reddit communities, content strategy, and audience development at scale.</p>
+            <ul class="work-card-outcomes">
+              <li>Scaled communities from zero to thousands of engaged members</li>
+              <li>Developed content strategies that drive organic growth</li>
+              <li>Built systems for community management and moderation</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div class="work-card-image">
+            <div class="screenshot-placeholder">
+              <span class="screenshot-label">brod3000.com</span>
+            </div>
+          </div>
+          <div class="work-card-body">
+            <h3 class="work-card-title">This Website</h3>
+            <p class="work-card-desc">Personal brand infrastructure. Owned platform, zero dependencies, built to demonstrate the audience ownership thesis.</p>
+            <ul class="work-card-outcomes">
+              <li>Zero build step — deploys as static files to any CDN</li>
+              <li>CSS @layer architecture with design tokens</li>
+              <li>Canvas ambient engine, no framework, no tracking scripts</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER 6: BACKGROUND ===== -->
+  <section class="section chapter" id="about">
+    <div class="section-inner">
+
+      <div class="chapter-label">06</div>
+      <h2 class="chapter-title">Background</h2>
+
+      <div class="about-narrative">
+        <div class="about-portrait">
+          <img src="images/profile.jpg" alt="Ben Rodriguez" loading="lazy" width="200" height="200">
+        </div>
+        <div class="about-text">
+          <p>I spent years helping businesses grow audiences — running digital marketing for companies scaling from six figures to eight, managing multi-channel campaigns across paid, organic, and email.</p>
+          <p>Eventually I realized the tools businesses relied on were optimized for platforms, not ownership. So I started building the infrastructure I wished existed.</p>
+        </div>
+      </div>
+
+      <hr class="section-rule">
+
+      <!-- Stats row -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <span class="stat-number">11+</span>
+          <span class="stat-label">Years experience</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">20+</span>
+          <span class="stat-label">Campaigns launched</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">3×</span>
+          <span class="stat-label">Average ROAS</span>
+        </div>
+      </div>
+
+      <hr class="section-rule">
+
+      <!-- Timeline -->
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="timeline-year">2010</span>
+          <span class="timeline-role">Tour Manager &amp; Merch Manager</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2011</span>
+          <span class="timeline-role">Digital Marketing Manager</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2016</span>
+          <span class="timeline-role">Digital Marketing Director</span>
+        </div>
+        <div class="timeline-item timeline-item--active">
+          <span class="timeline-year">2021</span>
+          <span class="timeline-role">Building Veloce</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="section chapter" id="contact">
+    <div class="section-inner section-narrow">
+
+      <h2 class="chapter-title">Let's build something.</h2>
+
+      <blockquote class="pull-quote">
+        <p>If your growth depends on constant output, the structure underneath it needs to change. Share what feels misaligned. I'll map a clear next step.</p>
+      </blockquote>
+
+      <!-- Contact form -->
+      <form class="contact-form" id="contact-form" action="https://formspree.io/f/mdavybdy" method="POST">
+        <!-- Honeypot -->
+        <input type="text" name="_gotcha" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <div class="form-field">
+          <label for="form-name" class="form-label">Name</label>
+          <input type="text" id="form-name" name="name" class="form-input" required placeholder="Your name" autocomplete="name">
+        </div>
+
+        <div class="form-field">
+          <label for="form-email" class="form-label">Email</label>
+          <input type="email" id="form-email" name="email" class="form-input" required placeholder="you@example.com" autocomplete="email">
+        </div>
+
+        <div class="form-field">
+          <label for="form-message" class="form-label">Message</label>
+          <textarea id="form-message" name="message" class="form-input form-textarea" required placeholder="Tell me about what you're building or what feels misaligned." rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary form-submit">
+          <span class="form-submit-text">Send message</span>
+          <span class="form-submit-loading" aria-hidden="true">Sending…</span>
+        </button>
+
+        <div class="form-status" id="form-status" aria-live="polite"></div>
+      </form>
+
+      <hr class="section-rule">
+
+      <!-- Direct contact -->
+      <div class="contact-direct">
+        <a href="mailto:ben@brod3000.com" class="contact-link">ben@brod3000.com</a>
+        <span class="contact-sep">·</span>
+        <span class="contact-location">Southern California</span>
+      </div>
+
+      <!-- Social -->
+      <div class="contact-socials">
+        <a href="https://github.com/benrod3000" class="contact-social-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <span class="contact-sep">·</span>
+        <a href="https://www.reddit.com/user/benrod1/" class="contact-social-link" target="_blank" rel="noopener noreferrer">Reddit</a>
+        <span class="contact-sep">·</span>
+        <a href="https://www.behance.net/benrodriguez" class="contact-social-link" target="_blank" rel="noopener noreferrer">Behance</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="section-footer">
+    <div class="section-inner">
+      <p class="footer-text">© <span id="footer-year">2026</span> Ben Rodriguez</p>
+    </div>
+  </footer>
+
 
 
   <script type="module" src="runtime-v2.js?v=1"></script>

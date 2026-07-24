@@ -1,5 +1,5 @@
 /* ============================================================
-   brod3000.com — Design System v2
+   brod3000.com Design System v2
    ============================================================
    Layer order: tokens → reset → base → layout → components → sections
    Lower layers cannot override higher layers. This eliminates
@@ -967,7 +967,7 @@
   }
 
   .work-card-outcomes li::before {
-    content: "—";
+    content: "•";
     position: absolute;
     left: 0;
     color: var(--accent);
@@ -1248,7 +1248,7 @@
 }
 
 /* ============================================================
-   RESPONSIVE — Mobile (≤ 768px)
+   RESPONSIVE: Mobile (max 768px)
    ============================================================ */
 @media (max-width: 768px) {
   .nav-links {

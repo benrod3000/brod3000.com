@@ -1,5 +1,5 @@
 /**
- * brod3000.com — Runtime v2
+ * brod3000.com Runtime v2
  * ES module. Handles: canvas ambient animation, navigation behavior.
  * Uses Intersection Observer for scroll-driven effects (replaces GSAP).
  */
@@ -91,7 +91,7 @@ function createParticles(count) {
   }
 }
 
-/** Animation loop — draw particles via double-buffer. */
+/** Animation loop: draw particles via double-buffer. */
 function drawFrame() {
   if (!ctx || !bCtx || !ambientCanvas || !bufferCanvas) return;
 
@@ -216,7 +216,7 @@ function initAmbientCanvas() {
     resizeCanvas();
   });
 
-  // Visibility change — pause/release on tab switch
+  // Visibility change: pause/release on tab switch
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       stopCanvas();
@@ -248,7 +248,7 @@ function initAmbientCanvas() {
 /** @type {HTMLElement|null} */
 let navTop = null;
 
-/** Handle scroll — add backdrop to nav when scrolled past hero. */
+/** Handle scroll: add backdrop to nav when scrolled past hero. */
 function onScroll() {
   if (!navTop) return;
   const scrollY = window.scrollY;

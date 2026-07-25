@@ -1249,26 +1249,6 @@ p {
   padding-top: 180px;
 }
 
-.about-bridge {
-  width: min(140px, 42%);
-  height: 1px;
-  margin: 0 auto 120px;
-  background: color-mix(in srgb, var(--accent) 28%, transparent);
-  position: relative;
-}
-
-.about-bridge::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 5px;
-  height: 5px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--accent) 62%, #6b635a);
-  transform: translate(-50%, -50%);
-}
-
 .stage-card > * {
   position: relative;
   z-index: 1;
@@ -2977,11 +2957,6 @@ body.design-digital .profile-nav .rail-tab {
   .stage-card[data-section="contact"]::before {
     right: auto;
     left: 14px;
-  }
-
-  .about-bridge {
-    width: min(120px, 44%);
-    margin: 0 auto 60px;
   }
 
   .about-grid,

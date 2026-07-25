@@ -792,11 +792,6 @@ function renderAbout() {
     article.appendChild(row);
   }
 
-  const bridge = document.createElement('div');
-  bridge.className = 'about-bridge';
-  bridge.setAttribute('aria-hidden', 'true');
-  article.appendChild(bridge);
-
   return article;
 }
 

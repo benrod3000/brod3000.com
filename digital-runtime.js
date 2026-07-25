@@ -786,9 +786,9 @@ function renderAbout() {
     row.className = 'stats-row';
     data.stats.forEach((/** @type {{ value: number, suffix: string, label: string }} */ s) => {
       const stat = { ...s };
-      // Derive years from the earliest listed role (2010) instead of a hardcoded value.
+      // Derive years from the earliest listed role (2015) instead of a hardcoded value.
       if (stat.label && stat.label.includes('Years')) {
-        stat.value = new Date().getFullYear() - 2010;
+        stat.value = new Date().getFullYear() - 2015;
       }
       const pill = createStatPill(stat);
       if (pill) row.appendChild(pill);

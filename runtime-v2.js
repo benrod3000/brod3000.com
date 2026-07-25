@@ -8,6 +8,7 @@
 // NAVIGATION
 // ============================================================================
 
+/** @type {HTMLElement|null} */
 let navTop = null;
 
 function onScroll() {
@@ -62,7 +63,8 @@ function initNavTracking() {
     let best = null, bestHeight = 0;
     visible.forEach((height, el) => { if (height > bestHeight) { bestHeight = height; best = el; } });
     if (!best) return;
-    navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + best.id));
+    const activeId = /** @type {Element} */ (best).id;
+    navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + activeId));
     // threshold 0, NOT 0.3. With the root shrunk to ~40% of the viewport,
     // a section taller than ~1.3 viewports can never expose 30% of ITSELF,
     // so the old config silently never fired.
@@ -74,7 +76,9 @@ function initNavTracking() {
 // MOBILE NAV DRAWER
 // ============================================================================
 
+/** @type {HTMLButtonElement|null} */
 let mobileNavToggle = null;
+/** @type {HTMLDivElement|null} */
 let mobileNavDrawer = null;
 
 function toggleMobileNav() {
@@ -150,9 +154,10 @@ function initMobileNav() {
   nav.appendChild(mobileNavDrawer);
 
   // Focus trap: Tab/Shift+Tab cycle within drawer
-  mobileNavDrawer.addEventListener('keydown', (e) => {
+  const drawer = mobileNavDrawer;
+  drawer.addEventListener('keydown', (e) => {
     if (e.key !== 'Tab') return;
-    const links = mobileNavDrawer.querySelectorAll('a');
+    const links = drawer.querySelectorAll('a');
     if (!links.length) return;
     const first = links[0];
     const last = links[links.length - 1];
@@ -167,8 +172,13 @@ function initMobileNav() {
 // CONTACT FORM
 // ============================================================================
 
+/** @type {HTMLFormElement|null} */
 let contactForm = null;
 
+/**
+ * @param {string} type
+ * @param {string} message
+ */
 function showFormStatus(type, message) {
   const status = document.getElementById('form-status');
   if (!status) return;
@@ -176,9 +186,12 @@ function showFormStatus(type, message) {
   status.className = 'form-status form-status--' + type;
 }
 
+/**
+ * @param {SubmitEvent} e
+ */
 async function handleFormSubmit(e) {
   e.preventDefault();
-  const form = e.target;
+  const form = /** @type {HTMLFormElement} */ (e.target);
   const submitBtn = form.querySelector('.form-submit');
   const formData = new FormData(form);
   if (submitBtn) submitBtn.classList.add('is-loading');
@@ -190,7 +203,8 @@ async function handleFormSubmit(e) {
     clearTimeout(timeout);
     if (!res.ok) {
       const body = await res.json().catch(() => ({}));
-      throw new Error(body.errors?.map(e => e.message).join(', ') || 'Something went wrong.');
+      const messages = /** @type {{errors?: Array<{message: string}>}} */ (body).errors?.map(e => e.message);
+      throw new Error(messages?.join(', ') || 'Something went wrong.');
     }
     showFormStatus('ok', "Message sent. I'll get back to you soon.");
     form.reset();
@@ -206,7 +220,7 @@ async function handleFormSubmit(e) {
 }
 
 function initContactForm() {
-  contactForm = document.getElementById('contact-form');
+  contactForm = /** @type {HTMLFormElement|null} */ (document.getElementById('contact-form'));
   if (!contactForm) return;
   contactForm.addEventListener('submit', handleFormSubmit);
 }
@@ -214,13 +228,14 @@ function initContactForm() {
 function initLegalModal() {
   const modal = document.getElementById('legal-modal');
   const content = document.getElementById('legal-modal-content');
-  const closeBtn = modal?.querySelector('.legal-modal-close');
+  const closeBtn = /** @type {HTMLElement|null} */ (modal?.querySelector('.legal-modal-close') ?? null);
   const backdrop = modal?.querySelector('.legal-modal-backdrop');
   if (!modal || !content) return;
 
+  /** @param {string} slug */
   function open(slug) {
     const source = document.getElementById('legal-content-' + slug);
-    if (!source) return;
+    if (!source || !content || !modal) return;
     content.innerHTML = source.innerHTML;
     const oldTitle = document.getElementById('legal-modal-title');
     if (oldTitle) oldTitle.removeAttribute('id');
@@ -233,6 +248,7 @@ function initLegalModal() {
   }
 
   function close() {
+    if (!modal) return;
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
@@ -241,13 +257,15 @@ function initLegalModal() {
   closeBtn?.addEventListener('click', close);
   backdrop?.addEventListener('click', close);
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+    if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) close();
   });
 
   document.querySelectorAll('[data-modal]').forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
-      open(link.dataset.modal);
+      const el = /** @type {HTMLElement} */ (link);
+      const slug = el.dataset.modal;
+      if (slug) open(slug);
     });
   });
 }

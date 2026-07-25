@@ -305,11 +305,8 @@ body::before {
   .hero-content { padding-top: 5rem; }
   .hero-name { font-size: clamp(2.8rem, 12vw, 3.6rem); }
   .hero-thesis { font-size: 1.125rem; max-width: 100%; }
-  .hero-capabilities { gap: 0.5rem; }
-  .hero-capability { font-size: var(--text-small); padding: 0.4rem 1rem; }
   .hero-portrait { background-position: center 20%; opacity: 0.55; }
   .hero-portrait-gradient { background: linear-gradient(to bottom, var(--bg) 0%, rgba(253, 251, 249, 0.9) 25%, rgba(253, 251, 249, 0.55) 55%, rgba(253, 251, 249, 0.25) 100%); }
-  .problem-grid { grid-template-columns: 1fr; }
   .veloce-card { padding: 1.5rem; }
   .veloce-ctas { flex-direction: column; align-items: stretch; }
   .btn-primary { justify-content: center; }

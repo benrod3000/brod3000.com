@@ -82,7 +82,17 @@ function toggleMobileNav() {
   const isOpen = mobileNavDrawer.classList.toggle('is-open');
   mobileNavDrawer.setAttribute('aria-hidden', String(!isOpen));
   if (mobileNavToggle) mobileNavToggle.setAttribute('aria-expanded', String(isOpen));
-  document.body.style.overflow = isOpen ? 'hidden' : '';
+  if (isOpen) {
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    document.body.style.top = `-${window.scrollY}px`;
+  } else {
+    const scrollY = parseInt(document.body.style.top || '0', 10);
+    document.body.style.position = '';
+    document.body.style.width = '';
+    document.body.style.top = '';
+    window.scrollTo(0, Math.abs(scrollY));
+  }
 
   // Make background content inert while drawer is open
   const main = document.getElementById('main');
@@ -105,7 +115,11 @@ function closeMobileNav() {
   mobileNavDrawer.classList.remove('is-open');
   mobileNavDrawer.setAttribute('aria-hidden', 'true');
   if (mobileNavToggle) mobileNavToggle.setAttribute('aria-expanded', 'false');
-  document.body.style.overflow = '';
+  const scrollY = parseInt(document.body.style.top || '0', 10);
+  document.body.style.position = '';
+  document.body.style.width = '';
+  document.body.style.top = '';
+  window.scrollTo(0, Math.abs(scrollY));
 
   const main = document.getElementById('main');
   if (main) main.removeAttribute('inert');

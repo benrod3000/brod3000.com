@@ -2673,6 +2673,24 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
   background: #f5e642 !important;
 }
 
+/* Section nav — compact 2x2 grid inside profile card */
+body.design-digital .profile-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin: 6px 18px 12px;
+  padding-top: 8px;
+  border-top: 3px solid #0a0a0a;
+}
+
+body.design-digital .profile-nav .rail-tab {
+  width: 100% !important;
+  justify-content: center !important;
+  padding: 8px 10px !important;
+  font-size: 14px !important;
+  box-shadow: 3px 3px 0 var(--brut-ink) !important;
+}
+
 /* Keep CTA-style rail tabs from overlapping content */
 
 /* ============================================================
@@ -2691,7 +2709,7 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
   .digital-container {
     width: 100%;
     height: calc(100dvh - 18px);
-    grid-template-columns: 56px 286px minmax(0, 1fr);
+    grid-template-columns: 286px minmax(0, 1fr);
     column-gap: 12px;
   }
 
@@ -3286,31 +3304,14 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
 
 @media (min-width: 921px) {
   body.design-digital .digital-container {
-    grid-template-columns: max-content 340px minmax(0, 1fr);
+    grid-template-columns: 340px minmax(0, 1fr);
     column-gap: 10px;
-  }
-
-  body.design-digital .rail-nav {
-    width: auto;
-    justify-items: start;
-    padding-inline: 0;
-  }
-
-  body.design-digital .rail-main {
-    width: auto;
-    justify-items: start;
-    gap: 10px;
-  }
-
-  body.design-digital .rail-tab {
-    width: fit-content !important;
-    min-width: 0;
   }
 }
 
 @media (max-width: 1140px) and (min-width: 921px) {
   body.design-digital .digital-container {
-    grid-template-columns: max-content 286px minmax(0, 1fr) !important;
+    grid-template-columns: 286px minmax(0, 1fr) !important;
   }
 }
 

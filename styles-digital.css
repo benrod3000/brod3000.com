@@ -3310,8 +3310,8 @@ body.design-digital .profile-nav .rail-tab {
     top: auto !important;
     display: block !important;
     width: 100% !important;
-    margin: 0 !important;
-    overflow: hidden !important;
+    margin: 0 0 12px !important;
+    overflow: visible !important;
     grid-template-columns: unset !important;
     grid-template-rows: unset !important;
   }
@@ -3373,6 +3373,11 @@ body.design-digital .profile-nav .rail-tab {
   body.design-digital .card-profile .profile-socials {
     margin: 6px 8px 10px;
     padding-top: 6px;
+  }
+
+  /* Profile nav on mobile — full-width 2x2 grid with breathing room */
+  body.design-digital .profile-nav {
+    margin: 8px 12px 14px;
   }
 
   body.design-digital .rail-nav {

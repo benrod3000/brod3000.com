@@ -364,8 +364,8 @@
 
         <footer class="workspace-footer">
           <span>&copy; 2026 BR. All rights reserved.</span>
-          <a href="/privacy.html">Privacy</a>
-          <a href="/terms.html">Terms</a>
+          <a href="#privacy" data-legal="privacy">Privacy</a>
+          <a href="#terms" data-legal="terms">Terms</a>
         </footer>
       </section>
     </main>
@@ -389,12 +389,39 @@
         </p>
         <footer class="workspace-footer">
           <span>&copy; 2026 BR. All rights reserved.</span>
-          <a href="/privacy.html">Privacy</a>
-          <a href="/terms.html">Terms</a>
+          <a href="/privacy.html" data-legal="privacy">Privacy</a>
+          <a href="/terms.html" data-legal="terms">Terms</a>
         </footer>
       </div>
     </div>
   </noscript>
+
+  <!-- Legal slide-up modal -->
+  <div class="legal-modal" id="legal-modal" role="dialog" aria-labelledby="legal-modal-title">
+    <div class="legal-modal-backdrop"></div>
+    <div class="legal-modal-panel">
+      <button type="button" class="legal-modal-close" aria-label="Close">&times;</button>
+      <div class="legal-modal-body" id="legal-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Hidden legal content templates -->
+  <div id="legal-tpl-privacy" class="sr-only">
+    <h2>Privacy Notice</h2>
+    <p>Last updated: July 9, 2026</p>
+    <p>This website is a personal portfolio operated by Ben Rodriguez. This site may collect limited information through standard website technologies including Google Analytics — browser type, device information, pages visited, and general usage patterns. This data is used in aggregate and is not used to personally identify visitors.</p>
+    <p>If you contact me directly, I may retain the information you provide so I can respond to your request. This website may use third party services such as hosting, analytics, fonts, or embedded resources. Those services may process information according to their own privacy policies.</p>
+    <p>You can limit cookies through your browser settings. For questions about this notice, contact <a href="mailto:ben@brod3000.com">ben@brod3000.com</a>.</p>
+    <p>This site is operated from California, United States. Under the CCPA, California residents have the right to know what personal data is collected and to request deletion. This site does not sell personal information.</p>
+  </div>
+
+  <div id="legal-tpl-terms" class="sr-only">
+    <h2>Terms &amp; Conditions</h2>
+    <p>Last updated: July 9, 2026</p>
+    <p>This website is provided for informational purposes, including showcasing personal projects, experience, and professional work. Unless otherwise stated, the content on this website belongs to Ben Rodriguez. Content may not be copied, redistributed, or used commercially without permission.</p>
+    <p>I make reasonable efforts to keep information accurate and current, but I do not guarantee that all information will always be complete, accurate, or up to date. This website may contain links to third party websites. I am not responsible for the content, privacy practices, or availability of external websites.</p>
+    <p>Information shared on this website is for general informational purposes and should not be considered professional, legal, financial, or business advice. These terms may be updated from time to time.</p>
+  </div>
 
   <!-- ===== CONTENT DATA (inline JSON — single source of truth for all text) ===== -->
   <script type="application/json" id="site-content">

@@ -3938,16 +3938,93 @@ img, video, iframe {
     grid-template-columns: 1fr;
   }
 }
-@media (max-width: 920px) {
-  .workspace-body p,
-  .stage-card p {
-    font-size: 1rem;
-  }
-}
 /* ===== MOBILE FONT SIZE ADJUSTMENT ===== */
 @media (max-width: 920px) {
   .workspace-body p,
   .stage-card p {
     font-size: 1rem;
   }
+}
+
+/* ===== LEGAL MODAL (slide-up) ===== */
+body.design-digital .legal-modal {
+  position: fixed !important;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+body.design-digital .legal-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+body.design-digital .legal-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.6);
+}
+body.design-digital .legal-modal-panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 44rem;
+  max-height: 75dvh;
+  overflow-y: auto;
+  background: #ffffff;
+  border: 5px solid #0a0a0a;
+  border-bottom: 0;
+  box-shadow: 0 -8px 0 #0a0a0a;
+  padding: 2.5rem 2rem 2rem;
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+body.design-digital .legal-modal.is-open .legal-modal-panel {
+  transform: translateY(0);
+}
+body.design-digital .legal-modal-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  font-size: 1.6rem;
+  line-height: 1;
+  font-weight: 700;
+  color: #0a0a0a;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  font-family: "Bebas Neue", Impact, "Arial Black", sans-serif;
+  transition: color 0.15s ease;
+}
+body.design-digital .legal-modal-close:hover,
+body.design-digital .legal-modal-close:focus-visible {
+  color: #e8180a;
+}
+body.design-digital .legal-modal-body h2 {
+  font-family: "Bebas Neue", Impact, "Arial Black", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #0a0a0a;
+  margin-bottom: 1.25rem;
+}
+body.design-digital .legal-modal-body p {
+  font-size: 0.95rem;
+  color: #2c2621;
+  line-height: 1.7;
+  margin-bottom: 0.875rem;
+}
+body.design-digital .legal-modal-body a {
+  color: #0a0a0a;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+body.design-digital .legal-modal-body a:hover {
+  color: #e8180a;
 }

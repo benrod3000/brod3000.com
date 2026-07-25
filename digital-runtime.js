@@ -1309,6 +1309,60 @@ if (profileCard && stage) {
   syncMobileProfileCompaction();
 }
 
+/* =========================================================================
+   LEGAL MODAL — slide-up from bottom
+   ========================================================================= */
+
+(function initLegalModal() {
+  const modal = document.getElementById('legal-modal');
+  const body = document.getElementById('legal-modal-body');
+  const closeBtn = /** @type {HTMLElement|null} */ (modal?.querySelector('.legal-modal-close') ?? null);
+  const backdrop = modal?.querySelector('.legal-modal-backdrop');
+  if (!modal || !body) return;
+
+  /**
+   * @param {string} slug
+   */
+  function open(slug) {
+    if (!modal || !body) return;
+    const tpl = document.getElementById('legal-tpl-' + slug);
+    if (!tpl) return;
+    body.innerHTML = tpl.innerHTML;
+    // Ensure the h2 has an id for aria-labelledby
+    const h2 = body.querySelector('h2');
+    if (h2) h2.id = 'legal-modal-title';
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function close() {
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn?.addEventListener('click', close);
+  backdrop?.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) close();
+  });
+
+  // Event delegation — footer links get re-appended by the SPA on every
+  // section mount, so we listen on the document instead of the links.
+  document.addEventListener('click', (e) => {
+    const target = /** @type {Element|null} */ (e.target);
+    if (!target) return;
+    const link = target.closest('a[data-legal]');
+    if (!link) return;
+    e.preventDefault();
+    const slug = /** @type {HTMLElement} */ (link).dataset.legal;
+    if (slug) open(slug);
+  });
+})();
+
 /* =========================
    GSAP SCROLL ANIMATIONS FOR PORTFOLIO
 ========================= */

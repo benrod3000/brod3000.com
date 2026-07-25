@@ -555,21 +555,25 @@ if (cursor && window.matchMedia('(hover: hover)').matches) {
   bindCursorTargets();
 }
 
-// Rotator — only runs when rotator element exists and tab is visible
+// Rotator — fades between phrases with opacity transition
 /** @type {ReturnType<typeof setInterval>|null} */
 let rotatorTimer = null;
 if (rotator && phrases.length > 1) {
   const advancePhrase = () => {
-    phraseIndex = (phraseIndex + 1) % phrases.length;
-    rotator.textContent = phrases[phraseIndex];
+    rotator.style.opacity = '0';
+    setTimeout(() => {
+      phraseIndex = (phraseIndex + 1) % phrases.length;
+      rotator.textContent = phrases[phraseIndex];
+      rotator.style.opacity = '1';
+    }, 350);
   };
-  rotatorTimer = setInterval(advancePhrase, 2600);
+  rotatorTimer = setInterval(advancePhrase, 3000);
   document.addEventListener('visibilitychange', () => {
     if (document.hidden && rotatorTimer) {
       clearInterval(rotatorTimer);
       rotatorTimer = null;
     } else if (!document.hidden && !rotatorTimer) {
-      rotatorTimer = setInterval(advancePhrase, 2600);
+      rotatorTimer = setInterval(advancePhrase, 3000);
     }
   });
 }

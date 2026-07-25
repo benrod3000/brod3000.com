@@ -529,11 +529,13 @@ p {
 
 .profile-rotator {
   margin-top: 10px;
-  min-height: 20px;
+  min-height: 1.4em;
   color: #83ffd9;
   font-weight: 600;
   font-size: 0.82rem;
   text-shadow: 0 0 10px rgba(39, 195, 159, 0.28);
+  opacity: 1;
+  transition: opacity 0.35s ease;
 }
 
 .profile-facts {
@@ -2507,7 +2509,7 @@ body.design-digital .card-profile .prof-bio {
   padding-left: 10px;
   line-height: 1.55;
   margin-bottom: 14px;
-  min-height: 0;
+  min-height: 1.4em;
 }
 
 body.design-digital .card-profile .prof-stats {

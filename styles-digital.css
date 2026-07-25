@@ -2708,8 +2708,8 @@ body.design-digital .profile-nav .rail-tab {
    ============================================================ */
 @media (max-width: 920px) {
   body.design-digital {
-    display: block;
-    overflow: auto;
+    display: block !important;
+    overflow: auto !important;
     padding: 0;
     min-height: 100dvh;
   }

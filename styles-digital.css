@@ -2320,11 +2320,12 @@ body.design-digital .card-profile {
   box-shadow: 8px 8px 0 #0a0a0a !important;
   position: sticky;
   top: 28px;
-  overflow: hidden;
+  overflow-y: auto;
+  max-height: calc(100dvh - 56px);
 }
 
 body.design-digital .card-profile .prof-photo {
-  height: 260px;
+  height: 210px;
   background-image: url('images/background.webp') !important;
   background-size: cover !important;
   background-position: center !important;

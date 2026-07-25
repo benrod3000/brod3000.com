@@ -2672,6 +2672,7 @@ body.design-digital .profile-nav .rail-tab {
   padding: 8px 10px !important;
   font-size: 14px !important;
   box-shadow: 3px 3px 0 var(--brut-ink) !important;
+  border-radius: 0 !important;
 }
 
 /* Keep CTA-style rail tabs from overlapping content */
@@ -3450,6 +3451,11 @@ body.design-digital .profile-nav .rail-tab {
   }
 
   body.design-digital .rail-tab .second { display: none !important; }
+
+  /* Profile nav buttons — keep sharp corners matching brutalist theme */
+  body.design-digital .profile-nav .rail-tab {
+    border-radius: 0 !important;
+  }
 
   body.design-digital .workspace-body {
     padding: 32px 16px calc(100px + env(safe-area-inset-bottom, 0px)) 16px;

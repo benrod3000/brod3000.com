@@ -771,7 +771,7 @@ function renderAbout() {
     /** @type {Array<{heading: string, text: string}>} */ (data.blocks).forEach(({ heading, text }) => {
       const block = document.createElement('div');
       block.className = 'about-block';
-      block.innerHTML = `<h4>${heading}</h4>`;
+      block.innerHTML = `<h2>${heading}</h2>`;
       const p = document.createElement('p');
       p.textContent = text;
       block.appendChild(p);

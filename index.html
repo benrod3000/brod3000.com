@@ -28,7 +28,7 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
   <!-- Main CSS -->
-  <link rel="stylesheet" href="styles-digital.css?v=73">
+  <link rel="stylesheet" href="styles-digital.css?v=74">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,7 +41,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw==" crossorigin="anonymous" defer data-cfasync="false"></script>
 
   <!-- Main script (deferred) -->
-  <script src="digital-runtime.js?v=17" defer data-cfasync="false"></script>
+  <script src="digital-runtime.js?v=18" defer data-cfasync="false"></script>
 
   <!-- Inline fallback styles (in case external CSS fails) -->
   <style>
@@ -325,7 +325,7 @@
     <aside class="profile-card card-profile" aria-label="Profile panel">
       <div class="prof-photo profile-cover">
         <div class="img-spinner" aria-hidden="true"></div>
-        <img class="blur-up" src="images/ben-portrait.svg" alt="Ben Rodriguez" loading="eager" decoding="async">
+        <img class="blur-up" src="images/ben-portrait.svg" alt="Ben Rodriguez" loading="eager" decoding="async" fetchpriority="high">
         <div class="prof-photo-num" aria-hidden="true">BR</div>
         <div class="prof-avatar" aria-hidden="true">BR</div>
         <div class="prof-status-badge">● AVAILABLE</div>
@@ -447,7 +447,9 @@
     <div class="legal-modal-backdrop"></div>
     <div class="legal-modal-panel">
       <button type="button" class="legal-modal-close" aria-label="Close">&times;</button>
-      <div class="legal-modal-body" id="legal-modal-body"></div>
+      <div class="legal-modal-body" id="legal-modal-body">
+        <h2 id="legal-modal-title" class="sr-only">Legal Information</h2>
+      </div>
     </div>
   </div>
 

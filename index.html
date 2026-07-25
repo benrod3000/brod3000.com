@@ -60,6 +60,15 @@
       overflow: hidden;
     }
 
+    /* Mobile: allow scrolling */
+    @media (max-width: 920px) {
+      body.design-digital {
+        overflow: auto !important;
+        display: block !important;
+        padding: 0;
+      }
+    }
+
     /* --- Font metric fallback — matches Georgia to Playfair Display so the
            font-display:swap doesn't cause layout shift. Metrics from OS/2 +
            hhea tables of both fonts, normalized to 1000 UPM.

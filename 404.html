@@ -152,5 +152,20 @@
       </div>
     </main>
   </div>
+
+  <script>
+    /* Image loader — removes spinner once portrait loads */
+    (function() {
+      var img = document.querySelector('.profile-cover img');
+      var cover = document.querySelector('.profile-cover');
+      if (!img || !cover) return;
+      if (img.complete) {
+        cover.classList.add('is-loaded');
+      } else {
+        img.addEventListener('load', function() { cover.classList.add('is-loaded'); });
+        img.addEventListener('error', function() { cover.classList.add('is-loaded'); });
+      }
+    })();
+  </script>
 </body>
 </html>

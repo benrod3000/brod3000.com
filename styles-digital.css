@@ -3740,22 +3740,22 @@ img, video, iframe {
 }
 
 .prof-body {
-  padding-top: 8px !important;
+  padding-top: 14px !important;
   padding-bottom: 0 !important;
 }
 
 .prof-handle {
-  margin-bottom: 2px !important;
+  margin-bottom: 4px !important;
   color: #1a334f;
 }
 
 .prof-name {
-  margin-bottom: 4px !important;
+  margin-bottom: 8px !important;
   line-height: 1 !important;
 }
 
 .prof-bio {
-  margin-bottom: 8px !important;
+  margin-bottom: 14px !important;
 }
 
 .prof-stats {
@@ -3769,14 +3769,14 @@ img, video, iframe {
 }
 
 .profile-cta {
-  margin-top: 6px !important;
-  margin-bottom: 6px !important;
+  margin-top: 16px !important;
+  margin-bottom: 10px !important;
 }
 
 .profile-socials {
-  margin-top: 4px !important;
-  margin-bottom: 8px !important;
-  padding-top: 4px !important;
+  margin-top: 8px !important;
+  margin-bottom: 10px !important;
+  padding-top: 6px !important;
 }
 /* Make background.webp visible behind badge */
 .profile-cover {

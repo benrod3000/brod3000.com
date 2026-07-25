@@ -1,5 +1,5 @@
 /**
- * @fileoverview SPA runtime — section routing, canvas, animations, forms.
+ * @fileoverview SPA runtime  -  section routing, canvas, animations, forms.
  */
 
 const cardShell = /** @type {HTMLElement|null} */ (document.querySelector('.digital-container'));
@@ -24,7 +24,7 @@ const workspaceFooter = document.querySelector('.workspace-footer');
 const placeFooter = () => {
   if (workspaceFooter && stage) {
     stage.appendChild(workspaceFooter);
-    // Keep the copyright year current — the static fallback in index.html
+    // Keep the copyright year current  -  the static fallback in index.html
     // uses a hardcoded year, but the runtime always updates it on mount.
     const yearSpan = workspaceFooter.querySelector('span');
     if (yearSpan) {
@@ -44,7 +44,7 @@ const compactProfileThreshold = 36;
 const dockScrollThreshold = 18;
 
 /* =========================================================================
-   ERROR SURFACE — logs to console and reports to GA
+   ERROR SURFACE  -  logs to console and reports to GA
    ========================================================================= */
 
 /**
@@ -225,7 +225,7 @@ function initAmbientCanvas() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     // Cap the canvas resolution at 2048px in either dimension.
-    // The canvas is rendered at 0.14 opacity behind a 52px blur — there is
+    // The canvas is rendered at 0.14 opacity behind a 52px blur  -  there is
     // zero perceptual quality loss from downscaling, but memory drops from
     // ~118 MB → ~30 MB on large (2560×1440) displays.
     const MAX_DIM = 2048;
@@ -290,7 +290,7 @@ function initAmbientCanvas() {
 
   prefersReducedMotion.addEventListener('change', refreshAnimationMode);
 
-  // Stop canvas when tab is hidden — saves battery and releases GPU memory.
+  // Stop canvas when tab is hidden  -  saves battery and releases GPU memory.
   // On return, resizeCanvas() reallocates buffers and restart the rAF loop.
   // Reallocation cost is ~10–20 ms (imperceptible at 0.14 opacity).
   document.addEventListener('visibilitychange', () => {
@@ -406,7 +406,7 @@ function bindContactFormHandlers(root) {
               errorMsg = /** @type {Array<{message: string}>} */ (data.errors).map(e => e.message).filter(Boolean).join(', ');
             }
           } catch {
-            // Non-JSON error body — keep generic message
+            // Non-JSON error body  -  keep generic message
           }
           const errSpan = document.createElement('span');
           errSpan.className = 'form-status--error';
@@ -555,7 +555,7 @@ if (cursor && window.matchMedia('(hover: hover)').matches) {
   bindCursorTargets();
 }
 
-// Rotator — fades between phrases with opacity transition
+// Rotator  -  fades between phrases with opacity transition
 /** @type {ReturnType<typeof setInterval>|null} */
 let rotatorTimer = null;
 if (rotator && phrases.length > 1) {
@@ -579,7 +579,7 @@ if (rotator && phrases.length > 1) {
 }
 
 /* =========================================================================
-   CONTENT RENDERING — reads from inline JSON (#site-content), builds DOM
+   CONTENT RENDERING  -  reads from inline JSON (#site-content), builds DOM
    with textContent (injection-safe). All sub-components use <template>
    fragments defined in index.html.
    ========================================================================= */
@@ -827,7 +827,7 @@ function renderServices() {
   expCol.innerHTML = '<h4 class="resume-heading">Experience</h4>';
   const expList = document.createElement('div');
   expList.className = 'timeline-list';
-  // @ts-ignore — data comes from parsed JSON, shapes are known at runtime
+  // @ts-ignore  -  data comes from parsed JSON, shapes are known at runtime
   (data.experience || []).forEach(item => {
     const node = createTimelineItem(item);
     if (node) expList.appendChild(node);
@@ -1032,7 +1032,7 @@ function renderContact() {
     form.appendChild(container);
   });
 
-  // Honeypot — hidden from assistive tech and keyboard order, not just sighted users
+  // Honeypot  -  hidden from assistive tech and keyboard order, not just sighted users
   const gotcha = document.createElement('input');
   gotcha.type = 'text';
   gotcha.name = '_gotcha';
@@ -1137,7 +1137,7 @@ function mountSection(section) {
     // Trigger GSAP scroll animations and refresh for any section
     setTimeout(() => {
       animatePortfolioCards();
-      // @ts-ignore — ScrollTrigger loaded via CDN
+      // @ts-ignore  -  ScrollTrigger loaded via CDN
       ScrollTrigger.refresh();
     }, 100);
   };
@@ -1179,7 +1179,7 @@ function mountSection(section) {
     // Always scroll to top of workspace on section change. The stage has
     // `scroll-behavior: smooth` for normal in-page scrolling, which would
     // otherwise turn this reset into a slow animated scroll (and leave the
-    // new section looking blank/scrolled-down for a beat) — force an
+    // new section looking blank/scrolled-down for a beat)  -  force an
     // instant jump instead, then restore smooth behavior for the user.
     if (stage) {
       const previousScrollBehavior = stage.style.scrollBehavior;
@@ -1218,7 +1218,7 @@ if (radialTrigger && railNav) {
 }
 
 /* =========================================================================
-   HASH ROUTING — makes sections linkable and back-button-correct
+   HASH ROUTING  -  makes sections linkable and back-button-correct
    ========================================================================= */
 
 const VALID_SECTIONS = new Set(['about', 'services', 'portfolio', 'contact']);
@@ -1309,7 +1309,7 @@ if (profileCard && stage) {
 }
 
 /* =========================================================================
-   LEGAL MODAL — slide-up from bottom
+   LEGAL MODAL  -  slide-up from bottom
    ========================================================================= */
 
 (function initLegalModal() {
@@ -1349,7 +1349,7 @@ if (profileCard && stage) {
     if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) close();
   });
 
-  // Event delegation — footer links get re-appended by the SPA on every
+  // Event delegation  -  footer links get re-appended by the SPA on every
   // section mount, so we listen on the document instead of the links.
   document.addEventListener('click', (e) => {
     const target = /** @type {Element|null} */ (e.target);
@@ -1365,7 +1365,7 @@ if (profileCard && stage) {
 /* =========================
    GSAP SCROLL ANIMATIONS FOR PORTFOLIO
 ========================= */
-  // @ts-ignore — GSAP & ScrollTrigger are loaded via external CDN <script> tags
+  // @ts-ignore  -  GSAP & ScrollTrigger are loaded via external CDN <script> tags
   gsap.registerPlugin(ScrollTrigger);
 
 // Watch for new .animate elements and animate them

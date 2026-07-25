@@ -3,7 +3,7 @@
    Existing rules are unlayered (highest priority after inline styles).
    NEW rules should be added to @layer components or @layer sections
    to avoid fighting with existing selectors. Migrate existing rules
-   into layers when touching them — delete !important at the same time.
+   into layers when touching them  -  delete !important at the same time.
    ===== */
 @layer reset, tokens, base, components, sections, overrides;
 
@@ -2368,7 +2368,7 @@ body.design-digital .card-profile .prof-avatar {
   flex-shrink: 0;
 }
 
-/* Rail buttons — matches the site's established brutalist button language
+/* Rail buttons  -  matches the site's established brutalist button language
    (see .contact-form button): white fill, black border, hard offset shadow,
    no skew, lift-on-hover / press-on-click. */
 body.design-digital .rail-tab {
@@ -2547,7 +2547,7 @@ body.design-digital .card-profile .pstat .psl {
   margin-top: 2px;
 }
 
-/* Directional CTA button — same white/black/hard-shadow language as the
+/* Directional CTA button  -  same white/black/hard-shadow language as the
    rail nav and .contact-form button, so it reads as one design system. */
 body.design-digital .card-profile .profile-cta {
   display: flex;
@@ -2656,7 +2656,7 @@ body.design-digital .card-profile .profile-socials a:focus-visible {
   background: #f5e642 !important;
 }
 
-/* Section nav — compact 2x2 grid inside profile card */
+/* Section nav  -  compact 2x2 grid inside profile card */
 body.design-digital .profile-nav {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -2678,7 +2678,7 @@ body.design-digital .profile-nav .rail-tab {
 /* Keep CTA-style rail tabs from overlapping content */
 
 /* ============================================================
-   RESPONSIVE — TABLET (≤ 1140px, 3-col narrow)
+   RESPONSIVE  -  TABLET (≤ 1140px, 3-col narrow)
    ============================================================ */
 @media (max-width: 1140px) {
   body.design-digital {
@@ -2703,7 +2703,7 @@ body.design-digital .profile-nav .rail-tab {
 }
 
 /* ============================================================
-   RESPONSIVE — MOBILE (≤ 920px)
+   RESPONSIVE  -  MOBILE (≤ 920px)
    Single-column layout. Radial hamburger nav top-right
    on tablets (681–920), plain bottom bar on phones (≤ 680).
    ============================================================ */
@@ -3107,7 +3107,7 @@ body.design-digital .profile-nav .rail-tab {
 }
 
 /* ============================================================
-   RESPONSIVE — TABLET RADIAL NAV (681px – 920px)
+   RESPONSIVE  -  TABLET RADIAL NAV (681px – 920px)
    ============================================================ */
 @media (min-width: 681px) and (max-width: 920px) {
   body.design-digital {
@@ -3376,7 +3376,7 @@ body.design-digital .profile-nav .rail-tab {
     padding-top: 6px;
   }
 
-  /* Profile nav on mobile — full-width 2x2 grid with breathing room */
+  /* Profile nav on mobile  -  full-width 2x2 grid with breathing room */
   body.design-digital .profile-nav {
     margin: 8px 12px 14px;
   }
@@ -3452,7 +3452,7 @@ body.design-digital .profile-nav .rail-tab {
 
   body.design-digital .rail-tab .second { display: none !important; }
 
-  /* Profile nav buttons — keep sharp corners matching brutalist theme */
+  /* Profile nav buttons  -  keep sharp corners matching brutalist theme */
   body.design-digital .profile-nav .rail-tab {
     border-radius: 0 !important;
   }

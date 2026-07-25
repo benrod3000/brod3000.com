@@ -1,4 +1,4 @@
-// @ts-ignore — window.dataLayer is a Google Analytics global convention
+// @ts-ignore  -  window.dataLayer is a Google Analytics global convention
 window.dataLayer = window.dataLayer || [];
 /** @type {(...args: any[]) => void} */
 function gtag() { // @ts-ignore
@@ -8,7 +8,7 @@ function gtag() { // @ts-ignore
    Storage is denied by default in regions that require prior consent (EEA, UK,
    Switzerland). GA still receives cookieless pings there, so aggregate traffic
    is measured without setting identifiers. Everywhere else analytics storage is
-   granted by default. Ad storage stays denied globally — this site runs no ads.
+   granted by default. Ad storage stays denied globally  -  this site runs no ads.
    If a consent banner is added later, call:
      gtag('consent', 'update', { analytics_storage: 'granted' })  */
 gtag('consent', 'default', {

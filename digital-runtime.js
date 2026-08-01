@@ -318,11 +318,13 @@ function syncMobileProfileCompaction() {
     return;
   }
 
-  const shouldCompact = compactProfileQuery.matches && stage.scrollTop > compactProfileThreshold;
+  // On mobile the page body scrolls, not the stage — use window.scrollY instead.
+  const scrollTop = compactProfileQuery.matches ? (window.scrollY || document.documentElement.scrollTop) : stage.scrollTop;
+  const shouldCompact = compactProfileQuery.matches && scrollTop > compactProfileThreshold;
   profileCard.classList.toggle('is-compact', shouldCompact);
 
   if (railNav) {
-    const shouldElevateDock = compactProfileQuery.matches && stage.scrollTop > dockScrollThreshold;
+    const shouldElevateDock = compactProfileQuery.matches && scrollTop > dockScrollThreshold;
     railNav.classList.toggle('is-scrolled', shouldElevateDock);
   }
 }
@@ -1298,6 +1300,7 @@ try {
 
 if (profileCard && stage) {
   stage.addEventListener('scroll', syncMobileProfileCompaction, { passive: true });
+  window.addEventListener('scroll', syncMobileProfileCompaction, { passive: true });
   compactProfileQuery.addEventListener('change', () => {
     if (!compactProfileQuery.matches) {
       profileCard.classList.remove('is-compact');

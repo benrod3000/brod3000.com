@@ -33,7 +33,7 @@ const placeFooter = () => {
   }
 };
 const radialTrigger = document.querySelector('.radial-trigger');
-const interactiveTargets = () => document.querySelectorAll('.rail-tab, .workspace-back, .profile-cta, .profile-socials a, .contact-form button');
+const interactiveTargets = () => document.querySelectorAll('.rail-tab, .workspace-back, .profile-socials a, .contact-form button');
 const phrases = ['Growth Systems Architect', 'Audience Ownership Strategist', 'Paid + Organic Scale Operator'];
 let bindCursorTargets = () => {};
 let phraseIndex = 0;

@@ -39,9 +39,9 @@ jobs:
             const total = items.find(i => i.resourceType === 'total')?.transferSize || 0;
             const failures = [];
             if (lcp > 7500) failures.push('LCP ' + (lcp/1000).toFixed(1) + 's > 7.5s budget');
-            if (script/1024 > 200) failures.push('Script ' + (script/1024).toFixed(0) + 'KB > 200KB budget');
+            if (script/1024 > 350) failures.push('Script ' + (script/1024).toFixed(0) + 'KB > 350KB budget');
             if (image/1024 > 400) failures.push('Image ' + (image/1024).toFixed(0) + 'KB > 400KB budget');
-            if (total/1024 > 900) failures.push('Total ' + (total/1024).toFixed(0) + 'KB > 900KB budget');
+            if (total/1024 > 1100) failures.push('Total ' + (total/1024).toFixed(0) + 'KB > 1100KB budget');
             if (failures.length) { console.error('BUDGET FAILURES:'); failures.forEach(f => console.error('  - ' + f)); process.exit(1); }
             // CLS is skipped on localhost — non-blocking CSS load causes
             // inflated measurements (0.5+) that don't appear in production

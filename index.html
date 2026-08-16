@@ -338,7 +338,7 @@
 
         <!-- Newsletter Embed -->
         <iframe id="veloce-2fda1206-7ce7-45c4-8c83-99c89b6a44e1" class="newsletter-embed"
-          src="https://newsletter.brod3000.com/w/2fda1206-7ce7-45c4-8c83-99c89b6a44e1"
+          data-src="https://newsletter.brod3000.com/w/2fda1206-7ce7-45c4-8c83-99c89b6a44e1"
           height="64"
           allow="geolocation"
           title="Subscribe to the brod3000 newsletter">
@@ -346,6 +346,16 @@
         <script>
           (function () {
             var frame = document.getElementById("veloce-2fda1206-7ce7-45c4-8c83-99c89b6a44e1");
+            // Defer the widget load until after the main content has painted,
+            // so the heavy Veloce SPA doesn't compete with the page's LCP.
+            var loadFrame = function () {
+              frame.src = frame.getAttribute("data-src");
+            };
+            if (document.readyState === "complete") {
+              loadFrame();
+            } else {
+              window.addEventListener("load", loadFrame);
+            }
             window.addEventListener("message", function (e) {
               if (e.source !== frame.contentWindow) return;
               if (!e.data || e.data.type !== "veloce:height") return;
